@@ -1,50 +1,50 @@
 ---
 id: listening-for-payments-wallet
-title: Listening for ada payments using cardano-wallet
-sidebar_label: Receiving payments (cardano-wallet)
+title: cardano-wallet을 사용하여 ada 결제 받기
+sidebar_label: 결제 받기 (cardano-wallet)
 description: How to listen for ada Payments with the cardano-wallet.
 image: ../img/og/og-developer-portal.png
 --- 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Overview
+## 개요
 
 :::note
 
-This guide assumes that you have basic understanding of `cardano-wallet`, how to use it and that you have installed it into your system. Otherwise we recommend reading [Installing cardano-node](/docs/get-started/installing-cardano-node), [Running cardano-node](/docs/get-started/running-cardano) and [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guides first.
+이 가이드는 사용자가 `cardano-wallet`에 대한 기본적인 이해를 하고 있고, 이를 시스템에 설치했다고 가정합니다. 그렇지 않다면 [cardano-node 설치](/docs/get-started/installing-cardano-node), [cardano-node 실행하기](/docs/get-started/running-cardano)와 [Cardano 지갑 알아보기](/docs/integrate-cardano/creating-wallet-faucet) 가이드를 먼저 읽는 것을 추천합니다.
 
-This guide also assumes that you have `cardano-node` and `cardano-wallet` running in the background and connected to the `testnet` network.
+이 가이드는 또한 `cardano-node`가 백그라운드에서 실행 중이고 `testnet` 네트워크에 연결되어 있는 상황을 가정합니다.
 
 :::
 
-## Use case
+## 사용 사례
 
-There are many possible reasons why you would want to have the functionality of listening for `ada` payments, but a very obvious use case would be for something like an **online shop** or a **payment gateway** that uses `ada` tokens as the currency.
+`Ada` 결제를 수신하는 기능이 필요한 데는 여러 가지 이유가 있겠지만, 매우 분명한 사용 사례는 **온라인 상점**이나 `ada` 토큰을 통화로 사용하는 **결제 게이트웨이**와 같은 것들입니다. 
 
 ![img](../../static/img/integrate-cardano/ada-online-shop.png)
 
-## Technical flow
+## 기술 흐름
 
-To understand how something like this could work in a technical point of view, let's take a look at the following diagram:
+기술적인 관점에서 이와 같은 것이 어떻게 작동하는지 이해하려면, 다음 다이어그램을 보면 됩니다.
 
 ![img](../../static/img/integrate-cardano/ada-payment-flow-wallet.png)
 
-So let's imagine a very basic scenario where a **customer** is browsing an online shop. Once the user has choosen and added all the items into the **shopping cart**. The next step would then be to checkout and pay for the items, Of course we will be using **Cardano** for that!
+**고객**이 온라인 상점에서 상품을 검색하는 아주 기본적인 시나리오를 생각해 봅시다. 사용자가 모든 항목을 선택하고 **장바구니**에 추가하면, 다음 단계는 항목을 체크아웃해서 결제하는 것입니다. 물론 이를 위해 **Cardano**를 사용할 것입니다!
 
-The **front-end** application would then request for a **wallet address** from the backend service and render a QR code to the **customer** to be scanned via a **Cardano wallet**. The backend service would then know that it has to query the `cardano-wallet` with a certain time interval to confirm and alert the **front-end** application that the payment has completed succesfully.
+그런 다음 **프론트엔드** 어플리케이션은 백엔드 서비스로부터 **지갑 주소**를 요청하고 **Cardano** 지갑을 통해 스캔할 QR 코드를 **고객**에게 렌더링합니다. 그러면 백엔드 서비스는 결제가 성공적으로 완료되었음을 **프론트엔드** 어플리케이션에 확인하고 알리기 위해 특정 시간 간격으로 `cardano-wallet`을 쿼리해야 합니다.
 
-In the meantime the transaction is then being processed and settled within the **Cardano** network. We can see in the diagram above that both parties are ultimately connected to the network via the `cardano-node` software component.
+그 동안 트랜잭션은 **Cardano** 네트워크 내에서 처리되고 확정됩니다. 위 다이어그램에서도 볼 수 있듯이, 결제에 참여하는 두 객체는 `cardano-node` 소프트웨어 구성요소를 통해 궁극적으로 네트워크에 연결되어 있습니다.
 
-## Time to code
+## 코딩 시간
 
-Now let's get our hands dirty and see how we can implement something like this in actual code.
+이제 직접 실제 코드에서 이와 같은 것을 구현하는 방법을 살펴보겠습니다.
 
-### Generate wallet and request tAda
+### 지갑 생성 및 tAda 요청
 
-First, we create our new **wallet** via `cardano-wallet` **REST API**:
+먼저 `cardano-wallet` **REST API**를 통해 새 **지갑**을 생성합니다.
 
-#### Generate seed
+#### 시드 생성하기
 
 <Tabs
   defaultValue="js"
@@ -100,9 +100,9 @@ const mnemonic: string = cmd.runSync(["cardano-wallet", "recovery-phrase", "gene
   </TabItem>
 </Tabs>
 
-#### Restore wallet from seed
+#### 시드로부터 지갑 복원
 
-We will then pass the generated seed to the wallet create / restore endpoint of `cardano-wallet`.
+그런 다음 생성된 시드를 `cardano-wallet`의 지갑 생성/복원 엔드포인트로 보냅니다. 
 
 <Tabs
   defaultValue="js"
@@ -195,9 +195,9 @@ var resp = await http.PostAsJsonAsync("wallets", new {
 
 </Tabs>
 
-#### Get unused wallet address to receive some payments
+#### 일부 결제를 받기 위한 미사용 지갑 주소 얻기
 
-We will get a **wallet address** to show to the customers and for them to send payments to the wallet. In this case we can use the address to request some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) and simulate a payment:
+우리는 고객에게 지갑을 보여주고 해당 지갑으로 결제를 받아야 하므로, **지갑 주소**를 얻어야 합니다. 이 경우 해당 주소를 이용해서 [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet)에서 몇 개의 `tAda`를 요청하고, 결제를 시뮬레이션할 수 있습니다.
 
 <Tabs
   defaultValue="js"
@@ -270,9 +270,9 @@ var firstWalletAddress = addressResponse[0].GetProperty("id");
 
 </Tabs>
 
-### Retrieve wallet balance
+### 지갑 잔고 검색
 
-We will then retrieve the wallet details to get stuff like its `sync status`, `native assets` and `balance (lovelace)`. We can then use the `balance` to check if we have received a some payment.
+그런 다음 지갑 세부 정보를 검색하여 `sync status`, `native assets` 및 `balance (lovelace)`와 같은 정보를 불러올 것입니다. 그 후 결제를 받았는지 확인하기 위해 `balance`를 사용할 수 있습니다.
 
 <Tabs
   defaultValue="js"
@@ -353,9 +353,10 @@ var balance = wallet.GetProperty("balance").GetProperty("total").GetProperty("qu
 
 </Tabs>
 
-### Determine if payment is successful
+### 결제 성공 여부 확인
 
-Once we have the total lovelace amount, we will then determine using our code if a specific payment is a success, ultimately sending or shipping the item if it is indeed succesful. In our example, we expect that the payment is equal to `1,000,000 lovelace` that we defined in our `totalExpectedLovelace` constant.
+총 lovelace 금액을 얻었으면 ,해당 결제가 성공했는지 코드를 사용하여 결정하고, 궁극적으로 성공했다면 물건을 보내거나 배송합니다. 이 예제에서는 지급액이 상수 변수인 `TOTAL_EXPECTED_LOVELACE`에서 정의한 `1,000,000 lovelace`와 같을 것입니다.
+
 
 <Tabs
   defaultValue="js"
@@ -419,9 +420,9 @@ Console.WriteLine($"Payment Complete: {(isPaymentComplete ? "✅":"❌")}");
   </TabItem>
 </Tabs>
 
-## Running and testing
+## 실행 및 테스트
 
-Our final code should look something like this:
+최종 코드는 다음과 같아야 합니다.
 
 <Tabs
   defaultValue="js"
@@ -527,7 +528,7 @@ Console.WriteLine($"Payment Complete: {(isPaymentComplete ? "✅":"❌")}");
   </TabItem>
 </Tabs>
 
-Now we are ready to test 🚀, running the code should give us the following result:
+이제 테스트할 준비가 되었습니다 🚀. 코드를 실행하면 다음과 같은 결과가 나타납니다.
 
 <Tabs
   defaultValue="js"
@@ -580,13 +581,13 @@ Payment Complete: ❌
   </TabItem>
 </Tabs>
 
-The code is telling us that our current wallet has received a total of `0 lovelace` and it expected `1,000,000 lovelace`, therefore it concluded that the payment is not complete.
+해당 코드는 현재 지갑이 `0 lovelace`를 받았고 예상 지불금은 `1,000,000 lovelace`로 예상되었기 때문에, 결제가 완료되지 않았다고 결론을 내었습니다.
 
-## Complete the payment
+## 결제 완료하기
 
-What we can do to simulate a succesful payment is to send atleast `1,000,000 lovelace` into the **wallet address** that we have just generated for this project. We show how you can get the **wallet address** via code in the examples above.
+성공적인 결제를 시뮬레이션하기 위해 할 수 있는 것은 이 프로젝트를 위해 방금 생성하였던 **지갑 주소**로 적어도 `1,000,000 lovelace`를 보내는 것입니다. 위 예시에 있는 코드를 통해 **지갑 주소**를 얻는 방법을 보여주었습니다.
 
-Now simply send atleast `1,000,000 lovelace` to this **wallet address** or request some `test ada` funds from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet). Once complete, we can now run the code again and we should see a succesful result this time.
+이제 최소한 `1,000,000 lovelace`를 이 **지갑 주소**로 보내거나, [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet)에서 `test ada` 자금을 요청하세요. 완료되면 이제 코드를 다시 실행할 수 있으며, 이번에는 성공적인 결과를 볼 수 있습니다.
 
 <Tabs
   defaultValue="js"
@@ -640,7 +641,8 @@ Payment Complete: ✅
 </Tabs>
 
 :::note
-It might take 20 seconds or more for the transaction to propagate within the network depending on the network health, so you will have to be patient.
+네트워크 상태에 따라 트랜잭션이 네트워크 내에서 전파되는데 20초 이상이 걸릴 수 있으므로, 인내심을 가져야 합니다.
 :::
 
-Congratulations, you are now able to detect succesful **Cardano** payments programatically. This should help you bring integrations to your existing or new upcoming applications. 🎉🎉🎉
+축하합니다! 이제 성공적으로 **Cardano** 결제를 탐지하실 수 있습니다. 이는 기존 혹은 새로운 어플리케이션에 통합하는 데 큰 도움이 될 것입니다. 🎉🎉🎉
+

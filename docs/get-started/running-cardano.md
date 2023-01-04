@@ -1,54 +1,54 @@
 ---
 id: running-cardano
-title: How to run cardano-node
-sidebar_label: Running cardano-node
+title: Cardano 노드 실행 방법
+sidebar_label: cardano-node 실행
 description: This guide will explain and show you how to run the cardano-node and components on your system.
 image: ../img/og/og-getstarted-running-cardano-node.png
 --- 
-### Overview 
+### 개요 
 
-This guide will show you how to run `cardano-node` and `cardano-cli` on your system and some simple examples of how you can interact with the **Cardano** blockchain.
+이 가이드는 시스템 내에서 `cardano-node` 와 `cardano-cli` 를 실행하는 방법과 **Cardano** 블록체인과 상호작용하는 몇 가지 간단한 예제에 대해 보여줍니다.
 
 :::note
-This guide assumes you installed `cardano-node` and `cardano-cli` into your system. If not, you can refer to [Installing cardano-node](/docs/get-started/installing-cardano-node) guide for instructions on how to do that.
+이 가이드는 `cardano-node` 와 `cardano-cli` 를 설치한 상황을 가정하고 진행됩니다. 만약 아직 설치하지 않았다면, [cardano-node 설치](/docs/get-started/installing-cardano-node)를 읽고 오시기 바랍니다.
 :::
 
 :::important
-This guide does not cover the topic of running a block-producing `cardano-node` or running a **Cardano Stake Pool**. For more information regarding that topic, please visit the [Stake Pool Operation](/docs/operate-a-stake-pool/) section.
+이 가이드는 블록을 생성하는 `cardano-node` 실행이나 **Cardano 스테이크 풀** 실행에 대한 것들은 다루지 않습니다. 해당 주제에 대한 자세한 내용은 [스테이크 풀 운영](/docs/operate-a-stake-pool/) 섹션을 참조하세요.
 :::
 
-## Cardano blockchain  nets:
-### Testnet
-There are two types of testnet: `preview` and `pre-prod`.
+## Cardano 블록체인 네트워크:
+### 테스트넷
+`preview` 와 `pre-prod` , 총 두 가지의 테스트넷이 있습니다.
 
-- **Preview Testnet**: Testing release candidates and mainnet releases. Leads mainnet hard forks by at least 4 weeks. This net is for those who just want to see how it runs, get familiarised and play with cardano-node.
+- **Preview 테스트넷**: 릴리스 후보 및 메인넷 릴리스를 테스트합니다. 메인넷 하드 포크보다 최소 4주 앞서서 배포됩니다. 이 네트워크는 cardano-node와 함께 작동 방식을 확인하고, 익숙해지려는 사람들을 위한 것입니다. 
 
-- **Pre-Production Testnet**: Testing release candidates and mainnet releases. Forks at approximately same time as mainnet (within an epoch of each other). This net is ideal for those who are ready to run the mainnet but want to test it before running it.
+- **Pre-Production 테스트넷**: 릴리스 후보 및 메인넷 릴리스를 테스트합니다. 메인넷과 거의 동시에 (한 에포크 내에서) 포크됩니다. 이 테스트넷은 메인넷을 실행할 준비가 되었지만, 실행하기 전에 테스트하고 싶은 사람들에게 이상적인 테스트 환경을 제공합니다. 
 
-### Production (Mainnet)
-This is the live Production. Only gets official mainnet releases. Please use this net once you are ready to use the cardano-node.
+### Production (메인넷)
+이는 공식 메인넷 출시가 되는 환경입니다. cardano-node를 사용할 준비가 되면 이 네트워크를 사용하세요.
 
-### Configuration Files
+### 구성 파일
 
-The `cardano-node` application requires at least four configuration files to run as of writing this article.
+이 글을 작성하는 시점에서 `cardano-node` 어플리케이션을 실행하려면 최소 네 개의 구성 파일이 필요합니다.
 
-- **Main Config**: It contains general node settings such as **logging** and **versioning**. It also points to the **Byron Genesis** and the **Shelly Genesis** file.
-- **Byron Genesis**: It contains the initial protocol parameters and instructs the `cardano-node` on how to bootstrap the **Byron Era** of the **Cardano** blockchain.
-- **Shelly Genesis**: It contains the initial protocol parameters and instructs the `cardano-node` on how to bootstrap the **Shelly Era** of the **Cardano** blockchain.
-- **Alonzo Genesis**: It contains the initial protocol parameters and instructs the `cardano-node` on how to bootstrap the **Alonzo Era** of the **Cardano** blockchain.
-- **Topology**: It contains the list of network peers (**`IP Address` and `Port` of other nodes running the blockchain network**) that your node will connect to.
+- **Main Config**: **로깅**, **버저닝** 등의 일반적인 노드 설정을 포함합니다. 또한 이는 **Byron Genesis** 및 **Shelly Genesis** 파일을 가리킵니다.
+- **Byron Genesis**: 초기 프로토콜 변수를 포함하며, `cardano-node` 로 하여금 **Cardano** 블록체인의 **Byron Era**를 부트스트랩하도록 합니다.
+- **Shelly Genesis**: 초기 프로토콜 변수를 포함하며, `cardano-node` 로 하여금 **Cardano** 블록체인의 **Shelly Era**를 부트스트랩하도록 합니다.
+- **Alonzo Genesis**: 초기 프로토콜 변수를 포함하며, `cardano-node` 로 하여금 **Cardano** 블록체인의 **Alonzo Era**를 부트스트랩하도록 합니다.
+- **Topology**: 노드가 연결할 네트워크 피어 (**블록체인 네트워크를 실행하는 다른 노드의 `IP Address` 와 `Port`**) 목록을 포함합니다.
 
 :::important
-Currently, the `cardano-node` topology is manually set by the community of network operators in the **Cardano** blockchain. But an automated p2p (peer-to-peer) system is in the works. For more information visit, [Boosting network decentralization with P2P](https://iohk.io/en/blog/posts/2021/04/06/boosting-network-decentralization-with-p2p/).
+현재 `cardano-node` topology는 **Cardano** 블록체인의 네트워크 운영자 커뮤니티에서 수동으로 설정합니다. 그러나, 자동화된 p2p(peer-to-peer) 시스템이 작동 중입니다. 자세한 내용은 [Boosting network decentralization with P2P](https://iohk.io/en/blog/posts/2021/04/06/boosting-network-decentralization-with-p2p/)를 참조하세요.
 
-For more information about **Cardano** blockchain eras and upgrades, please visit the [Cardano Roadmap](https://roadmap.cardano.org/en).
+**Cardano** 블록체인의 시대 및 업그레이드에 대한 자세한 내용은 [Cardano Roadmap](https://roadmap.cardano.org/en)을 참조하세요.
 :::
 
-You can download the current **Cardano** blockchain network configuration files here: [The Cardano Operations Book > Environments](https://book.world.dev.cardano.org/environments.html)
+현재 **Cardano** 블록체인 네트워크 구성 파일은 [The Cardano Operations Book > Environments](https://book.world.dev.cardano.org/environments.html)에서 다운로드할 수 있습니다.
 
-…or by running:
+…또는 다음을 실행할 수도 있습니다.:
 
-#### Testnet / Preview
+#### 테스트넷 / Preview
 
 **NetworkMagic**: `2`
 
@@ -61,7 +61,7 @@ curl -O -J https://book.world.dev.cardano.org/environments/preview/byron-genesis
 curl -O -J https://book.world.dev.cardano.org/environments/preview/shelley-genesis.json
 curl -O -J https://book.world.dev.cardano.org/environments/preview/alonzo-genesis.json
 ```
-#### Testnet / Preprod
+#### 테스트넷 / Preprod
 
 **NetworkMagic**: `1`
 
@@ -75,7 +75,7 @@ curl -O -J https://book.world.dev.cardano.org/environments/preprod/shelley-genes
 curl -O -J https://book.world.dev.cardano.org/environments/preprod/alonzo-genesis.json
 ```
 
-#### Mainnet / Production
+#### 메인넷 / Production
 
 **NetworkMagic**: `764824073`
 
@@ -89,22 +89,22 @@ curl -O -J https://book.world.dev.cardano.org/environments/mainnet/shelley-genes
 curl -O -J https://book.world.dev.cardano.org/environments/mainnet/alonzo-genesis.json
 ```
 
-The latest supported networks can be found at https://book.world.dev.cardano.org/environments.html
+최신 지원 네트워크는 https://book.world.dev.cardano.org/environments.html에서 확인할 수 있습니다.
 
 :::note
 
-Each network has a `config` file, `genesis` file(s), `topology` file, and unique identifier called the **Network Magic**.
+각 네트워크에는 `config` 파일, `genesis` 파일, `topology` 파일 및 **Network Magic**이라고 불리는 고유 식별자가 있습니다.
 
-This section will be updated when new **Cardano** networks come online with their respective configuration files and **Network Magic**.
+이 섹션은 새로운 **Cardano** 네트워크가 각각의 구성 파일 및 **Network Magic**과 같이 온라인 상태가 되면, 업데이트될 것입니다.
 :::
 
-You might be asking what the difference is between `mainnet` and `testnet` and why there are two networks? To put it simply, **Cardano** is an open-source blockchain, and anyone is free to spin up a network based on **Cardano's** software components. The `mainnet` network was the first one established during the start of the **Byron** era in 2017.  And everyone participating in the network agreed that is where all the real value of **Cardano** lives.
+`mainnet` 과 `testnet` 간 차이점이 무엇이고 왜 두 네트워크가 있는지 궁금하실 수 있습니다. 간단히 이야기하자면, **Cardano**는 오픈 소스 블록체인이며, 누구나 **Cardano**의 소프트웨어 구성 요소를 기반으로 네트워크를 자유롭게 가동할 수 있습니다. `mainnet` 네트워크는 2017년 **Byron** 시대가 시작될 때 처음으로 구축된 네트워크였습니다. 그리고 네트워크에 참여하는 사람들은 해당 네트워크가 **Cardano**의 모든 진정한 가치가 모인 곳이라는 데 동의하였습니다.
 
- Testing the network's features and capabilities can be expensive and will consume real value. So [Input-Output Global](https://iohk.io) has spun up a sandbox or testnet version of the network. Instead of using real `ada` tokens for transactions, you use the `tAda` or **Test ADA**. Alternatively, you can spin up your own custom **Cardano** network, but that is outside the scope of this guide.
+네트워크의 특징과 기능을 테스트하는데에는 비용이 많이 들 수 있으며, 실제 가치(e.g. 돈, 시간)를 소비하게 됩니다. 따라서 [Input-Output Global](https://iohk.io)은 네트워크의 샌드박스, 즉 테스트넷 버전을 가동하고 있습니다. 여기선 트랜잭션에 실제 `ada` 토큰을 사용하는 대신 `tAda`, **테스트넷 ada**를 사용하게 됩니다. 추가적으로, 사용자 지정 **Cardano** 네트워크를 가동할 수도 있지만, 이는 이 가이드의 범위를 벗어납니다.
 
-### Running the node
+### 노드 실행
 
-To run `cardano-node` you enter something like this into the terminal: 
+`cardano-node` 를 실행하여면 터미널에 다음과 같이 입력하세요. 
 
 ```bash
  cardano-node run \
@@ -116,7 +116,7 @@ To run `cardano-node` you enter something like this into the terminal:
    --config path/to/mainnet-config.json
 ```
 
-To get the complete list of available options, use `cardano-node run --help`
+사용 가능한 옵션의 전체 목록을 보려면, `cardano-node run --help` 를 사용하세요.
 
 ```
 Usage: cardano-node run [--topology FILEPATH] [--database-path FILEPATH] 
@@ -160,24 +160,24 @@ Available options:
                            the specified slot
   -h,--help                Show this help text
 ```
-### cardano-node parameters
+### cardano-node 매개변수
 
 :::note
-In this section, we will use the path `$HOME/cardano/testnet` to store all the testnet `cardano-node` related files as an example, and please replace it with the directory you have chosen to store the files.
+이 섹션에서는 `cardano-node` 관련 모든 파일을 저장하는 데 `$HOME/cardano/testnet` 경로를 사용할 것인데, 이는 예시일 뿐이고 실제로는 파일 저장을 위해 따로 디렉토리를 선택해서 이 경로 대신 사용하기 바랍니다.
 :::
-We will focus on six key command-line parameters for running a node: 
+여기선 노드 실행을 위한 6가지 주요 명령줄 매개변수에 중점을 둘 것입니다.
 
-**`--topology`**: This requires the path of the `topology.json` file that you have downloaded as instructed [above](/docs/get-started/running-cardano#configuration-files).
+**`--topology`**: 이는 [위에서](/docs/get-started/running-cardano#구성-파일) 설명한 대로 다운로드받은 `topology.json` 의 경로를 요구합니다.
 
-> For example, If you have downloaded the `topology.json` file to the path `$HOME/cardano/testnet/topology.json`, then the argument would be something like this:
+> 예를 들어, 만약 `topology.json` 파일을 `$HOME/cardano/testnet/topology.json` 경로에 다운로드받았다면 인자는 다음과 같을 것입니다.
 ```
 --topology $HOME/cardano/testnet/topology.json
 ```
 
-**`--database-path`**: This expects the path to a directory where we will store the actual blockchain data like **blocks**, **transactions**, **metadata**, and other data type that people stored in the **Cardano** blockchain. We explore how we can query those kinds of data in the cardano-db-sync section. ***@TODO: link to the cardano-db-sync section.***
+**`--database-path`**: 이는 사람들이 **Cardano** 블록체인에 저장한 **블록**, **트랜잭션**, **메타데이터**와 같은 실제 블록체인 데이터를 저장하는 디렉토리의 경로를 예상합니다. cardano-db-sync 섹션에서 이러한 데이터를 쿼리하는 방법을 알아볼 것입니다.
 
-> For example, if we decide that all files required by `cardano-node` will be in the path `$HOME/cardano/testnet`. Then we could create a database directory like this, `mkdir -p $HOME/cardano/testnet/db`.
-> The directory structure would then be something like this:
+> 예를 들어, `cardano-node` 에 필요한 모든 파일이 `$HOME/cardano/testnet` 경로에 있다고 한다면, `mkdir -p $HOME/cardano/testnet/db` 를 사용하여 데이터베이스 디렉토리를 만들 수 있습니다.  
+> 그러면 디렉토리 구조는 다음과 같을 것입니다.
 ```
 $HOME/cardano/testnet/
 ├── db
@@ -188,51 +188,51 @@ $HOME/cardano/testnet/
 └── topology.json
 1 directory, 4 files
 ```
-> As you may have noticed, we are planning to run a `testnet` node in this example and have downloaded the configuration files into the `$HOME/cardano/testnet/` directory. We also see that we have created the `db` directory inside `$HOME/cardano/testnet/` successfully. The argument would look something like this: 
+> 아시다시피, 이 예제에서는 `testnet` 노드를 실행할 것이고 `$HOME/cardano/testnet/` 디렉토리에 구성 파일을 다운로드하였습니다. 또한 `$HOME/cardano/testnet/` 내부에 성공적으로 `db` 디렉토리를 생성한 것을 알 수 있습니다. 인자는 다음과 같을 것입니다.
 ```
 --database-path $HOME/cardano/testnet/db
 ```
-> Please download and move the configuration files to your Cardano directory as shown above to continue following this guide.
+> 이 가이드를 계속 따르려면 위에 표시된 대로 구성 파일을 다운로드하고, Cardano 디렉토리로 이동하세요.
 
-**`--socket-path`**: This expects the path to the `unix socket` or `named pipe` path that the `cardano-node` will use for [IPC (Inter-Process-Communication)](https://en.wikipedia.org/wiki/Inter-process_communication).
+**`--socket-path`**: `cardano-node` 가 [IPC (Inter-Process-Communication)](https://en.wikipedia.org/wiki/Inter-process_communication)에 사용할 `unix socket` 또는 `named pipe` 로의 경로를 예상합니다.
 
-> The `cardano-node` uses **IPC (Inter-Process-Communication)** for communicating with other **Cardano** components like `cardano-cli`, `cardano-wallet`, and `cardano-db-sync`. In **Linux** and **MacOS** it uses something called [unix sockets](https://en.wikipedia.org/wiki/Unix_domain_socket) and [Named Pipes](https://docs.microsoft.com/en-us/windows/win32/ipc/named-pipes) in **Windows**.
+> `cardano-node` 는 `cardano-cli`, `cardano-wallet` 및 `cardano-db-sync` 과 같은 다른 **Cardano**의 구성요소와 통신하기 위해 **IPC (Inter-Process-Communication)**를 사용합니다. **Linux**와 **MacOS**에서는 이를 [unix sockets](https://en.wikipedia.org/wiki/Unix_domain_socket)이라 부르고, **Windows**에서는 [Named Pipes](https://docs.microsoft.com/en-us/windows/win32/ipc/named-pipes)이라고 부릅니다.
 > 
-> Here is an example `--socket-path` argument for **Linux**:
+> 다음은 **Linux**에 대한 `--socket-path` 인자의 예시입니다. 
 ```
 --socket-path $HOME/cardano/testnet/db/node.socket
 ```
-> As you can see, the argument points to a file since **unix sockets** are represented as files (like everything else in **Linux**). In this case, we put the socket file in the `db` directory that we have just created before.
+> 보시다시피, **unix sockets**이 파일 형태로 표시되기 때문에 인자는 파일을 가리킨다고 할 수 있습니다. 이 경우, 방금 생성한 `db` 디렉토리에 해당 socket 파일을 넣습니다.
 > 
-> In **Windows**, the `--socket-path` argument would look something like this:
+> **Windows**에서 `--socket-path` 인자는 다음과 같은 형태일 것입니다.
 ```
 --socket-path "\\\\.\\pipe\\cardano-node-testnet"
 ```
-> As you may notice, it's like a network `URI` or a network `Path` than a file. It is a crucial difference that you will have to be aware of depending on your operating system. You can replace the string `cardano-node-testnet` in the argument with whatever you like. This example path is used in the [Daedalus Testnet Wallet](https://daedaluswallet.io) for **Windows**.
+> 아시다시피, 이는 파일보단 네트워크 `URI` 또는 네트워크 `Path` 와 더 비슷해보입니다. 이는 운영체제에 따라 알아야 하는 중요한 차이점입니다. 인자 내 `cardano-node-testnet` 문자열을 마음대로 바꿀 수 있습니다. 이 예시 경로는 **Windows**용 [Daedalus Testnet Wallet](https://daedaluswallet.io)에서 사용됩니다. 
 >
 
-**`--host-addr`**: This expects the `IP Address` of the machine that `cardano-node` will be running. Other nodes will use this address in their `topology.json` file to connect to your node if you are planning to run it as a `relay` node.
-> Here is an example `--host-addr` argument:
+**`--host-addr`**: 이는 `cardano-node` 가 실행될 머신의 `IP Address` 를 예상합니다. 만약 해당 노드가 `relay` 노드로 실행된다면, 다른 노드들은 연결을 위해 이 주소를 `topology.json` 파일에서 사용할 것입니다.
+> 다음은 `--host-addr` 인자의 예시입니다.
 ```
 --host-addr 192.168.0.1
 ```
-> In this case, we expect nodes in your [LAN (Local Area Network)](https://en.wikipedia.org/wiki/Local_area_network) to connect via `192.168.0.1`, assuming that the `IP Address` of the machine `cardano-node` is running on; replace it with your real `IP Address`. If you don't expect or need external nodes to connect to your node, you can use the loopback address `127.0.0.1`. If you have multiple network interfaces and unsure what to use, you can simply use `0.0.0.0` to accept connections from any network interface.
+> 이 경우는 `cardano-node` 머신의 `IP Address` 가 실행 중이라고 가정했을 때, 당신의 [LAN (Local Area Network)](https://en.wikipedia.org/wiki/Local_area_network) 내 노드가 `192.168.0.1` 을 통해 연결되었다고 생각한 것입니다. 이를 실제 `IP Address` 로 변경하세요. 외부 노드가 연결될 것으로 예상하지 않거나, 혹은 필요하지 않다면 루프백 주소 `127.0.0.1` 을 사용할 수 있습니다. 만약 네트워크 인터페이스가 여러 개 있고 무엇을 사용해야 할지 확실하지 않은 경우 `0.0.0.0` 을 사용하여 모든 네트워크 인터페이스로부터 연결을 수락할 수 있습니다.
 
-**`--port`**: In conjunction with the `IP Address`, we will also set the `port` that your `cardano-node` will use for listening to any incoming connection.
-> Here is an example `--port` argument:
+**`--port`**: `IP Address` 와 함께, `cardano-node` 가 들어오는 연결을 확인하는 데 사용하는 `port` 를 설정합니다.
+> 다음은 `--port` 인자의 예시입니다.
 ```
 --port 1337
 ```
-> You can choose whatever `port` number you like, but it is recommended to use `port` numbers `1024` and above. See [Registered Port](https://www.sciencedirect.com/topics/computer-science/registered-port) for more information.
+> 원하는 `port` 숫자를 설정할 수 있지만, `1024` 이상의 `port` 숫자를 사용하는 것을 추천합니다. 자세한 내용은 [Registered Port](https://www.sciencedirect.com/topics/computer-science/registered-port)를 참조하세요.
 
-**`--config`**: This expects the path to the main configuration file that we have downloaded previously.
-> Here is an example `--config` argument:
+**`--config`**: 이전에 다운로드한 기본 구성 파일의 경로를 예상합니다.
+> 다음은 `--config` 인자의 예시입니다.
 ```
 --config $HOME/cardano/testnet/config.json
 ```
-> Please make sure that the `alonzo-genesis.json`, `byron-genesis.json` and `shelley-genesis.json` are in the same directory as the `config.json`.
+> `alonzo-genesis.json`, `byron-genesis.json` 및 `shelley-genesis.json` 이 `config.json` 과 동일한 디렉토리에 있는지 확인하세요.
 
-Here is a realistic example for running `cardano-node`:
+다음은 `cardano-node` 실행에 대한 실제 예시입니다.
 
 ```bash
 cardano-node run \
@@ -244,7 +244,7 @@ cardano-node run \
 --topology $HOME/cardano/testnet/topology.json
 ```
 
-If you have everything set correctly, you should see something like this:
+모든 것이 올바르게 설정되었으면, 다음과 같이 표시됩니다.
 
 ```
 Listening on http://127.0.0.1:12798
@@ -277,28 +277,28 @@ Listening on http://127.0.0.1:12798
 [cardano.node.ChainDB:Notice:33] [2021-05-20 12:17:10.08 UTC] Chain extended, new tip: 1e64e74bd7ac76d6806480a28017deb0aedd356fb61844ec95c429ae2f30c7c3 at slot 0
 ```
 
-Syncing the blockchain from zero can take a while. Please be patient. If you want to stop syncing, you can do so by pressing `CTRL` + `C` while in the terminal. Rerunning the `cardano-node run` command with the correct parameters will resume syncing the blockchain.
+블록체인 동기화에 시간이 걸릴 수 있으니, 기다려주세요. 동기화를 중지하려면 터미널에서 `CTRL` + `C` 를 누르면 됩니다. 올바른 매개변수로 `cardano-node run` 을 재실행하면 다시 블록체인 동기화를 재개할 수 있습니다.
 
-### Querying the Cardano Blockchain
+### Cardano 블록체인 쿼리
 
-Now that we have `cardano-node` running and syncing, we can test it out by querying the blockchain tip data; which is the current point your local node is synced. To do this, we use the `cardano-cli` command-line application.
+이제 `cardano-node` 실행과 동기화가 완료되었으므로, 블록체인 팁 데이터(해당 로컬 노드가 동기화된 지점)를 쿼리하여 테스트할 수 있습니다. 이를 위해, `cardano-cli` 명령줄 어플리케이션을 사용할 것입니다.
 
-But before we can do that, `cardano-cli` and other **Cardano** software components need to know where the node socket file is located. We saved it to the path `$HOME/cardano/db/node.socket` in the previous example. The components read the shell environment variable `CARDANO_NODE_SOCKET_PATH` to find this.
+그러나 그 전에, `cardano-cli` 와 다른 **Cardano** 소프트웨어 구성 요소는 노드 socket 파일이 어디에 위치해있는지 알아야 합니다. 이전 예제에서, 우리는 이를 `$HOME/cardano/db/node.socket` 에 저장하였습니다. 해당 구성 요소들은 이를 찾기 위해 쉘 환경 변수 `CARDANO_NODE_SOCKET_PATH` 를 읽게 됩니다.
 
-So we will set that in `$HOME/.bashrc` or `$HOME/.zshrc`, depending on which shell application that you use. In Windows, you can follow this guide: [How to Set Environment Variable in Windows](https://phoenixnap.com/kb/windows-set-environment-variable).
+따라서 사용하는 쉘 어플리케이션에 따라 `$HOME/.bashrc` 나 `$HOME/.zshrc` 를 통해 이를 설정해줄 것입니다. Windows의 경우, [How to Set Environment Variable in Windows](https://phoenixnap.com/kb/windows-set-environment-variable) 가이드를 따라하면 됩니다.
 
-Add this line to the bottom of your shell profile (**MacOS** and **Linux**):
+쉘 프로필의 맨 아래에 다음 라인을 추가합니다(**MacOS** 와 **Linux**).
 ```
 export CARDANO_NODE_SOCKET_PATH="$HOME/cardano/testnet/db/node.socket"
 ```
 
-Once saved, reload your shell/terminal for changes to take effect.
+저장한 후 변경 사항을 적용하려면 쉘/터미널을 다시 로드하세요.
 
-Finally, we can now test querying the blockchain tip of our `cardano-node`:
+이제 `cardano-node` 에서 블록체인 팁 쿼리를 테스트할 수 있습니다.
 
-- First, run `cardano-node` in a separate terminal for it to start syncing (if not already).
-- Open another terminal and run the following command `cardano-cli query tip --testnet-magic 1`.
-> You should see something like this:
+- 먼저 (아직 시작하지 않은 경우) 동기화 시작을 위해 별도의 터미널에서 `cardano-node` 를 실행합니다.
+- 다른 터미널을 열어 다음 명령어 `cardano-cli query tip --testnet-magic 1` 를 입력합니다. 
+> 다음과 같은 내용이 표시되어야 합니다.
 ```json
 {
     "block": 2598870,
@@ -311,14 +311,14 @@ Finally, we can now test querying the blockchain tip of our `cardano-node`:
 ```
 
 :::note
-We include `--testnet-magic <NetworkMagic>` in the parameter for `cardano-cli query tip` because we are using a `testnet` node. If you intend to query `mainnet` instead, please use the `--mainnet` parameter  and make sure your node is connected to the `mainnet` network.
+`testnet` 노드를 사용하고 있기 때문에, `cardano-cli query tip` 에 대한 매개변수에 `--testnet-magic <NetworkMagic>` 가 들어갑니다. 만약 `mainnet` 에서 쿼리하고 싶다면, `--mainnet` 매개변수를 사용하는 동시에 해당 노드가 `mainnet` 네트워크에 연결되어 있는지 확인하세요.
 :::
 
-What you see here is the local tip data of your node. This case, means that you are synced up to `block: 2598870` and `slot: 27149964`.
+여기에 표시되는 것은 노드의 로컬 팁 데이터입니다. 이 경우, `block: 2598870` 와 `slot: 27149964` 에 동기화되었음을 의미합니다.
 
-`syncProgress` is the percentage your node that has been synced. `100` meaning it is fully synced.
+`syncProgress` 는 노드가 동기화된 정도를 나타냅니다. `100` 에 도달하면 동기화가 완료되었다는 뜻입니다.
 
-To know whether you are fully synced or not, you can check the **Cardano Blockchain Explorer** of the relevant network:
+완전히 동기화되었는지 여부를 확인하려면, 관련 네트워크의 **Cardano Blockchain Explorer**를 확인하세요.
 
 #### Mainnet Explorer
 [https://explorer.cardano.org](https://explorer.cardano.org)
@@ -326,12 +326,13 @@ To know whether you are fully synced or not, you can check the **Cardano Blockch
 #### Testnet Explorer
 [https://explorer.cardano-testnet.iohkdev.io](https://explorer.cardano-testnet.iohkdev.io)
 
-Scroll down to the **Latest Blocks** section, and you can find the latest network tip.
+**Latest Blocks** 섹션까지 아래로 스크롤하면 최신 네트워크 팁을 찾을 수 있습니다.
 
 ![img](../../static/img/integrate-cardano/latest-block.png)
 
 :::important
-Before making any transactions, make sure you are fully synced to the blockchain network.
+트랜잭션을 만들기 전에 블록체인 네트워크와 완전히 동기화되었는지 확인하세요.
 :::
 
-Congratulations, you are now ready to explore the world of **Cardano**! 🎉🎉🎉
+축하합니다! 이제 **Cardano**의 세계를 탐험할 준비가 되셨습니다!
+🎉🎉🎉

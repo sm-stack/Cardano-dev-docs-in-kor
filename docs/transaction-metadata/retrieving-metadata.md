@@ -1,28 +1,28 @@
 ---
 id: retrieving-metadata
-title: Retrieving your metadata
-sidebar_label: Retrieving your metadata
+title: 메타데이터 검색하기
+sidebar_label: 메타데이터 검색
 description: We will discuss the many ways to retrieve your metadata from the Cardano blockchain.
 image: ../img/og/og-developer-portal.png
 ---
 
-## Overview
+## 개요
 
-There are many ways to retrieve metadata stored in the **Cardano** blockchain. This article discusses the different components and ways that can help us retrieve all kinds of blockchain data.
+**Cardano** 블록체인에 저장된 메타데이터를 검색하는 방법에는 여러 가지가 있습니다. 이 기사에서는 모든 종류의 블록체인 데이터를 검색하는 데 도움이 되는 다양한 구성 요소와 방법에 대해 설명합니다.
 
 ## Blockfrost
 
-[Blockfrost](/docs/get-started/blockfrost) provides an **API** to access the **Cardano** blockchain fast and easily. 
+[Blockfrost](/docs/get-started/blockfrost)는 **Cardano** 블록체인에 빠르고 쉽게 액세스할 수 있는 **API**를 제공합니다.
 
-To retrieve metadata using **Blockfrost**, we call a specific endpoint for **transaction metadata** that they provide.
+**Blockfrost**를 사용해 메타데이터를 검색하려면, **트랜잭션 메타데이터**에 대한 엔드포인트를 호풀하면 됩니다.
 
-** Query 1337 Metadata **
+**1337 메타데이터 쿼리하기**
 
 ```bash
 curl -H 'project_id: <api_key>' https://cardano-mainnet.blockfrost.io/api/v0/metadata/txs/labels/1337 | jq
 ```
 
-You should see something like this:
+다음과 같은 내용이 표시되어야 합니다.
 
 ```json
 [
@@ -37,37 +37,37 @@ You should see something like this:
 ]
 ```
 
-In this example, we query the **Cardano Mainnet** for any metadata under the key `1337`. We see a few of the many metadata that is already inserted into the **Cardano** blockchain under that key. It is now up to your implementation how you want to cache and sort through all the data that lives on-chain. **Blockfrost** provides `paging` and `ordering` parameters.
+이 예시에서는, 키 `1337` 아래의 모든 메타데이터에 대해 **Cardano 메인넷** 내의 모든 정보를 쿼리합니다. 해당 키를 통해 **Cardano** 블록체인에 이미 들어있는 많은 메타데이터 중 일부를 볼 수 있습니다. 이제 온체인에 있는 모든 데이터를 캐시하고 정렬하는 방법은 구현에 달려 있습니다. **Blockfrost**는 `paging`과 `ordering`이라는 매개변수를 제공합니다.
 
-Please visit their official [documentation](https://docs.blockfrost.io) to know more.
+자세한 내용은 공식 [문서](https://docs.blockfrost.io)를 참고하세요.
 
 ## cardano-db-sync
 
-@TODO
+업데이트 예정
 
 ## cardano-graphql
 
-@TODO
+업데이트 예정
 
 ## cardano-wallet
 
 :::note
 
-This Section assumes that you have basic understanding of `cardano-wallet`, how to use it and that you have installed it into your system. Otherwise we recommend reading [Installing cardano-node](/docs/get-started/installing-cardano-node), [Running cardano-node](/docs/get-started/running-cardano) and [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guides first.
+이 섹션에서는 사용자가 `cardano-wallet`에 대한 기본적인 이해를 하고 있고, 이를 시스템에 설치했다고 가정합니다. 그렇지 않다면 [cardano-node 설치](/docs/get-started/installing-cardano-node), [cardano-node 실행하기](/docs/get-started/running-cardano)와 [Cardano 지갑 알아보기](/docs/integrate-cardano/creating-wallet-faucet) 가이드를 먼저 읽는 것을 추천합니다.
 
-This guide also assumes that you have `cardano-node` and `cardano-wallet` running in the background and connected to the `testnet` network.
+이 가이드는 또한 `cardano-node`와 `cardano-wallet`을 백그라운드에서 실행 중이고 `testnet` 네트워크에 연결되어 있는 상황을 가정합니다.
 
 :::
 
-To retrieve all the Metadata for the transactions of a selected Wallet you just need to query the wallet transections, passing as filter '.[].metadata'
+선택한 지갑의 트랜잭션에 대한 모든 메타데이터를 검색하려면, '.[].metadata' 필터로 전달하여 지갑 트랜잭션을 쿼리하기만 하면 됩니다.
 
 ```bash
 curl --url 'http://localhost:1337/v2/wallets/41263958f6668e06190be661900f7129be78d583/transactions' | jq '.[].metadata'
 ```
 
-***It is important to note that the `41263958f6668e06190be661900f7129be78d583` string is actually the `wallet.id` of a previously generated wallet.***
+***`41263958f6668e06190be661900f7129be78d583` 문자열이 실제로 이전에 생성된 지갑의  `wallet.id` 라는 점에 유의하는 것이 중요합니다.***
 
-The `JSON` returning all Wallet Transactions Metadata will have some format like below (**considering the Metadata created for these transactions has these values**):
+모든 지갑 트랜잭션 메타데이터를 반환하는 `JSON`은 아래와 같은 형태를 지닙니다(**이러한 트랜잭션에 대해 생성된 메타데이터에는 다음과 같은 값들이 있음을 고려하세요**).
 
 ```json
 {
@@ -94,18 +94,18 @@ The `JSON` returning all Wallet Transactions Metadata will have some format like
 }
 ```
 
-A similar command may be used to retrieve the Metadata of a single transaction.
-
+유사한 명령을 사용하여 단일 트랜잭션의 메타데이터를 검색할 수 있습니다.
 
 ```bash
 curl --url 'http://localhost:1338/v2/wallets/41263958f6668e06190be661900f7129be78d583/transactions/fab2e2a42b465d0f86452521521a2853597a58d31c5b29663b7e615cd2b2eb47' | jq '.metadata'
 ```
 
-`41263958f6668e06190be661900f7129be78d583` string is actually the `wallet.id` of a previously generated wallet.
+`41263958f6668e06190be661900f7129be78d583` 문자열이 실제로 이전에 생성된 지갑의  `wallet.id`입니다.
 
-`fab2e2a42b465d0f86452521521a2853597a58d31c5b29663b7e615cd2b2eb47` string is the `transaction.id`.
 
-The `JSON` returning the single Transaction Metadata will have some format like below (**considering the Metadata created for these transactions has these values**):
+`fab2e2a42b465d0f86452521521a2853597a58d31c5b29663b7e615cd2b2eb47` 문자열은 `transaction.id`입니다.
+
+단일 트랜잭션 메타데이터를 반환하는 `JSON`은 아래와 같은 형태를 지닙니다(**이러한 트랜잭션에 대해 생성된 메타데이터에는 다음과 같은 값들이 있음을 고려하세요**).
 
 ```json
 {
@@ -134,4 +134,4 @@ The `JSON` returning the single Transaction Metadata will have some format like 
 
 ## Ogmios
 
-@TODO
+업데이트 예정

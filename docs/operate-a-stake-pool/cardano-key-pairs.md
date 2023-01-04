@@ -1,66 +1,63 @@
 ---
 id: cardano-key-pairs
-title: Cardano Key Pairs
-sidebar_label: Cardano Key Pairs
+title: Cardano 키 쌍
+sidebar_label: Cardano 키 쌍
 description: Learn about Cardano key pairs.
 image: ../img/og/og-developer-portal.png
 ---
 
-It's critical to understand the numerous cryptographic key pairs connected with Cardano, as well as the purpose of each key pair and best practices for securing those keys, before you start working with it. Every ambitious Cardano developer and stake pool operator should get a complete grasp of these key pairs, as well as the ramifications of a single secret (private) key being hacked. Any Cardano developer or stake pool operator must learn how to manage, safeguard, and store private keys in order to succeed.
- 
-Cardano cryptographic keys are made up of `ed25519` key pairs, which include a `public verification key file` and a `secret (private) key file`. The public key file is commonly referred to as `keyname.vkey`, whereas the private key file is referred to as `keyname.skey`. The private key file, which is used to sign transactions, is extremely sensitive and should be adequately safeguarded. Under all circumstances, this entails limiting third-party access to your private keys. The most effective technique to prevent private key exposure is to guarantee that the necessary private key is never held for any length of time on any internet-connected machine (hot node). Please note that key pair filenames are completely random and can be named whatever you want.
+작업을 시작하기 전에, Cardano와 연결된 수많은 암호화 키 쌍과 해당 키 쌍들의 목적 및 이를 보호하는 모범 사례를 이해하는 것은 매우 중요합니다. 모든 Cardano 개발자 및 스테이크 풀 운영자는 이러한 키 쌍을 완전히 파악하고 단일 비밀(개인) 키가 해킹되는 결과를 막아야 합니다. 즉, 이들은 성공을 위해 개인 키를 관리, 보호 및 저장하는 법을 배워야 합니다.
+
+Cardano 암호화 키는 `ed25519` 키 쌍으로 구성되어 있습니다. 여기에는 `public verification key file`과 `secret (private) key file`이 포함되어 있습니다. 공개 키 파일은 `keyname.vkey`라고 불리고, 개인 키 파일은 `keyname.skey`라고 불립니다. 트랜잭션 서명에 사용되는 개인 키 파일은 노출에 매우 민감하므로, 적절히 보호해야 합니다. 모든 상황에서 이는 개인 키에 대해 제 3자가 접근할 수 없도록 막는 것을 의미합니다. 개인 키 노출을 방지하는 가장 효과적인 기술은, 필요한 개인 키가 인터넷에 연결된 기기(핫 노드)에서 일정 기간 이상 머물지 않도록 보장하는 것입니다. 키 쌍 파일의 이름은 완전히 무작위이며 원하는 대로 이름을 설정할 수 있습니다.
 
 :::danger 
-Use extreme caution to avoid losing or overwriting secret (private) keys.
+개인 키를 분실하거나 덮어쓰지 않도록 각별히 주의하세요!
 :::
  
-## Wallet address key pairs
+## 지갑 주소 키 쌍
  
-Currently, Cardano wallet addresses only have two parts: a payment address and a counterpart staking address. A payment address (together with its associated key pairs) is used to store, receive, and send money. A stake address (and related keys) is used to store and withdraw rewards, as well as to define the stake pool owner and rewards accounts, as well as the wallet's target stake pool delegation.
+현재 Cardano 지갑 주소는 지불 주소 및 대응되는 스테이킹 주소의 두 부분으로만 구성되어 있습니다. 지불 주소(및 관련 키)는 돈을 저장, 수령 및 송금하는 데 사용됩니다. 스테이킹 주소(및 관련 키)는 보상을 저장 및 인출하고, 스테이크 풀 소유자 및 보상 계정과 지갑에 대응되는 스테이크 풀 위임을 정의하는데 사용됩니다. 
  
- 
-`payment.vkey` is the public verification key file for the payment address (not sensitive; may be shared publicly).
+`payment.vkey`는 지불 주소에 대한 공개 검증 키 파일입니다(민감하지 않기 때문에 공개적으로 공유되어도 상관없습니다).
+is the public verification key file for the payment address (not sensitive; may be shared publicly).
 
-`payment.skey` is a highly sensitive payment address secret (private) signing key file. The private signing key file gives you access to monies in your payment address and should be kept safe at all times.
+`payment.skey` 는 지불 주소에 대한 비밀(개인) 서명 키 파일로, 노출에 매우 민감합니다. 개인 서명 키 파일을 사용하면 귀하의 주소 내 자금에 액세스할 수 있으므로, 항상 안전하게 보관해야 합니다.
 
 :::danger 
-Never place payment signing keys on a hot node.
+핫 노드에 지불 서명 키를 두지 마세요!
 :::
  
  
-`stake.vkey` - stake address public verification key file (not sensitive; may be shared publicly).
+`stake.vkey`는 스테이크 주소의 공개 확인 키 파일입니다(민감하지 않기 때문에 공개적으로 공유되어도 상관없습니다).
  
-`stake.skey` - It is a sensitive stake address secret (private) signing key file. This private signing key file gives you access to any awards cash held in the stake address, as well as the ability to delegate the wallet to a pool. It's also a good idea to keep an eye on the stake.skey.
+`stake.skey`는 스테이크 주소의 비밀(개인) 서명 키 파일로, 노출에 매우 민감합니다. 이 개인 서명 키 파일은 스테이크 주소들의 자금으로 인한 보상에 접근할 수 있는 권한을 가지는 동시에 풀에 지갑을 위임할 수 있는 권한도 가집니다. stake.skey에 항상 주의를 기울이세요.
  
-`payment.addr` - This is a Cardano wallet payment address that is usually generated with the help of both a payment.vkey and a stake. As inputs, use the vkey file. If a payment address is merely going to be used to send and receive money, no crucial components need to be staked. In addition, there is a single payment. Multiple unique stake.vkey files can be coupled with vkey to establish different payment addresses that can be staked independently.
+`payment.addr`는 payment.vkey와 지분의 양 정보를 통해 생성되는 Cardano 지갑 결제 주소입니다. 입력으로 vkey 파일을 사용하세요. 지불 주소가 단순히 돈을 주고 받는데만 사용된다면, 중요한 구성 요소를 지킬 필요는 딱히 없습니다. 또한 여기엔 단일 지불이 적용됩니다. 여러 개의 고유한 stake.vkey 파일을 vkey와 결합하여 독립적으로 스테이킹할 수 있는 서로 다른 지불 주소들을 설정할 수도 있습니다. 
  
+`stake.addr` - stake.vkey 파일을 통해 생성되는 Cardano 지갑의 스테이크 주소입니다.
  
-`stake.addr` - stake address for a Cardano wallet and is generated using the stake.vkey file
+## Cardano 스테이크 풀 키 쌍
  
-## Cardano stake pool key pairs
- 
-### Stake pool cold keys
+### 스테이크 풀 콜드 키
 
- `cold.skey` - secret (private) signing key file for a Cardano stake pool (extremely sensitive). The `cold.skey` is required to register a stake pool, to update a stake pool registration certificate parameters, to rotate a stake pool KES keys and to retire a stake pool.
+ `cold.skey`는 Cardano 지분 풀을 위한 비밀(개인) 서명 키 파일입니다(역시 매우 민감합니다). `cold.skey`는 스테이크 풀 등록, 인증서 매개변수 업데이트, 풀의 KES 키 교체, 스테이크 풀 폐기 등에 사용됩니다. 
  
+`cold.vkey`는 스테이크 풀의 cold.skey로 서명한 파일에 대한 공개 확인용 키 파일입니다(cold.vkey는 민감하지 않으므로 공개적으로 공유되어도 상관없습니다). 
  
-`cold.vkey` - public verification key file for a stake pool's cold.skey private signing key file (cold.vkey is not sensitive; can be shared publicly).
- 
- 
-`cold.counter` - incrementing counter file that tracks the number of times an operational certificate (opcert) has been generated for the relevant stake pool.
+`cold.counter`는 관련 스테이크 풀에 대해 생성된 운영 인증서(opvert)의 횟수를 추적하는 파일입니다.
  
 :::danger 
-Always rotate KES keys using the latest `cold.counter`.
+항상 최신의 `cold.counter`을 사용해서 KES 키를 교체하세요.
 :::
  
-### VRF hot keys
+### VRF 핫 키
 
-`vrf.skey` - secret (private) signing key file for a Cardano stake pool's VRF key (required to start a stake pool's block producing node; sensitive but must be placed on a hot node in order to start a stake pool).
+`vrf.skey`는 Cardano 스테이크 풀의 VRF 키에 대한 비밀(개인) 서명 키 파일입니다(스테이크 풀의 블록 생산 노드를 시작하는 데 필요하며, 노출에 민감함에도 스테이크 풀을 시작하려면 핫 노드에 배치해야 합니다).
  
-`vrf.vkey` - public verification key file for a Cardano stake pool's vrf.skey (not sensitive and is not required to start a stake pool's block producing node).
+`vrf.vkey`는 Cardano 스테이크 풀의 vrf.skey에 대한 공개 확인 키 파일입니다(민감하지 않으며 스테이크 풀의 블록 생성 노드를 시작하는 데 필요하지 않습니다).
  
- ### KES hot keys
+ ### KES 핫 키
  
-`kes.skey`- secret (private) signature key file for the stake pool's KES key (needed to start the stake pool's block producing node; sensitive, but must be placed on a hot node to start a stake pool and rotated on a regular basis). KES keys are needed to establish a stake pool's operating certificate, which expires 90 days after the opcert's defined KES period has passed. As a result, fresh KES keys must be generated along with a new opcert every 90 days or sooner for a Cardano Stake pool to continue minting blocks.
+`kes.skey`는 스테이크 풀의 KES 키에 대한 비밀(개인) 서명 키 파일로, 스테이크 풀의 블록 생산 노드를 시작하는 데 필요합니다. 노출에 민감하지만 스테이크 풀을 시작하려면 핫 노드에 배치되어야 하며, 정기적으로 교체되어야 합니다. 해당 키는 opcert에서 정의된 KES의 유효 기간인 90일이 지나면 만료되는 스테이크 풀의 운영 인증서를 발급받기 위해 필요합니다. 결과적으로, Cardano 스테이크 풀이 블록 생성을 계속하려면 90일 또는 더 짧은 기간마다 새로운 opcert와 새로운 KES를 생성해야 합니다.
  
-`kes.vkey` - public verification key file for a Cardano stake pool's corresponding `kes.skey` (not sensitive and is not required to a block producer).
+`kes.vkey` - `kes.skey`에 대한 Cardano 스테이크 풀의 공개 확인 키 파일입니다(민감하지 않으며 블록 생산자에게 필요하지 않습니다).

@@ -1,41 +1,41 @@
 ---
 id: register-stake-pool-metadata
-title: Register a Stake Pool with Metadata
-sidebar_label: Register a stake pool with metadata
+title: 메타데이터로 스테이크 풀 등록
+sidebar_label: 메타데이터로 스테이크 풀 등록
 description: "Stake pool course: Register a stake pool with metadata."
 image: ../img/og/og-developer-portal.png
 ---
 
-Make sure you have access to:
+다음에 대한 액세스 권한이 있는지 확인하세요.
 
-| File | Content |
+| 파일 | 내용 |
 | :--- | :--- |
-| `payment.vkey` | payment verification key |
-| `payment.skey` | payment signing key |
-| `stake.vkey` | staking verification key |
-| `stake.skey` | staking signing key |
-| `stake.addr` | registered stake address |
-| `payment.addr` | funded address linked to `stake` |
-| `cold.vkey` | cold verification key |
-| `cold.skey` | cold signing key |
-| `cold.counter` | issue counter |
-| `node.cert` | operational certificate |
-| `kes.vkey` | KES verification key |
-| `kes.skey` | KES signing key |
-| `vrf.vkey` | VRF verification key |
-| `vrf.skey` | VRF signing key |
+| `payment.vkey` | 지불 검증 키 |
+| `payment.skey` | 지불 서명 키 |
+| `stake.vkey` | 스테이크 검증 키 |
+| `stake.skey` | 스테이크 서명 키 |
+| `stake.addr` | 등록된 스테이크 주소 |
+| `payment.addr` | `stake`와 연결되는 지불 주소 |
+| `cold.vkey` | 콜드 검증 키 |
+| `cold.skey` | 콜드 서명 키 |
+| `cold.counter` | 이슈 카운터 |
+| `node.cert` | 운영 인증서 |
+| `kes.vkey` | KES 검증 키 |
+| `kes.skey` | KES 서명 키 |
+| `vrf.vkey` | VRF 검증 키 |
+| `vrf.skey` | VRF 서명 키 |
 
-Registering your stake pool requires:
+스테이크 풀을 등록하려면 다음이 필요합니다.
 
-* Create JSON file with your metadata and store it in the node and in a url you maintain
-* Get the hash of your JSON file
-* Generate the stake pool registration certificate
-* Create a delegation certificate pledge
-* Submit the certificates to the blockchain
+* 메타데이터로 JSON 파일을 생성하고 노드와 유지 관리하는 URL에 저장하기.
+* JSON 파일의 해시 가져오기
+* 스테이크 풀 등록 인증서 생성
+* 위임 인증서 서약 만들기
+* 인증서를 블록체인에 제출
 
-**WARNING:** Generating the **stake pool registration certificate** and the **delegation certificate** requires the **cold keys**. So, when doing this on mainnet you may want to generate these certificates in your local machine taking the proper security measures to avoid exposing your cold keys to the internet.
+**경고**: **스테이크 풀 등록 인증서** 및 **위임 인증서**를 생성 하려면 **콜드 키**가 필요합니다 . 따라서 메인넷에서 이 작업을 수행할 때, 콜드 키가 인터넷에 노출되지 않도록 적절한 보안 조치를 취하여 로컬 시스템에서 이러한 인증서를 생성해야 합니다.
 
-#### Create a JSON file with your pool's metadata
+#### 풀의 메타데이터로 JSON 파일 만들기
 
 ```json
 {
@@ -45,12 +45,11 @@ Registering your stake pool requires:
     "homepage": "https://teststakepool.com"
 }
 ```
+웹 서버에 파일을 저장합니다(예를 들면 https://teststakepool.com/poolMetadata.json). 풀 메타데이터는 신뢰할 수 있는 서버에 저장해야 합니다. 메타데이터 파일을 사용할 수 없는 경우 풀이 지갑에서 사라지고 새로운 위임자들이 풀을 못 찾을 수도 있습니다.
 
-Store the file on your web server. For example [https://teststakepool.com/poolMetadata.json](https://git.io/JJWdJ). You must store your pool metadata on reliable server, in case if metadata files will not be available then your pool might disappear from wallets and potential delegators will not be able to find it.
+#### 서버에 업로드된 메타데이터 파일의 해시 가져오기
 
-#### Get the hash of your metadata file uploaded to server:
-
-These command will return hash value of json file, what we just uploaded to our web server. Keep in mind that you need to put your own address instead `https://teststakepool.com/poolMetadata.json`
+다음 명령은 방금 웹 서버에 업로드한 json 파일의 해시 값을 반환합니다. `https://teststakepool.com/poolMetadata.json` 대신 자신의 주소를 입력해야 합니다.
 
 ```sh
 cardano-cli stake-pool metadata-hash --pool-metadata-file <(curl -s -L -k https://teststakepool.com/poolMetadata.json)
@@ -58,7 +57,7 @@ cardano-cli stake-pool metadata-hash --pool-metadata-file <(curl -s -L -k https:
 >6bf124f217d0e5a0a8adb1dbd8540e1334280d49ab861127868339f43b3948af
 ```
 
-#### Generate Stake pool registration certificate
+#### 스테이크 풀 등록 인증서 생성하기
 
 ```sh
 cardano-cli stake-pool registration-certificate \
@@ -77,24 +76,24 @@ cardano-cli stake-pool registration-certificate \
     --out-file pool-registration.cert
 ```
 
-| Parameter | Explanation |
+| 매개변수 | 설명 |
 | :--- | :--- |
-| cold-verification-key-file | verification _cold_ key |
-| vrf-verification-key-file | verification _VRS_ key |
-| pool-pledge | pledge lovelace |
-| pool-cost | operational costs per epoch lovelace |
-| pool-margin | operator margin |
-| pool-reward-account-verification-key-file | verification staking key for the rewards |
-| pool-owner-staking-verification-key-file | verification staking keys for the pool owners |
-| pool-relay-ipv4 | relay node ip address |
-| pool-relay-port | port |
-| metadata-url | url of your json file |
-| metadata-hash | the hash of pools json metadata file |
-| out-file | output file to write the certificate to |
+| cold-verification-key-file | 콜드 검증 키 |
+| vrf-verification-key-file | CRF 검증 키 |
+| pool-pledge | lovelace 형태의 서약 |
+| pool-cost | lovelace 형태의 에포크당 운영 비용 |
+| pool-margin | 운영자 마진 |
+| pool-reward-account-verification-key-file | 보상을 위한 스테이크 검증 키 |
+| pool-owner-staking-verification-key-file | 풀 소유자를 위한 스테이크 검증 키 |
+| pool-relay-ipv4 | relay 노드 IP 주소 |
+| pool-relay-port | 포트 |
+| metadata-url | JSON 파일의 URL |
+| metadata-hash | 풀 메타데이터 JSON 파일의 해시 |
+| out-file | 인증서를 쓸 출력 파일 |
 
-**You can use a different key for the rewards, and can provide more than one owner key if there were multiple owners who share the pledge.**
+**보상에 대해 다른 키를 사용할 수 있으며, 서약을 공유하는 소유자가 여러 명인 경우 둘 이상의 소유자 키를 ​​제공할 수 있습니다.**
 
-The **pool-registration.cert** file should look like this:
+**pool-registration.cert** 파일은 다음 과 같아야 합니다.
 
 ```
 type: CertificateShelley
@@ -107,9 +106,9 @@ cborHex:
 8113f50e779d80f6
 ```
 
-#### Generate delegation certificate pledge
+#### 위임 인증 서약 생성하기
 
-To honor your pledge, create a _delegation certificate_:
+서약을 지키려면 _위임 인증서_ 를 만드세요.
 
 ```sh
 cardano-cli stake-address delegation-certificate \
@@ -117,14 +116,13 @@ cardano-cli stake-address delegation-certificate \
     --cold-verification-key-file cold.vkey \
     --out-file delegation.cert
 ```
+이렇게 하면 `stake.vkey` 키와 관련된 모든 스테이크 주소의 자금 을 콜드 키(`cold.vkey`)에 속하는 풀로 위임하는 위임 인증서가 생성 됩니다. 첫 번째 단계에서 풀 소유자가 많아 여러 스테이킹 키가 있는 경우, 모든 키에 대한 위임 인증서가 필요합니다.
 
-This creates a delegation certificate which delegates funds from all stake addresses associated with key `stake.vkey` to the pool belonging to cold key `cold.vkey`. If there are many staking keys as pool owners in the first step, we need delegation certificates for all of them.
+#### 풀 인증서 및 위임 인증서를 블록체인에 제출하기
 
-#### Submit the pool certificate and delegation certificate to the blockchain
+`pool registration certificate`와 `delegation certificates`를 하나 이상의 트랜잭션에 포함하여 블록체인에 제출합니다. 여러 인증서에 대해 하나의 트랜잭션을 사용할 수 있으며 인증서는 순서대로 적용됩니다.
 
-To submit the `pool registration certificate` and the `delegation certificates` to the blockchain by including them in one or more transactions. We can use one transaction for multiple certificates, the certificates will be applied in order.
-
-#### Draft the transaction
+#### 트랜잭션 초안 만들기
 
 ```sh
 cardano-cli transaction build-raw \
@@ -137,7 +135,7 @@ cardano-cli transaction build-raw \
     --certificate-file delegation.cert
 ```
 
-#### Calculate the fees
+#### 수수료 계산하기
 
 ```sh
 cardano-cli transaction calculate-min-fee \
@@ -150,26 +148,26 @@ cardano-cli transaction calculate-min-fee \
     --protocol-params-file protocol.json
 ```
 
-For example:
+예를 들면:
 
 ```sh
 > 184685
 ```
-
-Registering a stake pool requires a deposit. This amount is specified in `protocol.json`. For example, for Shelley Mainnet we have:
+스테이크 풀을 등록하려면 보증금이 필요합니다. 이 금액은 `protocol.json`에 지정되어 있습니다. 예를 들어 Shelley Mainnet의 경우 다음과 같습니다.
 
 ```json
 "poolDeposit": 500000000
 ```
 
-#### Calculate the change for --tx-out
-All amounts in Lovelace
+#### --tx-out에 대한 거스름돈 계산하기
+
+모든 금액은 Lovelace로 표현되었습니다.
 
 ```sh
 expr <UTxO BALANCE> - <poolDeposit> - <TRANSACTION FEE>
 ```
 
-#### Build the transaction:
+#### 트랜잭션 빌드하기
 
 ```sh
 cardano-cli transaction build-raw \
@@ -182,7 +180,7 @@ cardano-cli transaction build-raw \
     --certificate-file delegation.cert
 ```
 
-#### Sign the transaction:
+#### 트랜잭션 서명하기
 
 ```sh
 cardano-cli transaction sign \
@@ -194,7 +192,7 @@ cardano-cli transaction sign \
     --out-file tx.signed
 ```
 
-#### Submit the transaction:
+#### 트랜잭션 제출하기
 
 ```sh
 cardano-cli transaction submit \
@@ -202,15 +200,15 @@ cardano-cli transaction submit \
     --mainnet
 ```
 
-#### Verify that your stake pool registration was successful.
+#### 스테이크 풀 등록이 성공적으로 완료되었는지 확인하기 
 
-Get Pool ID
+Pool ID 얻기
 
 ```sh
 cardano-cli stake-pool id --cold-verification-key-file cold.vkey --output-format "hex"
 ```
 
-Check for the presence of your poolID in the network ledger state, with:
+다음을 사용하여 네트워크 렛저 상태에 poolID가 있는지 확인합니다.
 
 ```sh
 cardano-cli query ledger-state --mainnet | grep publicKey | grep <poolId>

@@ -1,23 +1,23 @@
 ---
 id: create-simple-transaction
-title: Create Simple Transaction
-sidebar_label: Create simple transaction
+title: 단순한 트랜잭션 생성
+sidebar_label: 단순한 트랜잭션 생성
 description: "Stake pool course: Learn how to create simple transaction."
 image: ../img/og/og-developer-portal.png
 ---
 
-Creating a transaction requires various steps:
+트랜잭션 생성에는 다양한 단계가 필요합니다.
 
-* Get the protocol parameters
-* Calculate the fee
-* Define the time-to-live (TTL) for the transaction
-* Build the transaction
-* Sign the transaction
-* Submit the transaction
+* 프로토콜 매개변수 가져오기
+* 수수료 계산
+* 트랜잭션의 TTL(time-to-live) 정의
+* 트랜잭션 구축
+* 트랜잭션에 서명
+* 트랜잭션 제출
 
-## Get protocol parameters
+## 프로토콜 매개변수 가져오기
 
-Get the protocol parameters and save them to `protocol.json` with:
+프로토콜 매개변수를 가져오고 다음을 사용하여 `protocol.json`에 저장합니다
 
 ```sh
 cardano-cli query protocol-parameters \
@@ -25,7 +25,7 @@ cardano-cli query protocol-parameters \
     --out-file protocol.json
 ```
 
-## Get the transaction hash and index of the **UTXO** to spend:
+## 사용할 UTXO 의 트랜잭션 해시 및 인덱스 가져오기
 
 ```sh
 cardano-cli query utxo \
@@ -33,12 +33,12 @@ cardano-cli query utxo \
     --mainnet
 ```
 
-## Draft the transaction
+## 트랜잭션 초안 만들기
 
-Create a draft for the transaction and save it in tx.draft
+트랜잭션 초안을 생성하고 tx.draft에 저장합니다.
 
 :::note
-For `--tx-in` we use the following syntax: `TxHash#TxIx` where `TxHash` is the transaction hash and `TxIx` is the index; for `--tx-out` we use: `TxOut+Lovelace` where `TxOut` is the hex encoded address followed by the amount in `Lovelace`. For the transaction draft --tx-out, --invalid-hereafter and --fee can be set to zero.
+`--tx-in`에 대해 다음과 같은 문법을 사용합니다: `TxHash#TxIx`(`TxHash`는 트랜잭션 해시, `TxIx`는 트랜잭션 인덱스); `--tx-out`에 대해 다음 문법을 사용합니다: `TxOut+Lovelace` (`TxOut`는 16진수로 인코딩된 주소, 뒤에 오는 것은 `Lovelace`로 표현된 금액). 트랜잭션 초안의 경우 --tx-out, --invalid-hereafter 그리고 --fee는 0으로 설정해도 됩니다.
 :::note
 
 ```sh
@@ -51,14 +51,14 @@ cardano-cli transaction build-raw \
     --out-file tx.draft
 ```
 
-## Calculate the fee
+## 수수료 계산
 
-A simple transaction needs one input, a valid UTXO from `payment.addr`, and two outputs:
+간단한 트랜잭션에는 하나의 입력, `payment.addr`로부터의 유효한 UTXO payment.addr및 두 개의 출력이 필요합니다.
 
-* Output1: The address that receives the transaction.
-* Output2: The address that receives the change of the transaction.
+* Output1: 트랜잭션을 받는 주소.
+* Output2: 트랜잭션의 변경 사항을 받는 주소.
 
-Note that to calculate the fee you need to include the draft transaction
+수수료를 계산하려면 트랜잭션 초안을 포함해야 합니다.
 
 ```sh
 cardano-cli transaction calculate-min-fee \
@@ -71,30 +71,30 @@ cardano-cli transaction calculate-min-fee \
     --protocol-params-file protocol.json
 ```
 
-## Calculate the change to send back to payment.addr
+## payment.addr로 다시 보낼 거스름돈 계산
 
-all amounts must be in Lovelace:
+모든 금액은 Lovelace로 표현되어야 합니다.
 
     expr <UTXO BALANCE> - <AMOUNT TO SEND> - <TRANSACTION FEE>
 
-For example, if we send 10 ada from a UTxO containing 20 ada, the change to send back to `payment.addr` after paying the fee is: 9.832035 ada
+예를 들어, 20개의 ada가 포함된 UTxO에서 10개의 ada를 보낸 경우 수수료를 지불한 후 다시 `payment.addr`에 보낼 거스름돈은 9.832035 ada입니다.
 
 ```sh
 expr 20000000 - 10000000 - 167965
 9832035
 ```
 
-## Determine the TTL (time to Live) for the transaction
+## 트랜잭션의 의 TTL(Time to Live) 결정하기
 
-To build the transaction we need to specify the **TTL (Time to live)**, this is the slot height limit for our transaction to be included in a block, if it is not in a block by that slot the transaction will be cancelled. So TTL = slot + N slots. Where N is the amount of slots you want to add to give the transaction a window to be included in a block.
+트랜잭션을 구축하려면 **TTL (Time to live)**를 지정해야 합니다. 이는 트랜잭션이 블록에 포함될 슬롯 높이 제한입니다. 해당 슬롯에 의해 블록에 없으면 트랜잭션이 취소됩니다. 즉 TTL = 슬롯 + N 슬롯의 형태입니다. 여기서 N은 트랜잭션에 블록에 포함될 범위를 제공하기 위해 추가하려는 슬롯의 양입니다.
 
-Query the tip of the blockchain:
+블록체인 팁을 쿼리합니다.
 
 ```sh
 cardano-cli query tip --mainnet
 ```
 
-Look for the value of `slotNo`
+`slotNo`의 값을 찾습니다.
 
 ```json
     {
@@ -104,11 +104,11 @@ Look for the value of `slotNo`
     }
 ```
 
-Calculate your TTL, for example:  369200 + 200 slots = 369400
+TTL을 계산하세요. 예를 들면, 369200 + 200 슬롯 = 369400 와 같습니다.
 
-## Build the transaction
+## 트랜잭션 구축하기
 
-We write the transaction in a file, we will name it `tx.raw`.
+트랜잭션을 파일에 작성하고 `tx.raw`라고 이름을 지정합니다.
 
 ```sh
 cardano-cli transaction build-raw \
@@ -120,9 +120,9 @@ cardano-cli transaction build-raw \
     --out-file tx.raw
 ```
 
-## Sign the transaction
+## 트랜잭션 서명하기
 
-Sign the transaction with the signing key **payment.skey** and save the signed transaction in **tx.signed**
+서명 키 payment.skey 로 트랜잭션에 서명하고 서명된 트랜잭션을 tx.signed 에 저장합니다.
 
 ```sh
 cardano-cli transaction sign \
@@ -132,7 +132,7 @@ cardano-cli transaction sign \
     --out-file tx.signed
 ```
 
-## Submit the transaction
+## 트랜잭션 제출하기
 
 ```sh
 cardano-cli transaction submit \
@@ -140,9 +140,9 @@ cardano-cli transaction submit \
     --mainnet
 ```
 
-## Check the balances
+## 잔고 확인하기
 
-We must give it some time to get incorporated into the blockchain, but eventually, we will see the effect:
+우리는 이 트랜잭션에 블록체인에 통합될 때까지 약간의 시간을 기다려야 합니다. 
 
 ```sh
 cardano-cli query utxo \
@@ -165,5 +165,5 @@ cardano-cli query utxo \
 ```
 
 :::note
-`--mainnet` identifies the Cardano mainnet, for testnets use `--testnet-magic 1097911063` instead.
+`--mainnet` 은 메인넷을 가리키므로, 테스트넷에 대해서는  `--testnet-magic 1097911063`를 사용합니다.
 :::note

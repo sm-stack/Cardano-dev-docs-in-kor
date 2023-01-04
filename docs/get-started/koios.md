@@ -1,70 +1,69 @@
 ---
 id: koios
-title: Get Started with Koios
+title: Koios 시작하기
 sidebar_label: Koios
 description: Get Started with Koios
 image: ../img/og/og-getstarted-koios.png
 ---
 
-Koios provides an open-source & elastic API layer that allows you to query Cardano blockchain (across mainnet, testnet and guildnet network).
-The key flexibility from a consumer of Koios API is being able to use Koios as a light webservice or being able to run a Koios instance and optionally `extend` the query layer with automatic failover and high availability support across the globe. When running an instance, one is free to add additional endpoints to their individual service if they have a use case that may not need to be added upstream.
+Koios 는 (메인넷, 테스트넷 및 길드넷 네트워크에서) Cardano 블록체인을 쿼리할 수 있는 오픈 소스 및 탄력적 API 레이어를 제공합니다. 
+Koios API 소비자가 얻을 수 있는 주요 유연성은 Koios를 가벼운 웹 서비스로 사용하거나, 자동 장애 조치 및 고가용성 지원을 통해 쿼리 레이어르 선택적으로 `extend` 할 수 있다는 것입니다. 인스턴스를 실행할 때, 업스트림에 추가할 필요가 없는 유즈 케이스의 경우 개별 서비스에 엔드포인트를 자유롭게 추가할 수 있습니다.
 
-Let's start with basics from consumer point of view, and then we can dive to a brief summary about running a Koios Instance as a provider (independently OR adding to existing members of Koios cluster).
+소비자 관점에서 기본부터 시작하여 Koios 인스턴스를 공급자로 실행하는(독립적으로 혹은 Koios 클러스터의 기존 구성원에 추가하는) 방법에 대해 간략하게 요약해 보았습니다.
 
-## Usage
+## 사용 방법
 
-### API Documentation
+### API 문서
 
-You can access API documentation [here](https://api.koios.rest). Koios leverages [PostgREST](https://postgrest.org/) to provide data, which means you can easily filter your data vertically as well as horizontally, and leverage in-built ordering/custom paging benefits as per the guide [here](https://api.koios.rest/#overview--api-usage). There isn't any centralised registry to be able to access the endpoints for most of the usage.
+[여기](https://api.koios.rest)에서 API 문서에 액세스할 수 있습니다. Koios는 [PostgREST](https://postgrest.org/)를 통해 데이터를 제공합니다. 즉, 데이터를 수직 및 수평으로 쉽게 필터링하고 [가이드](https://api.koios.rest/#overview--api-usage)에 따라 내장된 주문이나 맞춤형 체이징의 이점을 누릴 수 있습니다. 사용 시 엔드포인트에 액세스할 수 있는 중앙 집중식 레지스트리는 대부분의 경우 없습니다.
 
-Each endpoint in the document provides a sample curl command that can be used to test using an example, which can be executed directly from the browser for testing as well.
+문서의 각 엔드포인트는 브라우저에서 직접 실행할 수 있는 예제를 사용하여 테스트에 쓰이는 샘플 curl 명령을 제공합니다.
 
 ![img](../../static/img/get-started/koios/1-usage.png)
  
-### Limits
+### 한계점
 
-If you're using Koios service remotely, there are certain measures to protect against spamming or potentially unknowingly causing a Denial-of-Service against instance providers. Be sure to be mindful of the limits mentioned [here](https://api.koios.rest/#overview--limits).
+Koios 서비스를 원격으로 사용하는 경우, 스팸으로부터 보호하거나 잠재적으로 인스턴스 공급자에 대한 서비스 거부를 유발할 수 있는 특정 조치들이 존재합니다. [여기](https://api.koios.rest/#overview--limits)에 언급된 제한 사항에 유의하십시오.
 
-## Feature Requests/Discussions
+## 기능 요청/토론
 
-If you notice an issue or have a feature request (existing or new endpoint), we invite you to open an issue on [Koios Artifacts](https://github.com/cardano-community/koios-artifacts) repository first, and then feel free to discuss the topic in [Koios discussions](https://t.me/+zE4Lce_QUepiY2U1) group.
+문제를 발견했거나 기능을 요청(기존 또는 새 엔드포인트)하는 경우 먼저 [Koios Artifacts](https://github.com/cardano-community/koios-artifacts) 레퍼지토리에 issue를 연 다음, [Koios discussions](https://t.me/+zE4Lce_QUepiY2U1) 그룹에서 해당 주제에 대해 자유롭게 토론하시면 됩니다.
 
-## Participating as instance provider
+## 인스턴스 제공자로 참여하기
 
-There will always be an audience who might want to run everything locally instead of relying on any external connection. Typically, these would be heavy users of the API (explorers/wallet providers/marketplaces), who'd like to override default API limits, have customisation requirements, remove latency hops OR enthusiasts who'd like to contribute back and add to the strength of the API layer.
+외부 연결에 의존하는 대신, 모든 것을 로컬에서 실행하려는 사람들이 항상 있을 것입니다. 일반적으로 이들은 기본 API 제한을 무시하고, 각자만의 요구 사항이 있으며, 대기 시간을 제거하고 싶어하는 API(explorer/지갑 제공자/마켓플레이스)의 유저 **또는** API 레이어에 기여하고 싶은 열정 있는 사람들입니다. 
 
-For this audience, we've tried to leverage the existing widely adopted `guild-operators` suite to build simpler scripts that'd allow you to create a gRest instance. This independent gRest instance will give you 100% of features and compatibility with the API documentation hosted on api.koios.rest (assuming it's built from the latest `koios` tags).
+이러한 사람들을 위해, 현재 널리 받아들여진 `guild-operators` 제품을 활용하여 gRest 인스턴스를 생성할 수 있는 간단한 스크립트를 만들기 위해 노력하고 있습니다. 이 독립적인 gRest 인스턴스는 (최신 `koios` 태그에서 빌드되었다고 가정했을때) api.koios.rest에서 호스팅되는 API 문서에 대해 100% 호환성과 기능들을 제공할 것입니다.
 
-### Infrastructure Sizing
+### 인프라 크기 조정
 
-Most of the infrastructure sizing at the moment is dependent on sizing of `cardano-node`, `cardano-db-sync` and `postgres`, and their consumption is different depending on the network you connect to. You can find the official `cardano-db-sync` documentation for system requirements [here](https://github.com/input-output-hk/cardano-db-sync#system-requirements). But as a basic recommendation, if you're running a typical dbsync+node+postgres instance, we would recommend you to go for 64GB RAM for Mainnet, 16GB for Testnet and 8GB for Guildnet (this is true as of May 2022, we intend to update this page if/when this is no longer sufficient).
+현재 대부분의 인프라 크기 조정은 `cardano-node`, `cardano-db-sync` 및 `postgres` 의 크기 조정에 의존하고, 연결하는 네트워크에 따라 사용량이 다릅니다. [여기](https://github.com/input-output-hk/cardano-db-sync#system-requirements)에서 시스템 요구 사항에 대한 공식 `cardano-db-sync` 문서를 찾을 수 있습니다. 일반적인 dbsync+node+postgres 인스턴스를 실행하는 경우, 기본적인 권장 사항으로 메인넷에 대해 64GB RAM, 테스트넷에 16GB, 길드넷에 8GB를 사용하는 것이 좋습니다(2022년 5월 기준, 만약 이것이 충분하지 않다면 해당 페이지에 다시 업데이트하겠습니다).
 
 :::note
 
-While we understand that a lot of modern cloud architects would like to split the services and distribute hardware physically, please note that `cardano-db-sync` and `postgres` should *NOT* be split (unless you really understand and heavily tune your infrastructure and setup accordingly), and doing so often results in a terrible experience. You're free to split PostgREST and HAProxy into microservices, but you'd need to adapt scripts accordingly. You'd only want to do that once you're fully familiar with the deployment. It is also why we have for now paused the work for the docker branch.
+많은 최신 클라우드 설계자가 서비스를 분할하고 하드웨어를 물리적으로 배포하길 원한다는 점을 이해하지만, `cardano-db-sync` 와 `postgres` 는 (인프라와 설정을 이해하고 이에 따라 설정을 크게 조정하지 않는 한) 분할하면 안된다는 점에 유의하십시오. 이렇게 하는 것은 끔찍한 결과를 낳을 것입니다. PostgREST와 HAProxy를 마이크로서비스로 자유롭게 분할할 수 있지만, 그에 따라 스크립트를 조정해야 합니다. 배포에 완전히 익숙해지면 그렇게 할 수도 있습니다. 이것이 우리가 현재 docker 브랜치에 대한 작업을 일시 중지한 이유이기도 합니다.
 
 :::
 
-### Set Up instance
+### 인스턴스 설정
 
-Typical steps involved for setting up your gRest instance would be (assuming you've set up your infrastructure already):
+gRest 인스턴스 설정과 간련된 일반적인 단계는 다음과 같습니다(인프라를 이미 설정했다고 가정). 
 
-1. Set up your OS for dependencies and create folder structures using [prereqs script](https://cardano-community.github.io/guild-operators/basics/#pre-requisites).
+1. 의존성을 위해 OS를 설정하고, [prereqs script](https://cardano-community.github.io/guild-operators/basics/#pre-requisites)를 사용하여 폴더 구조를 만듭니다.
 
-2. Install PostgreSQL server, followed by a tuning excercise that fits your infrastructure. See sample guide [here](https://cardano-community.github.io/guild-operators/Appendix/postgres/)
+2. PostgreSQL 서버를 설치한 후, 인프라에 맞는 튜닝 연습을 합니다. [여기](https://cardano-community.github.io/guild-operators/Appendix/postgres/)에서 샘플 가이드를 참조하십시오.
 
-3. Set up your Cardano Node and wait for node to sync to current epoch. See sample instructions [here](https://cardano-community.github.io/guild-operators/Build/node-cli/). You can optionally also install `cardano-submit-api` on the same server to be able to submit transactions using consistent paths from API documentation.
+3. Cardano 노드를 설정하고 노드와 현재 에포크와 동기화될 때까지 기다립니다. [여기](https://cardano-community.github.io/guild-operators/Build/node-cli/)에서 샘플 지침을 참조하십시오. 또한, API 문서엣 일관된 경로를 사용하여 트랜잭션을 제출할 수 있도록 `cardano-submit-api` 를 동일한 서버에 설치할 수도 있습니다.
 
-4. Once your node is in sync, set up your dbsync instance (easier to use snapshots instead of synching from scratch) as per instructions [here](https://cardano-community.github.io/guild-operators/Build/dbsync/). Ensure that you're running dbsync as a systemd service (not as a script on terminal).
+4. 노드가 동기화되면, [여기](https://cardano-community.github.io/guild-operators/Build/dbsync/) 지침에 따라 dbsync 인스턴스를 설정합니다(스크래치로부터 동기화하는 것 대신 스냅샷을 사용하기 더 쉬움). 터미널의 스크립트가 아닌 systemd 서비스로 dbsync를 실행하고 있는지 확인하십시오.
 
-5. You should now be able to run the `setup-grest.sh` script as per details [here](https://cardano-community.github.io/guild-operators/Build/grest/#setup). Thus, if you'd like to deploy gRest against mainnet version, you may elect to run `./setup-grest.sh -f -i prmcd -q -b <branch/tag>` which will set up all the components, endpoints and deploy them as service on your system.
+5. 이제 [여기](https://cardano-community.github.io/guild-operators/Build/grest/#setup)에서 설명된 세부사항에 따라 `setup-grest.sh` 스크립트를 실행할 수 있을 것입니다. 따라서, 메인넷 버전에 대해 gRest를 배포하려는 경우 모든 구성요소, 엔드포인트를 설정하고 시스템에다가 서비스로 이를 배포하기 위해 `./setup-grest.sh -f -i prmcd -q -b <branch/tag>` 를 실행할 수 있습니다.
 
-6. [Optional] You can also install [ogmios](https://ogmios.dev) instance to have it enabled on your instance. This is currently not enabled by default, as it would require more advanced session management over WSS, that is more suited for a server-client architecture than a RESTful interface to access directly. There may be middleware leveraging this service in future, but it will not be scoped for v1 of Koios API.
+6. [선택 사항] [ogmios](https://ogmios.dev) 인스턴스를 설치하여 귀하의 인스턴스에서 이를 활성화할 수도 있습니다. 이는 현재 디폴트 값으로 활성화되어 있지 않은 상태입니다. 직접 액세스할 때 RESTful 인터페이스보다 서버-클라이언트 아키텍처에 더 적합한 WSS를 통한 고급 세션 관리가 필요하기 때문입니다. 향후 이 서비스를 활용하는 미들웨어가 있을 수도 있지만, Koios API V1의 범위는 아닙니다.
 
-### Important Config Files/Ports
+### 중요한 구성 파일/포트
 
-By default, following are the config, service and port mappings for various services using above instructions.
-
+기본적으로 다음은 위의 지침을 사용하는 다양한 서비스에 대한 구성, 서비스 및 포트 매핑입니다.
 
 |Component          | Config                                  | Port  | Default Service Name |
 |-------------------|-----------------------------------------|-------|----------------------|
@@ -77,20 +76,20 @@ By default, following are the config, service and port mappings for various serv
 |Prometheus Exporter| /opt/cardano/cnode/scripts/getmetrics.sh| 8059  | cnode-grest_exporter |
 |Health-Check script| /opt/cardano/cnode/scripts/grest-poll.sh| N.A.  | N.A.                 |
 
-Note that your entrypoint to query endpoints should always be the HAProxy port (you can enable SSL for this service as mentioned in docs [here](https://cardano-community.github.io/guild-operators/Build/grest/#tls) ).
+쿼리 엔드포인트에 대한 진입점은 항상 HAProxy 포트여야 합니다. ([링크](https://cardano-community.github.io/guild-operators/Build/grest/#tls)의 문서에서 언급한 대로 해당 서비스에 대한 SSL을 활성화할 수 있습니다)
 
-Make sure to adjust your firewall rules for HAProxy port to be able to connect to your instance outside of local machine, you do not need to expose any other ports to access endpoint itself.
+로컬 머신 외부의 인스턴스에 연결할 수 있도록 HAProxy 포트에 대한 방화벽 규칙을 조정해야 합니다. 엔드포인트에 액세스하기 위해 다른 포트를 노출할 필요는 없습니다.
 
-### Participate in Koios Cluster
+### Koios 클러스터에 참여하기
 
-Every gRest instance is capable to participate into Koios Cluster, by simply opening connectivity to some of your services from the monitoring instances. To participate as a Koios instance to the cluster, you'd want to follow the steps below:
+모든 gRest 인스턴스는 모니터링 인스턴스에서 일부 서비스에 대한 연결을 열기만 하면 Koios 클러스터에 참여할 수 있습니다. 클러스터에 Koios 인스턴스로 참여하려면, 다음과 같은 단계를 따르십시오.
 
-1. Submit a PR on [koios-artifacts](https://github.com/cardano-community/koios-artifacts/tree/main/topology) repository specifying the connectivity information to your topology. If you'd like to hide your IP (even if protected via your Firewall), you can instead approach us via the discussions group instead.
+1. 토폴로지에 대한 연결 정보를 지정하는 [koios-artifacts](https://github.com/cardano-community/koios-artifacts/tree/main/topology) 레퍼지토리에 PR을 제출합니다. 만약 IP를 숨기고 싶다면(방화벽을 쓰고 있는 경우에도), 토론 그룹을 통한 접근을 해도 괜찮습니다.
 
-2. Open ports for Prometheus Exporter (health monitoring and analysis), HAProxy and Cardano-Submit-API against the monitoring instances.
+2. 모니터링 인스턴스에 대해 Prometheus Exporter(상태 모니터링 및 분석), HAProxy 및 Cardano-Submit-API용 포트를 엽니다.
 
-3. Commit to best-effort to follow updates for version releases. The release are usually bumped on a Saturday 8am UTC, and will be notified in advance with the changelogs.
+3. 버전 릴리스에 대한 업데이트를 따르기 위해 최선을 다합니다. 릴리스는 일반적으로 토요일 오전 8시(UTC)에 이루어지며, 변경 로그와 함께 사전에 통지됩니다.
 
-## Any other Query/Follow-ups
+## 다른 조회/후속 조치
 
-There are bi-weekly open meetings on every 2nd/4th Thursday of the month. Feel free to join the [Koios discussions](https://t.me/+zE4Lce_QUepiY2U1) and follow pinned messages for the same.
+매월 2번째/4번째 목요일 격주로 공개 모임이 있습니다. 자유롭게 [Koios 토론](https://t.me/+zE4Lce_QUepiY2U1)에 참여하고 고정된 메세지를 따르십시오.

@@ -1,7 +1,7 @@
 ---
 id: cardanosharp-wallet
-title: Get Started with CardanoSharp Wallet
-sidebar_label: CardanoSharp Wallet
+title: CardanoSharp 지갑 시작하기
+sidebar_label: CardanoSharp 지갑
 description: Get Started with CardanoSharp Wallet
 image: ../img/og/og-getstarted-cardanosharp-wallet.png
 --- 
@@ -9,25 +9,25 @@ image: ../img/og/og-getstarted-cardanosharp-wallet.png
 # CardanoSharp.Wallet 
 [![Build status](https://ci.appveyor.com/api/projects/status/knh87k86mf7gbxyo?svg=true)](https://ci.appveyor.com/project/nothingalike/cardanosharp-wallet/branch/main) [![Test status](https://img.shields.io/appveyor/tests/nothingalike/cardanosharp-wallet)](https://ci.appveyor.com/project/nothingalike/cardanosharp-wallet/branch/main) [![NuGet Version](https://img.shields.io/nuget/v/CardanoSharp.Wallet.svg?style=flat)](https://www.nuget.org/packages/CardanoSharp.Wallet/) ![NuGet Downloads](https://img.shields.io/nuget/dt/CardanoSharp.Wallet.svg)
 
-CardanoSharp Wallet is a .NET library for Creating/Managing Wallets and Building/Signing Transactions.
+CardanoSharp 지갑은 지갑 생성/관리 및 트랜잭션 구축/서명을 위한 .NET 라이브러리입니다.
 
-## Getting Started
+## 시작하기
 
-CardanoSharp.Wallet is installed from NuGet.
+CardanoSharp.Wallet은 NuGet을 통해 설치됩니다.
 
 ```sh
 Install-Package CardanoSharp.Wallet
 ```
 
-## Create Mnemonics
+## 니모닉 만들기
 
-The `MnemonicService` has operations tbat help with *generating* and *restoring* Mnemonics. It is built for use in DI containers (ie. the interface `IMnemonicService`).
+`MnemonicService` 는 니모닉을 *생성하고 복원하는* 것을 도와주는 작업을 수행합니다. 이는 DI 컨테이너(i.e. `IMnemonicService` 인터페이스)에서 사용되도록 구축되었습니다.
 
 ```cs
 IMnemonicService service = new MnemonicService();
 ```
 
-### Generate Mnemonic
+### 니모닉 생성
 
 ```cs
 IMnemonicService service = new MnemonicService();
@@ -35,16 +35,16 @@ Mnemonic rememberMe = service.Generate(24, WordLists.English);
 System.Console.WriteLine(rememberMe.Words);
 ```
 
-### Restore Mnemonic
+### 니모닉 복구
 
 ```cs
 string words = "art forum devote street sure rather head chuckle guard poverty release quote oak craft enemy";
 Mnemonic mnemonic = MnemonicService.Restore(words);
 ```
 
-## Create Private and Public Keys
+## 개인 / 공개 키 생성
 
-Use powerful extensions to create and derive keys.
+키를 생성하고 도출하기 위해 강력한 확장 기능을 사용합니다.
 
 ```cs
 // The rootKey is a PrivateKey made of up of the 
@@ -67,17 +67,17 @@ PrivateKey stakePrv = rootKey.Derive(stakePath);
 PublicKey stakePub = stakePrv.GetPublicKey(false);
 ```
 
- > If you want to learn more about key paths, read this article [About Address Derivation](https://github.com/input-output-hk/technical-docs/blob/main/cardano-components/cardano-wallet/doc/About-Address-Derivation.md)
+ > 키 경로에 대해 자세히 알아보려면, [주소 도출에 대하여](https://github.com/input-output-hk/technical-docs/blob/main/cardano-components/cardano-wallet/doc/About-Address-Derivation.md) 문서를 읽어보십시오.
 
-## Create Addresses
+## 주소 생성
 
-The `AddressService` lets you Create Addresses from Keys. It is built for use in DI containers (ie. the interface `IAddressService`)
+`AddressService`는 키로부터 주소를 생성합니다. 이는 DI 컨테이너(i.e. `IMnemonicService` 인터페이스)에서 사용되도록 구축되었습니다.
 
 ```cs
 IAddressService addressService = new AddressService();
 ```
 
-From the public keys we generated above, we can now get the public address.
+위에 생성한 공개 키로부터 공개 주소를 얻을 수 있습니다.
 
 ```csharp
 // add using
@@ -91,15 +91,15 @@ Address baseAddr = addressService.GetAddress(
     AddressType.Base);
 ```
 
-If you already have an address.
+이미 주소가 있는 경우:
 
 ```cs
 Address baseAddr = new Address("addr_test1qz2fxv2umyhttkxyxp8x0dlpdt3k6cwng5pxj3jhsydzer3jcu5d8ps7zex2k2xt3uqxgjqnnj83ws8lhrn648jjxtwq2ytjqp");
 ```
 
-## Fluent Key Derivation
+## Fluent 키 도출
 
-A fluent API helps navigate the derivation paths.
+Fluent API는 도출 경로를 탐색하는 데 도움이 됩니다.
 
 ```cs
 // Add using
@@ -122,9 +122,9 @@ PrivateKey privateKey = derivation.PrivateKey;
 PublicKey publicKey = derivation.PublicKey;
 ```
 
-## Build and Sign Transactions
+## 트랜잭션 구축 및 서명
 
-CardanoSharp.Wallet requires input from the chain in order to build transactions. Lets assume we have gathered the following information.
+CardanoSharp.Wallet은 트랜잭션을 구축하기 위해 체인으로부터 입력을 받아야 합니다. 다음과 같은 정보를 수집했다고 가정해보겠습니다.
 
 ```cs
 uint currentSlot = 40000000;
@@ -133,7 +133,7 @@ ulong minFeeB = 155381;
 string inputTx = "0000000000000000000000000000000000000000000000000000000000000000";
 ```
 
-Lets derive a few keys to use while building transactions.
+트랜잭션을 구축하는 동안 사용할 몇 가지의 키를 도출해 보겠습니다.
 
 ```cs
 // Derive down to our Account Node
@@ -158,14 +158,14 @@ var paymentNode = accountNode
     .Derive(RoleType.ExternalChain);
 ```
 
-## Simple Transaction
+## 단순한 트랜잭션
 
-Lets assume the following...
+다음과 같은 상황을 가정합시다:
 
-- You have 100 ADA on path:        `m/1852'/1815'/0'/0/0`
-- You want to send 25 ADA to path: `m/1852'/1815'/0'/0/1`
+- 다음 경로에 100 ada 가지고 있습니다:        `m/1852'/1815'/0'/0/0`
+- 다음 경로로 25 ada 보내려고 합니다:         `m/1852'/1815'/0'/0/1`
 
-### Build Transaction Body
+### 트랜잭션 본문 구축
 
 ```cs
 // Generate the Recieving Address
@@ -191,9 +191,9 @@ var transactionBody = TransactionBodyBuilder.Create
     .Build();
 ```
 
-### Build Transaction Witnesses
+### 트랜잭션 증인 구축
 
-For this simple transaction we really only need to add our keys. This is how we sign our transactions.
+이 단순한 트랜잭션에는 키를 추가하기만 하면 됩니. 이는 트랜잭션에 서명하는 방법과 같습니다.
 
 ```cs
 // Derive Sender Keys
@@ -203,7 +203,7 @@ var witnesses = TransactionWitnessSetBuilder.Create
     .AddVKeyWitness(senderKeys.PublicKey, senderKeys.PrivateKey);
 ```
 
-### Calculate Fee
+### 수수료 계산
 
 ```cs
 // Construct Transaction Builder
@@ -220,11 +220,11 @@ Transaction transaction = transactionBuilder.Build();
 transaction.TransactionBody.TransactionOutputs.Last().Value.Coin -= fee;
 ```
 
-## Metadata Transaction
+## 메타데이터 트랜잭션
 
-Building the Body and Witnesses are the same as the Simple Transaction.
+본문과 증인을 구축하는 것은 단순한 트랜잭션과 같습니다.
 
-> If you would like to read more about Metadata, please read this article on [Tx Metadata](https://github.com/input-output-hk/cardano-node/blob/master/doc/reference/tx-metadata.md)
+> 메타데이터에 대해 더 자세히 알고 싶다면, [Tx Metadata](https://github.com/input-output-hk/cardano-node/blob/master/doc/reference/tx-metadata.md) 글을 참조하십시오.
 
 ```cs
 // Build Metadata and Add to Transaction
@@ -238,11 +238,11 @@ var transaction = TransactionBuilder.Create
     .Build();
 ```
 
-## Minting Transaction
+## 트랜잭션 발행
 
-Before we can mint a token, we need to create a policy. 
+토큰을 발행하기 전에 정책을 먼저 생성해야 합니다.
 
-> If you would like to read more about policy scripts, please read this article on [Simple Scripts](https://github.com/input-output-hk/cardano-node/blob/master/doc/reference/simple-scripts.md).
+> 정책 스크립트에 대해 자세히 알아보려면, 다음과 같은 [간단한 스크립트](https://github.com/input-output-hk/cardano-node/blob/master/doc/reference/simple-scripts.md)에 대한 문서를 읽어보십시오.
 
 ```cs
 // Generate a Key Pair for your new Policy
@@ -260,7 +260,7 @@ var policyScript = ScriptAllBuilder.Create
 var policyId = policyScript.GetPolicyId();
 ```
 
-Now lets define our token.
+이제 토큰을 정의하겠습니다.
 
 ```cs
 // Create the AWESOME Token
@@ -271,7 +271,7 @@ var tokenAsset = TokenBundleBuilder.Create
     .AddToken(policyId, tokenName.ToBytes(), tokenQuantity);
 ```
 
-When minting, we will need to add our new token to one of the outputs of our Transaction Body.
+발행 시 트랜잭션 본문의 출력 중 하나에 새 토큰을 추가해야 합니다.
 
 ```cs
 // Generate an Address to send the Token
@@ -291,9 +291,9 @@ var transactionBody = TransactionBodyBuilder.Create
     .Build();
 ```
 
-## Handling Token Bundles
+## 토큰 묶음 관리
 
-When building transaction, we need to ensure we handle tokens properly.
+트랜잭션 구축 시, 토큰을 제대로 다루는 것이 중요합니다.
 
 ```cs
 var tokenBundle = TokenBundleBuilder.Create

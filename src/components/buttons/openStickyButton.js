@@ -7,7 +7,7 @@ export default function openStickyButton() {
       <button className={`${styles.iconBtn} ${styles.addBtn}`}>
         <div className={styles.addIcon}></div>
         <div className={styles.btnText}>
-          <span className={styles.btnSpan}>CONTRIBUTE NOW</span>
+          <span className={styles.btnSpan}>지금 기여하세요</span>
         </div>
       </button>
     </a>

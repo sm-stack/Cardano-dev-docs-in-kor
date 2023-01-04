@@ -1,57 +1,57 @@
 ---
 id: listening-for-payments-cli
-title: Listening for ada payments using cardano-cli
-sidebar_label: Receiving payments (cardano-cli)
+title: cardano-cli를 사용하여 ada 결제 받기
+sidebar_label: 결제 받기 (cardano-cli)
 description: How to listen for ada Payments with the cardano-cli.
 image: ../img/og/og-developer-portal.png
 --- 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Overview
+## 개요
 
 :::note
-This guide assumes that you have basic understanding of `cardano-cli`, how to use it and that you have installed it into your system. Otherwise we recommend reading [Installing cardano-node](/docs/get-started/installing-cardano-node), [Running cardano-node](/docs/get-started/running-cardano) and [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guides first.
+이 가이드는 사용자가 `cardano-cli`에 대한 기본적인 이해를 하고 있고, 이를 시스템에 설치했다고 가정합니다. 그렇지 않다면 [cardano-node 설치](/docs/get-started/installing-cardano-node), [cardano-node 실행하기](/docs/get-started/running-cardano)와 [Cardano 지갑 알아보기](/docs/integrate-cardano/creating-wallet-faucet) 가이드를 먼저 읽는 것을 추천합니다.
 
-This guide also assumes that you have `cardano-node` running in the background and connected to the `testnet` network.
+이 가이드는 또한 `cardano-node`를 백그라운드에서 실행 중이고 `testnet` 네트워크에 연결되어 있는 상황을 가정합니다.
 :::
 
-## Use case
+## 사용 사례
 
-There are many possible reasons why you would want to have the functionality of listening for `ada` payments, but a very obvious use case would be for something like an **online shop** or a **payment gateway** that uses `ada` tokens as the currency.
+`Ada` 결제를 수신하는 기능이 필요한 데는 여러 가지 이유가 있겠지만, 매우 분명한 사용 사례는 **온라인 상점**이나 `Ada` 토큰을 통화로 사용하는 **결제 게이트웨이**와 같은 것들입니다. 
 
 ![img](../../static/img/integrate-cardano/ada-online-shop.png)
 
-## Technical flow
+## 기술 흐름
 
-To understand how something like this could work in a technical point of view, let's take a look at the following diagram:
+기술적인 관점에서 이와 같은 것이 어떻게 작동하는지 이해하려면, 다음 다이어그램을 보면 됩니다.
 
 ![img](../../static/img/integrate-cardano/ada-payment-flow.png)
 
-So let's imagine a very basic scenario where a **customer** is browsing an online shop. Once the user has choosen and added all the items into the **shopping cart**, the next step would then be to checkout and pay for the items. Of course we will be using **Cardano** for that!
+**고객**이 온라인 상점에서 상품을 검색하는 아주 기본적인 시나리오를 생각해 봅시다. 사용자가 모든 항목을 선택하고 **장바구니**에 추가하면, 다음 단계는 항목을 체크아웃해서 결제하는 것입니다. 물론 이를 위해 **Cardano**를 사용할 것입니다!
 
-The **front-end** application would then request for a **wallet address** from the backend service and render a QR code to the **customer** to be scanned via a **Cardano wallet**. The backend service would then know that it has to query the **wallet address** using `cardano-cli` with a certain time interval to confirm and alert the **front-end** application that the payment has completed succesfully.
+그런 다음 **프론트엔드** 어플리케이션은 백엔드 서비스로부터 **지갑 주소**를 요청하고 **Cardano** 지갑을 통해 스캔할 QR 코드를 **고객**에게 렌더링합니다. 그러면 백엔드 서비스는 결제가 성공적으로 완료되었음을 **프론트엔드** 어플리케이션에 확인하고 알리기 위해 특정 시간 간격으로 `cardano-cli`를 사용해 **지갑 주소**를 쿼리해야 합니다.
 
-In the meantime the transaction is then being processed and settled within the **Cardano** network. We can see in the diagram above that both parties are ultimately connected to the network via the `cardano-node` software component.
+그 동안 트랜잭션은 **Cardano** 네트워크 내에서 처리되고 확정됩니다. 위 다이어그램에서도 볼 수 있듯이, 결제에 참여하는 두 객체는 `cardano-node` 소프트웨어 구성요소를 통해 궁극적으로 네트워크에 연결되어 있습니다.
 
-## Time to code
+## 코딩 시간
 
-Now let's get our hands dirty and see how we can implement something like this in actual code.
+이제 직접 실제 코드에서 이와 같은 것을 구현하는 방법을 살펴보겠습니다.
 
 :::note
-In this section, we will use the path `$HOME/receive-ada-sample` to store all the related files as an example, please replace it with the directory you have choosen to store the files.
-All the code examples in this article assume that you will save all the source-code-files under the root of this directory.
+이 섹션에서는, `$HOME/receive-ada-sample` 경로를 사용하여 이 예제와 관련된 모든 파일을 저장합니다. 각자 선택한 디렉토리로 바꾸십시오. 
+이 문서의 모든 코드 예제에서는 이 디렉터리의 루트 아래에 모든 소스 코드 파일을 저장한다고 가정합니다. 
 :::
 
-### Generate keys and request tAda
+### 키 생성 및 tAda 요청
 
-First, let's create a directory to store our sample project:
+먼저 샘플 프로젝트를 저장할 디렉토리를 생성해 보겠습니다.
 
 ```bash
 mkdir -p $HOME/receive-ada-sample/keys
 ```
 
-Next, we generate our **payment key-pair** using `cardano-cli`:
+다음으로 `cardano-cli`를 사용하여 **지불 키 쌍**을 생성합니다.
 
 ```bash
 cardano-cli address key-gen \
@@ -59,7 +59,7 @@ cardano-cli address key-gen \
 --signing-key-file $HOME/receive-ada-sample/keys/payment.skey
 ```
 
-Since we now have our **payment key-pair**, the next step would be to generate a **wallet address** for the `testnet` network like so:
+이제 **지불 키 쌍**이 있으므로, 다음 단계는 다음과 같이 `testnet` 네트워크의 **지갑 주소**를 생성하는 것입니다.
 
 ```bash
 cardano-cli address build \
@@ -68,7 +68,7 @@ cardano-cli address build \
 --testnet-magic 1097911063
 ```
 
-Your directory structure should now look like this:
+이제 디렉토리 구조는 다음과 같아야 합니다.
 
 ```bash
 $HOME/receive-ada-sample/receive-ada-sample
@@ -78,11 +78,11 @@ $HOME/receive-ada-sample/receive-ada-sample
     └── payment.vkey
 ```
 
-Now using your **programming language** of choice we create our first few lines of code!
+이제 선택한 **프로그래밍 언어**를 사용하여 처음 몇 줄의 코드를 생성합니다!
 
-### Initial variables
+### 초기 변수
 
-First we will set the initial variables that we will be using as explained below:
+먼저 아래 설명된 대로 사용할 초기 변수를 설정합니다.
 
 <Tabs
   defaultValue="js"
@@ -170,9 +170,9 @@ const long TOTAL_EXPECTED_LOVELACE = 1000000;
   </TabItem>
 </Tabs>
 
-### Read wallet address value
+### 지갑 주소 값 읽기
 
-Next, we get the string value of the **wallet address** from the `payment.addr` file that we generated awhile ago. Add the following lines to your code:
+다음으로, 조금 전 생성된 `payment.addr` 파일에서 **지갑 주소**의 문자열 삾을 가져옵니다. 또한 코드에 다음 라인을 추가합니다.
 
 <Tabs
   defaultValue="js"
@@ -219,9 +219,9 @@ var walletAddress = await System.IO.File.ReadAllTextAsync($"{CARDANO_KEYS_DIR}/p
   </TabItem>
 </Tabs>
 
-### Query UTxO
+### UTxO 쿼리하기
 
-Then we execute `cardano-cli` programatically and telling it to query the **UTxO** for the **wallet address** that we have generated with our keys and save the `stdout` result to our `rawUtxoTable` variable.
+그런 다음 `cardano-cli`를 실행하고, 키를 생성한 **지갑 주소**에 대해 **UTxO**를 쿼리하여 `stdout` 결과를 `rawUtxoTable` 변수에 저장합니다.
 
 <Tabs
   defaultValue="js"
@@ -285,9 +285,9 @@ var rawUtxoTable = await Command.ReadAsync(CARDANO_CLI_PATH, string.Join(" ",
   </TabItem>
 </Tabs>
 
-### Process UTxO table
+### UTxO 테이블 처리하기
 
-Once we have access to the **UTXO** table string, we will then parse it and compute the total lovelace that the wallet currently has.
+**UTXO** 테이블 문자열에 액세스할 수 있게 되면, 이를 구문분석하여 현재 지갑에 있는 총 lovelace를 계산합니다.
 
 <Tabs
   defaultValue="js"
@@ -360,9 +360,9 @@ foreach(var row in utxoTableRows.Skip(2)){
   </TabItem>
 </Tabs>
 
-### Determine if payment is successful
+### 결제 성공 여부 확인
 
-Once we have the total lovelace amount, we will then determine using our code if a specific payment is a success, ultimately sending or shipping the item if it is indeed successful. In our example, we expect that the payment is equal to `1,000,000 lovelace` that we defined in our `TOTAL_EXPECTED_LOVELACE` constant variable.
+총 lovelace 금액을 얻었으면 ,해당 결제가 성공했는지 코드를 사용하여 결정하고, 궁극적으로 성공했다면 물건을 보내거나 배송합니다. 이 예제에서는 지급액이 상수 변수인 `TOTAL_EXPECTED_LOVELACE`에서 정의한 `1,000,000 lovelace`와 같을 것입니다.
 
 <Tabs
   defaultValue="js"
@@ -428,9 +428,10 @@ System.Console.WriteLine($"Payment Complete: {(isPaymentComplete ? "✅":"❌")}
   </TabItem>
 </Tabs>
 
-## Running and testing
+## 실행 및 테스트
 
-Our final code should look something like this:
+최종 코드는 다음과 같아야 합니다.
+
 
 <Tabs
   defaultValue="js"
@@ -635,7 +636,7 @@ print("Payment Complete: %s" % {True: "✅", False: "❌"} [isPaymentComplete])
   </TabItem>
 </Tabs>
 
-Your project directory should look something like this:
+프로젝트 디렉토리는 다음과 같아야 합니다.
 
 <Tabs
   defaultValue="js"
@@ -715,7 +716,7 @@ $HOME/receive-ada-sample/receive-ada-sample
   </TabItem>
 </Tabs>
 
-Now we are ready to test 🚀, running the code should give us the following result:
+이제 테스트할 준비가 되었습니다 🚀. 코드를 실행하면 다음과 같은 결과가 나타납니다.
 
 <Tabs
   defaultValue="js"
@@ -768,23 +769,23 @@ Payment Complete: ❌
   </TabItem>
 </Tabs>
 
-The code is telling us that our current wallet has received a total of `0 lovelace` and it expected `1,000,000 lovelace`, therefore it concluded that the payment is not complete.
+코드는 현재 지갑이 총 `0 lovelace`를 받았고, 예상된 지급액이 `1,000,000 lovelace`이므로 결제가 완료되지 않았다고 결론짓습니다.
 
-## Complete the payment
+## 결제 완료하기
 
-What we can do to simulate a successful payment is to send atleast `1,000,000 lovelace` into the **wallet address** that we have just generated for this project. We can get the **wallet address** by reading the contents of the `payment.addr` file like so:
+성공적인 결제를 시뮬레이션하기 위해 할 수 있는 것은 이 프로젝트를 위해 방금 생성하였던 **지갑 주소**로 적어도 `1,000,000 lovelace`를 보내는 것입니다. 다음과 같이 `payment.addr` 파일의 내용을 읽어 **지갑 주소**를 얻을 수 있습니다.
 
 ```bash
 cat $HOME/receive-ada-sample/receive-ada-sample/keys/payment.addr
 ```
 
-You should see the **wallet address** value:
+**지갑 주소** 값이 표시되어야 합니다.
 
 ```bash
 addr_test1vpfkp665a6wn7nxvjql5vdn5g5a94tc22njf4lf98afk6tgnz5ge4
 ```
 
-Now simply send atleast `1,000,000 lovelace` to this **wallet address** or request some `test ada` funds from the [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet). Once complete, we can now run the code again and we should see a successful result this time.
+이제 최소한 `1,000,000 lovelace`를 이 **지갑 주소**로 보내거나, [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet)에서 `test ada` 자금을 요청하세요. 완료되면 이제 코드를 다시 실행할 수 있으며, 이번에는 성공적인 결과를 볼 수 있습니다.
 
 <Tabs
   defaultValue="js"
@@ -839,8 +840,8 @@ Payment Complete: ✅
 
 :::note
 
-It might take 20 seconds or more for the transaction to propagate within the network depending on the network health, so you will have to be patient.
+네트워크 상태에 따라 트랜잭션이 네트워크 내에서 전파되는데 20초 이상이 걸릴 수 있으므로, 인내심을 가져야 합니다.
 
 :::
 
-Congratulations, you are now able to detect succesful **Cardano** payments programatically. This should help you bring integrations to your existing or new upcoming applications. 🎉🎉🎉
+축하합니다! 이제 성공적으로 **Cardano** 결제를 탐지하실 수 있습니다. 이는 기존 혹은 새로운 어플리케이션에 통합하는 데 큰 도움이 될 것입니다. 🎉🎉🎉

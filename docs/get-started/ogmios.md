@@ -1,42 +1,41 @@
 ---
 id: ogmios
-title: Get Started with Ogmios
+title: Ogmios 시작하기
 sidebar_label: Ogmios
 description: Get Started with Ogmios
 image: ../img/og/og-getstarted-ogmios.png
 ---
 
-**Ogmios** is a lightweight bridge interface for [cardano-node](https://github.com/input-output-hk/cardano-node/). It offers a WebSockets API that enables local clients to speak [Ouroboros' mini-protocols](https://hydra.iohk.io/build/1070091/download/1/network.pdf#chapter.3) via JSON/RPC.
+**Ogmios** 는 [cardano-node](https://github.com/input-output-hk/cardano-node/)용 경량 브릿지 인터페이스입니다. 이는 로컬 클라이언트로 하여금 JSON/RPC를 통해 [Ouroboros의 mini-protocols](https://hydra.iohk.io/build/1070091/download/1/network.pdf#chapter.3)을 말할 수 있게 해주는 WebSocket API를 제공합니다.
 
-Ogmios doesn’t do much more than what the node itself does. It’s pretty much as low-level as things can get with the Cardano network. For many applications, this is too low in the abstraction layer and they would be better off using higher-level services like [cardano-graphql](https://github.com/input-output-hk/cardano-graphql), [Rosetta](https://www.rosetta-api.org), or [Blockfrost](https://blockfrost.io).
+Ogmios는 노드 자체가 수행하는 것 이상을 수행하지 않습니다. 이는 Cardano 네트워크로 얻을 수 있는 것들 만큼이나 저수준의 것들입니다. 많은 어플리케이션의 경우, 이는 추상 레이어에서 너무 낮은 수준이며 [cardano-graphql](https://github.com/input-output-hk/cardano-graphql), [Rosetta](https://www.rosetta-api.org), 또는 [Blockfrost](https://blockfrost.io)를 사용하는 게 더 나을 것입니다.
 
-## Installation
+## 설치
 
-The easiest way to get started with Ogmios is to use [docker](https://www.docker.com). Since Ogmios requires the presence of a Cardano node, it makes sense to use docker-compose to orchestrate both services. A compose file is available on the Ogmios repository, get it via:
+Ogmios를 시작하는 가장 쉬운 방법은 [docker](https://www.docker.com)를 사용하는 것입니다. Ogmios에는 Cardano 노드가 필요하므로, docker-compose를 사용하여 두 서비스를 조정하는 것이 좋습니다. compose 파일은 Ogmios 저장소에서 사용할 수 있으며, 다음을 통해 가져옵니다.
 
 ```sh
 git clone --depth 1 https://github.com/CardanoSolutions/ogmios.git
 cd ogmios
 ```
 
-
-Then, start the components stack using:
+그러고 다음 명령어를 사용하여 구성요소 스택을 시작합니다.
 ```sh
 docker-compose up
 ```
 
-If you prefer to build everything from source or without docker, please head to [the Ogmios website](https://ogmios.dev/getting-started).
+소스에서 또는 docker 없이 모든 것을 빌드하려면, [Ogmios website](https://ogmios.dev/getting-started)로 이동하십시오.
  
 
-## Dashboard
+## 대시보드
 
-You should now be able to access the dashboard on [http://localhost:1337](http://localhost:1337) with a real-time visualization of some of the server runtime metrics. 
+이제 몇몇 서버 런타임 측정의 실시간 시각화를 통해 [http://localhost:1337](http://localhost:1337)에서 대시보드에 액세스할 수 있습니다.
 
 ![img](../../static/img/get-started/ogmios/1-dashboard.gif)
 
-## Query metrics
+## 쿼리 메트릭
 
-The dashboard is powered by JSON responses served by [http://localhost:1337/health](http://localhost:1337/health).
+대시보드는 [http://localhost:1337/health](http://localhost:1337/health)에서 제공하는 JSON 응답을 통해 구동됩니다.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -63,7 +62,7 @@ wget --header='Accept: application/json' -qO- http://localhost:1337/health
   </TabItem>
 </Tabs>
 
-JSON response:
+JSON 응답:
 
 ```json
 {
@@ -96,6 +95,6 @@ JSON response:
 }
 ```
 
-## Ogmios documentation
+## Ogmios 문서
 
-To dive further into Ogmios and how to interact with the Ouroboros mini-protocols, visit [ogmios.dev](https://ogmios.dev/mini-protocols).
+Ogmios 및 Ouroboros mini-protocol과 상호작용하는 법에 대해 자세히 알아보려면 [ogmios.dev](https://ogmios.dev/mini-protocols)를 방문하십시오.

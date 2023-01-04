@@ -1,87 +1,87 @@
 ---
 id: secure-workflow
-title: Secure Transaction Workflow
-sidebar_label: Secure Transaction Workflow
+title: 안전한 트랜잭션 작업 흐름
+sidebar_label: 안전한 트랜잭션 작업 흐름
 description: Procedures for using private keys separately from the Internet.
 image: ../img/og/og-security-secure-transaction-workflow.png
 --- 
 
-This general guide is written to help Cardano stake pool operators and developers keep to one simple rule:
+이 일반적인 가이드는 Cardano 스테이크 풀 운영자 및 개발자로 하여금 다음과 같은 간단한 규칙을 준수하도록 돕기 위해 작성되었습니다.
 
 :::important
 
-Payment keys can never be stored, even for a moment, on an Internet connected machine.
+지불 키는 인터넷에 연결된 컴퓨터에 잠시라도 저장하면 안됩니다.
 
 :::
 
-Therefore we will present a standard workflow for this sequences of `cardano-cli` commands for a simple, single transaction for funds transfer:
+따라서 간단한 자금 전송 트랜잭션에 대한 `cardano-cli` 명령어 시퀀스의 표준화된 작업 흐름을 보여줄 것입니다. 
 
-  - **[Create Simple Transaction](../stake-pool-course/handbook/create-simple-transaction)** (*insecure* version)
+  - **[간단한 트랜잭션 생성](../stake-pool-course/handbook/create-simple-transaction)** (*안전하지 않은* 버전)
 
-Once you feel comfortable doing a simple transaction securely, you'll also be able to use it to securely execute these more complex transactions as well:
+간단한 트랜잭션을 안전하게 수행하는 것이 편안해지면, 이를 사용하여 보다 복잡한 트랜잭션도 안전하게 실행할 수 있습니다.
 
-  - [Minting Native Assets](../native-tokens/minting)
-  - [Minting NFTs](../native-tokens/minting-nfts)
-  - [Registering a Stake Address](../stake-pool-course/handbook/register-stake-keys)
-  - [Registering a Stake Pool](../stake-pool-course/handbook/register-stake-pool-metadata)
+  - [네이티브 자산 발행](../native-tokens/minting)
+  - [NFT 발행](../native-tokens/minting-nfts)
+  - [스테이킹 주소 등록](../stake-pool-course/handbook/register-stake-keys)
+  - [스테이크 풀 등록](../stake-pool-course/handbook/register-stake-pool-metadata)
 
-### A model for a secure transaction
+### 안전한 트랜잭션을 위한 모델
 
-All transactions will be done in these 3 steps:
+모든 트랜잭션은 다음 3단계로 이루어집니다.
 
-1.  on Internet connected computer:
-      - **Assemble** all transaction details (from Cardano node or other query) in a file & save it to a removable device.
-2.  in [Air Gap Environment](./air-gap):
-      - **Build** information from this file into a signed transaction & save the Tx file back on the same device (note `Tx` = "transaction").
-3.  on Internet connected computer:
-      - **Upload** the Tx file to your Cardano node and submit it.
+1.  인터넷에 연결된 컴퓨터에서:
+      - 모든 트랜잭션 세부 정보를 (Cardano 노드나 다른 쿼리로) 파일에 **모아서** 이동식 장치에 저장합니다.
+2.  [에어 갭 환경](./air-gap)에서:
+      - 해당 파일의 정보를 서명된 트랜잭션으로 **빌드**하고 Tx 파일을 동일한 장치에 다시 저장합니다 (참고: `Tx` = "트랜잭션").
+3.  인터넷에 연결된 컴퓨터에서:
+      - Cardano 노드에 Tx 파일을 **업로드하고** 제출합니다.
 
-Therefore, the payment signing key (the private component of the [Cardano wallet address key pair](../operate-a-stake-pool/cardano-key-pairs#wallet-address-key-pairs)) **never leaves the Air Gap environment**. This is vital because:
+따라서, 지불 서명 키([Cardano 지갑 주소 키 쌍](../operate-a-stake-pool/cardano-key-pairs#wallet-address-key-pairs)의 프라이빗 키)는 **절대 에어 갭 환경을 벗어나지 않습니다.** 이는 다음과 같은 이유로 중요합니다.
 
-  - A standard assumption in security is that *any* Internet connection on *any* computer creates opportunities for malicious people or programs to copy, view, or modify *anything* unencrypted on that computer.
-  - Unlike transactions with cryptocurrenty wallet software, in which the wallet's private payment keys are carefully encrypted and securely managed, the payment key (in this documentation, `payment.skey`) used for the raw transactions of development & stake pool operations is *not encrypted*.
-  - This means that this file stored anywhere on your Internet connected computer or server, even for an instant, creates an opportunity the funds at that address (`payment.addr`) to be ***lost***.
+  - 보안의 표준 가정은, *모든* 컴퓨터의 *모든* 인터넷 연결은 악의적ㅇ니 사람이나 프로그램이 해당 컴퓨터에서 암호화되지 않은 *모든 항목* 을 복사, 보기 또는 수정할 수 있는 기회를 생성한다는 것입니다. 
+  - 지갑의 개인 지불 키가 신중하게 암호화되고 안전하게 관리되는 암호화폐 지갑 소프트웨어에서의 트랜잭션과 달리, 개발과 스테이크 풀 운영에서의 트랜잭션에 사용되는 지불 키(해당 문서에서는 `payment.skey`)는 *암호화되지 않습니다*.
+  - 즉, 인터넷에 연결된 컴퓨터나 서버 어디에나 저장된 이 파일은 잠시더라도 해당 주소(`payment.addr`)의 자금이 ***손실*** 될 수 있는 기회를 만듭니다. 
 
-## Prerequisites
+## 전제
 
-### Your [Air Gap Environment](./air-gap)
+### [에어 갭 환경](./air-gap)
 
-Follow [these instructions](./air-gap) to create the environment (usually a dedicated "air gap machine") if you haven't already.
+이를 아직 만들지 않은 경우, [다음 지침](./air-gap)에 따라 환경(일반적으로 전용 "에어 갭 기기")을 구성하십시오.
 
-### Move any existing keys inside the Air Gap
+### 존재하는 모든 키를 에어 갭 내로 이동
 
-Second, if you've been running your applications, token/NFT generation, or stake pool with keys stored on any Internet connected machine (whether desktop or server):
+둘째, 어플리케이션, 토큰/NFT을 생성한 경우 또는 인터넷에 연결된 모든 컴퓨터(데스크톱 또는 서버)에 저장된 키를 사용하여 스테이크 풀을 실행한 경우:
 
-  - Move all those keys onto the Air Gap host and [securely delete](../get-started/air-gap#install-secure-deletion-tools) the originals.
-  - Also, seriously consider whether those resources should be rebuilt due to the exposure of those private keys.
+  - 모든 키를 에어 갭 호스트로 옮기고 원본을 [안전하게 삭제](../get-started/air-gap#install-secure-deletion-tools)합니다.
+  - 또한 해당 개인 키의 노출로 인해 해당 리소스를 다시 빌드해야 하는지 여부를 심각하게 고려해 보십시오.
 
-To simplify the commands below, this guide assumes you will store all your keys and addresses *in the same single directory* where you will be building your transactions.
+아래 명령들을 단순화하기 위해, 이 가이드에서는 모든 키와 주소를 트랜잭션 구축을 위한 *단일 디렉토리에* 저장한다고 가정합니다.
 
-### Dedicate a memory stick to moving your Tx files
+### Tx 파일 이동에 전용 메모리 스틱 사용
 
-Format a memory stick on a machine you believe to be secure, and then format it again on the Air Gap machine. Some ideas:
+안전하다고 생각되는 기기에서 메모리 스틱을 포맷한 다음, 에어 갭 기기로 가서 다시 포맷합니다. 다음은 이에 대한 몇 가지 생각입니다.
 
-  - The objective here is to avoid bringing malicious software from your host computer into the Air Gap environment, especially via viruses that are designed to propagate by memory sticks.
-  - Use a filesystem that will be compatible with your regular Internet connected machine *and* your Air Gapped Linux environment: the one most likely to be writable by all types of desktop is FAT32.
+  - 여기서 목표는 특히 메모리 스틱에 의해 전파되도록 설계된 바이러스로 인해, 호스트 컴퓨터로부터 에어 갭 환경으로 악성 소프트웨어가 들어오는 것을 방지하는 것입니다.
+  - 일반 인터넷 연결 기기 *및* 에어 갭 Linux 환경과 동시에 호환되는 파일 시스템을 사용하십시오. 거의 모든 유형의 데스크탑에서 쓰기 가능한 것은 FAT32입니다.
 
-## Steps of a secure transaction
+## 안전한 트랜잭션의 단계
 
-This is rewritten from page [Create Simple Transaction](../stake-pool-course/handbook/create-simple-transaction) (only considered secure to run on testnet) with the following exception:
+이는 다음 예외를 제외하고 [간단한 트랜잭션 생성](../stake-pool-course/handbook/create-simple-transaction) 페이지(테스트넷에서 실행하는 것이 안전한 것으로 간주됨)에서 재작성되었습니다.
 
-  - [Determinng the TTL (time to Live)](../stake-pool-course/handbook/create-simple-transaction#determine-the-ttl-time-to-live-for-the-transaction) for the transaction is omitted, along with setting this value in the transaction itself, to simplify the information-gathering step.
-  - This poses no security risk since an omitted TTL value allows a Tx file to be used indefinitely *but* submitting that Tx will change the UTxO set so that submitting that transaction again will be impossible.
+  - 트랜잭션에 대한 [TTL (time to Live) 결정](../stake-pool-course/handbook/create-simple-transaction#determine-the-ttl-time-to-live-for-the-transaction) 은, 정보 수집 단계를 단순화하기 위해 트랜잭션 자체에서 이 값을 설정하는 방식으로 생략되었습니다.
+  - 생략된 TTL 값으로 인해 Tx 파일을 무기한 사용할 수 있지만, 해당 Tx를 제출하면 UTxO 집합이 변경되어 해당 트랜잭션을 다시 제출하는 것이 불가능하므로 보안 위험이 없습니다.
 
-Also note that in general your "Internet connected machine" and your "Cardano node" will be two separate systems, and you will have to transfer files from one to the other with programs like [`rsync`](https://linux.die.net/man/1/rsync).
+또한 일반적으로 "인터넷에 연결된 컴퓨터"와 "Cardano 노드"는 두 개의 별도 시스템이며, [`rsync`](https://linux.die.net/man/1/rsync)와 같은 프로그램을 통해 파일을 전송해야 할 것입니다.
 
-  - So if you're running your Cardano node on a home machine (or using the Daedalus node port, for instance), where it says "upload" you only have to copy such files to where you can access them on that node.
+  - 따라서 "업로드"라고 표현된 홈 기기(혹은 예를 들어 Daedalus 노드 포트)에서 Cardano 노드를 실행하고 있다면, 해당 노드에서 액세스할 수 있는 위치에만 해당 파일을 복사하면 됩니다.
 
-### 1\. *Assemble* all transaction details.
+### 1\. 모든 트랜잭션 정보를 *취합*
 
-On your Internet-connected computer (usually your Cardano node, though you might use query services instead):
+인터넷에 연결된 컴퓨터에서(대신 쿼리 서비스를 사용할 수도 있지만, 일반적으로 Cardano 노드를 의미):
 
-#### Get protocol parameters
+#### 프로토콜 매개변수 가져오기
 
-Get the protocol parameters and save them to `protocol.json` with:
+프로토콜 매개변수를 가져와서 다음과 같이 `protocol.json` 에 저장합니다.
 
 ``` sh
 cardano-cli query protocol-parameters \
@@ -89,9 +89,9 @@ cardano-cli query protocol-parameters \
     --out-file protocol.json
 ```
 
-#### Get the transaction hash and index of the **UTXO** to spend:
+#### 사용할 **UTXO**의 트랜잭션 해시와 인덱스 가져오기
 
-Here `payment.addr` is the Cardano address you will be paying from, which may be stored on your insecure machine:
+여기서 `payment.addr` 는 지불을 실행할 Cardano 주소를 의미하고, 이는 안전하지 않은 기기에 저장되어 있을 것입니다:
 
 ``` sh
 cardano-cli query utxo \
@@ -99,26 +99,26 @@ cardano-cli query utxo \
     --mainnet
 ```
 
-Copy or redirect the output of this last command to a *scratch file* of your choice.
+이 마지막 명령의 출력을 선택한 *스크래치 파일로* 복사하거나 리디렉션합니다.
 
-Then copy both this file and `protocol.json` to the transfer memory stick.
+그런 다음 이 파일과 `protocol.json` 을 전송 메모리 스틱에 복사합니다.
 
-### 2\. *Build* Tx details into a signed transaction.
+### 2\. 서명된 트랜잭션에 Tx 정보를 *빌드하기*
 
-Attach your transfer memory stick to the Air Gap host and copy the files to your working directory:
+전송 메모리 스틱을 에어 갭 호스트에 연결하고 파일을 직접 작업 디렉토리에 복사합니다.
 
   - `protocol.json`
-  - your scratch file
+  - 스크래치 파일
 
-#### Draft the transaction
+#### 트랜잭션 초안 작성
 
-Create a draft for the transaction and save it in `tx.draft`. Notes:
+트랜잭션 초안을 작성하고 `tx.draft` 에 저장합니다. 메모:
 
-  - As in the insecure example, `payment2.addr` is the address you're sending a payment *to*, while `payment.addr` (holding the UTxO where the runds are coming *from*), will store the "change" from this transaction.
-  - For `--tx-in` we use the following syntax: `TxHash#TxIx` where `TxHash` is the transaction hash and `TxIx` is the index.
-  - For `--tx-out` we use: `TxOut+Lovelace` where `TxOut` is the hex encoded address followed by the amount in `Lovelace`.
-  - For the transaction draft, the `--tx-out` amounts and `--fee` can be set to zero.
-  - The values after `--tx-in` are taken from the output of `cardano-cli query utxo` that you saved in your scratch file.
+  - 안전하지 않은 예에서와 같이, `payment2.addr` 는 지불을 *받는* 주소이고, `payment.addr` (자금이 *들어오는* UTXO를 가지고 있음)는 이 트랜잭션으로부터의 "거스름돈"을 저장합니다.
+  - `--tx-in` 에 대해 다음 구문을 사용합니다:`TxHash#TxIx`. 여기서 `TxHash` 는 트랜잭션 해시이고 `TxIx` 는 트랜잭션 인덱스입니다.
+  - `--tx-out` 에 대해 다음 구문을 사용합니다: `TxOut+Lovelace`. 여기서 `TxOut` 은 16진수로 코딩된 주소와 `Lovelace` 로 표현된 값을 담습니다.
+  - 트랜잭션 초안의 경우, `--tx-out` 금액과 `--fee` 는 0으로 설정될 수 있습니다.
+  - `--tx-in` 이후의 값은 스크래치 파일에 저장된 `cardano-cli query utxo` 의 출력에서 가져옵니다.
 
 ``` sh
 cardano-cli transaction build-raw \
@@ -130,14 +130,14 @@ cardano-cli transaction build-raw \
     --out-file tx.draft
 ```
 
-#### Calculate the fee
+#### 수수료 계산
 
-A simple transaction needs one input, a valid UTXO from `payment.addr`, and two outputs:
+간단한 트랜잭션에는 하나의 입력, `payment.addr` 에서의 유효한 UTXO 한 개, 그리고 두 개의 출력이 필요합니다:
 
-  - Output1: The address that receives the transaction.
-  - Output2: The address that receives the change of the transaction.
+  - Output1: 거래를 받는 주소.
+  - Output2: 트랜잭션에 의한 거스름돈을 받는 주소.
 
-Note that to calculate the fee you need to include the draft transaction
+수수료를 계산하려면 트랜잭션 초안을 포함해야 합니다.
 
 ``` sh
 cardano-cli transaction calculate-min-fee \
@@ -150,22 +150,22 @@ cardano-cli transaction calculate-min-fee \
     --protocol-params-file protocol.json
 ```
 
-#### Calculate the change to send back to `payment.addr`
+#### 변경사항을 `payment.addr` 로 보내기 위해 계산
 
-All amounts must be in Lovelace:
+모든 금액은 Lovelace 단위로 표현됩니다.
 
     expr <UTXO BALANCE> - <AMOUNT TO SEND> - <TRANSACTION FEE>
 
-For example, if we send 10 ada from a UTxO containing 20 ada, the change to send back to `payment.addr` after paying the fee is: 9.832035 ada:
+예를 들어, 만약 20 ada를 담은 UTxO에서 10 ada를 보낸다고 하면, 수수료를 지불한 후 `payment.addr` 로 다시 보낼 변경사항은 9.832035 ada입니다: 
 
 ``` sh
 expr 20000000 - 10000000 - 167965
 9832035
 ```
 
-#### Build the transaction
+#### 트랜잭션 빌드
 
-We write the transaction in a file, we will name it `tx.raw`.
+`tx.raw` 라고 이름붙인 파일에 트랜잭션을 작성합니다.
 
 ``` sh
 cardano-cli transaction build-raw \
@@ -176,9 +176,9 @@ cardano-cli transaction build-raw \
     --out-file tx.raw
 ```
 
-#### Sign the transaction
+#### 트랜잭션 서명
 
-Sign the transaction with the signing key `payment.skey` and save the signed transaction in `tx.signed`:
+서명 키 `payment.skey` 로 트랜잭션에 서명하고 `tx.signed` 에 이를 저장합니다.
 
 ``` sh
 cardano-cli transaction sign \
@@ -188,15 +188,15 @@ cardano-cli transaction sign \
     --out-file tx.signed
 ```
 
-Save the `tx.signed` file back on the transfer memory stick, then [safely remove](https://help.ubuntu.com/stable/ubuntu-help/files-removedrive.html.en) the memory stick from the Air Gap machine.
+전송 메모리 스틱에 다시 `tx.signed` 파일을 저장하고, 에어 갭 기기로부터 메모리 스틱을 [안전하게 제거](https://help.ubuntu.com/stable/ubuntu-help/files-removedrive.html.en)합니다.
 
-### 3\. **Upload** and submit the Tx file.
+### 3\. Tx 파일 **업로드**하고 제출하기
 
-Reattach your transfer memory stick back to the Internet connected computer, then upload the `tx.signed` file to your Cardano node.
+전송 메모리 스틱을 인터넷에 연결된 컴퓨터에 다시 연결한 다음, `tx.signed` 파일을 Cardano 노드에 업로드합니다.
 
-#### Submit the transaction
+#### 트랜잭션 제출
 
-Log into your Cardano node and execute:
+Cardano 노드에 로그인하고 다음을 실행합니다:
 
 ``` sh
 cardano-cli transaction submit \
@@ -204,29 +204,30 @@ cardano-cli transaction submit \
     --mainnet
 ```
 
-Then check for a successful transaction by whatever means you prefer, e.g. as illustrated in [Check the balances](../stake-pool-course/handbook/create-simple-transaction#check-the-balances).
+그런 다음 [잔고 확인](../stake-pool-course/handbook/create-simple-transaction#check-the-balances)에 설명된 대로, 거래가 성공했는지 확인합니다.
 
 ## FAQ
 
-### Why can't I use `cardano-cli transaction build`?
+### 왜 `cardano-cli transaction build` 를 사용할 수 없나요?
 
-This is a convenient command to avoid the ["change" (return UTxO) calculation](../get-started/secure-workflow#calculate-the-change-to-send-back-to-paymentaddr) which requires you to prepare a test transaction, estimate fees, and calculate a final value of the funds to be moved. Instead, `transaction build` sends back "change" to a designated address.
+이는 테스트 거래를 준비하고, 수수료를 계산하며, 이동할 자금의 최종 가치를 계산해야 하는 ["거스름돈" (반환 UTxO) 계산](../get-started/secure-workflow#calculate-the-change-to-send-back-to-paymentaddr)을 피하기 위한 간편한 명령어입니다. 대신, `transaction build` 는 "거스름돈"을 지정된 주소로 돌려보냅니다.
 
-Some consider this so much easier to use that ***all*** transactions should be performed with this command, as discussed here:
+일부는 다음 링크에서 설명하는 것처럼 ***모든*** 트랜잭션을 이 명령어로 수행해야 할 정도로 사용하기가 훨씬 쉽다고 생각하고 있습니다.
 
   - [Please use `cardano-cli transaction build` instead of `cardano-cli transaction build-raw`](https://forum.cardano.org/t/please-use-cardano-cli-transaction-build-instead-of-cardano-cli-transaction-build-raw/94919)
 
-However, this discussion revealed the undocumented condition that `transaction build` can only be done on a **live** Cardano node. The community in general doesn't know the reasons for this (with some speculation in the thread above), so in the meantime:
+그러나, 이 논의를 통해 `transaction build` 가 **라이브** Cardano 노드에서만 실행될 수 있는 문서화되지 않은 조건이 드러났습니다. 일반적으로 커뮤니티는 이에 대한 이유를 알지 못하므로(위 스레드에서도 약간의 추측이 있음), 다음과 같이 하십시오.
 
-  - Using `transaction build` would require, in addition to accumulating the UTxO and balance information from your live Cardano node or network environment to build your transaction, that you also run the `build` command in the networked environment as well and save the unsigned transaction file on your transfer media.
-  - This transaction file would then need to be copied from the live environment to the Air Gap environment, where it would be signed... but in a security paranoid environment the user could never be sure the transaction was not built or modified maliciously outside the Air Gap.
+  - `transaction build` 를 사용하면, 라이브 Cardano 노드 또는 네트워크 환경에서 UTxO 및 잔액 정보를 축적하는 것 외에도 네트워크 환경에서 `build` 명령어를 추가적으로 실행해 전송 미디어에다가 서명되지 않은 트랜잭션 파일을 저장해야 합니다.
+  - 그런 다음 이 트랜잭션 파일을 라이브 환경에서 에어 갭 환경으로 복사해서 서명해야 합니다. 그러나 이런 환경에서 사용자는 트랜잭션이 에어 갭 외부에서 악의적으로 빌드되거나 수정되지 않았는지 확신할 수 없습니다.
 
-Therefore this guide suggests *only* assembling transaction *details* outside the Air Gap, to be applied to `cardano-cli transaction build-raw` inside the Air Gap, because there is not much convenience overall to using `transaction build` and perhaps some security risk as well.
+따라서 이 가이드에서는 에어 갭 내부에서 `cardano-cli transaction build-raw`에 적용될 트랜잭션 *세부 정보를* *모으기만* 하는 것을 제안합니다. `transaction build` 를 사용함에 있어 편의성이 크게 좋아지지도 않고, 약간의 보안 위험도 있기 때문입니다.
 
-## Other pending topics in secure workflow
+## 안전한 작업 흐름에서 보류 중인 기타 주제들
 
-These are not directly related to transacations, and will all eventually be addressed in their own pages on the Developer Portal:
+이들은 트랜잭션과 직접 관련이 없으며, 개발자 포털의 자체 페이지에서 모두 해결됩니다.
 
-  - pool key installation & updates: transferring keys securely from your Air Gap to your stake pool block producer
-  - making encrypted backups of your private keys (offsite / stored outside your Air Gap Environment)
-  - keeping secure (encrypted) records of your stake pool & development resources
+  - 풀 키 설치 및 업데이트: 에어 갭에서 스테이크 풀 블록 생성자로 안전하게 키 전송
+  - 개인 키의 암호화된 백업 만들기(오프사이트 / 에어 갭 환경 외부에 저장)
+  - 스테이크 풀 및 개발 리소스의 보안(암호화) 기록 유지
+

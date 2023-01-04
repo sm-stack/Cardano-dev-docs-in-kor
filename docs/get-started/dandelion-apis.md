@@ -1,33 +1,34 @@
 ---
 id: dandelion-apis
-title: Get Started with Dandelion APIs
+title: Dandelion API 시작하기
 sidebar_label: Dandelion APIs
 description: Get Started with Dandelion APIs
 image: ../img/og/og-getstarted-dandelion-apis.png
 --- 
 
-Dandelion currently offer 2 different paths to get started: 
+Dandelion은 시작할 수 있는 두 가지 경로를 제공하고 있습니다.
 
-- **For developers**: [A hosted instance][gimbalabs-dandelion] of almost every available Cardano API offered as a free community service by [Gimbalabs] to start building instantly.
-- **For SPOs/DevOps/sysadmins**: [An OpenSource project][kustomize-dandelion] to deploy the community service using Kubernetes.
+- **개발자용**: 즉시 빌딩을 시작할 수 있도록 [Gimbalabs]에서 무료 커뮤니티 서비스로 제공하는 모두가 사용가능한 Cardano API의 [호스팅된 인스턴스][gimbalabs-dandelion]입니다. 
+- **SPOs/DevOps/sysadmins용**: Kubernetes를 사용하여 커뮤니티 서비스를 배포하기 위한 [오픈소스 프로젝트][kustomize-dandelion]입니다. 
+
 [gimbalabs]: https://gimbalabs.com/
 [gimbalabs-dandelion]: https://gimbalabs.com/dandelion/
 [kustomize-dandelion]: https://gitlab.com/gimbalabs/dandelion/kustomize-dandelion
 
-# For developers
+# 개발자용
 
-Start prototyping your project instantly by choosing the API that better suits your need.
+더 적합한 API를 선택하여 즉시 프로젝트 프로토타입을 빌딩하십시오.
 
-They are all offered in the vanilla flavour of the opensource projects developed by IOG, Emurgo and other developers from the community, so you won't need to change anything in case you decide to host them by yourself.
+이는 모두 IOG, Emurgo 및 커뮤니티의 다른 개발자가 만든 오픈 소스 프로젝트로, 직접 호스팅하기로 결정한 경우 아무것도 변경할 필요가 없습니다.
 
-These are the links to github repositories and a brief description for all of them:
+다음은 Github 레퍼지토리에 대한 링크와 이에 대한 간략한 설명입니다.
 
-- [hasura/graphql-api][gh-hasura-graphql]: use this GraphQL API to gather composed info from the blockchain and to send signed transactions to the blockchain
-- [cardano-rest/explorer-api][gh-cardano-rest]: use this REST API to gather basic info from the blockchain. *DEPRECATED*
-- [cardano-rest/submit-api][gh-cardano-rest]: use this REST API to send signed transactions to the blockchain *DEPRECATED*
-- [KtorZ/ogmios-api][gh-ogmios]: use this JSON-WSP (websocket) API to gather live blockchain info directly from a cardano-node instance
-- [cardano-db-sync][gh-cardano-db-sync]/[postgrest-api][gh-postgrest]: use this REST API to perform SQL queries to gather info directly from cardano-db-sync's database 
-- [rosetta-api][gh-cardano-rosetta]: use this API to integrate your application with multiple blockchains in a simpler, faster, and more reliable way
+- [hasura/graphql-api][gh-hasura-graphql]: 이 GraphQL API를 사용하여 블록체인에서 구성된 정보를 수집하고 서명된 트랜잭션을 블록체인으로 전송합니다.
+- [cardano-rest/explorer-api][gh-cardano-rest]: 이 REST API를 사용하여 블록체인에서 기본 정보를 수집합니다. ***지원 중단됨***
+- [cardano-rest/submit-api][gh-cardano-rest]: 이 REST API를 사용하여 서명된 트랜잭션을 블록체인에 전송합니다. ***지원 중단됨***
+- [KtorZ/ogmios-api][gh-ogmios]: 이 JSON-WSP(websocket) API를 사용하여 Cardano 노드 인스턴스에서 직접 실시간 블록체인 정보를 수집합니다.
+- [cardano-db-sync][gh-cardano-db-sync]/[postgrest-api][gh-postgrest]: 이 REST API를 사용하여 SQL 쿼리를 수행하고, cardano-db-sync의 데이터베이스에서 직접 정보를 수집합니다.
+- [rosetta-api][gh-cardano-rosetta]: 이 API를 사용하여 어플리케이션을 더 간단하고, 빠르며 안정적인 방식으로 여러 블록체인과 통합합니다.
 [gh-hasura-graphql]: https://github.com/input-output-hk/cardano-graphql
 [gh-cardano-rest]: https://github.com/input-output-hk/cardano-rest
 [gh-ogmios]: https://github.com/cardanosolutions/ogmios
@@ -42,17 +43,19 @@ import TabItem from '@theme/TabItem';
 
 ![img](../../static/img/get-started/dandelion-apis/showcase-graphql-api.png)
 
-Useful links:
+유용한 링크:
 
-- [Link][gimbalabs-graphql-api] to Gimbalabs's endpoints information
-- [Link][graphql-official-doc] to project's official documentation
-- [Link][graphql-example-queries] to the official collection of example queries. You can play with them directly from the [GraphQL playground][graphql-playground-testnet]
+- Gimbalabs의 엔드포인트 정보 - [Link][gimbalabs-graphql-api] 
+- 프로젝트 공식 문서 - [Link][graphql-official-doc] 
+- 예제 쿼리의 공식 컬렉션 - [Link][graphql-example-queries]
+[GraphQL playground][graphql-playground-testnet]에서 직접 가지고 실행해볼 수 있습니다.
+
 [gimbalabs-graphql-api]: https://gimbalabs.com/dandelion/endpoints/graphql-api
 [graphql-example-queries]: https://github.com/input-output-hk/cardano-graphql/tree/master/packages/api-cardano-db-hasura/src/example_queries
 [graphql-official-doc]: https://input-output-hk.github.io/cardano-graphql/
 [graphql-playground-testnet]:  https://graphql-api.testnet.dandelion.link
 
-Usage examples:
+사용 예시:
 
 <Tabs
 defaultValue="curl"
@@ -72,7 +75,7 @@ curl -H 'Content-Type: application/json' \
   </TabItem>
 </Tabs>
 
-Output example:
+출력 예시:
 
 ```json
 {"data":{"cardanoDbMeta":{"initialized":true,"syncPercentage":100}}}
@@ -82,14 +85,15 @@ Output example:
 
 ![img](../../static/img/get-started/dandelion-apis/showcase-explorer-api.png)
 
-Useful links:
+유용한 링크:
 
-- [Link][gimbalabs-explorer-api] to Gimbalabs's endpoints information
-- [Link][explorer-official-doc] to project's official documentation
+- Gimbalabs의 엔드포인트 정보 - [Link][gimbalabs-explorer-api] 
+- 프로젝트 공식 문서 - [Link][explorer-official-doc] 
+
 [gimbalabs-explorer-api]: https://gimbalabs.com/dandelion/endpoints/explorer-api
 [explorer-official-doc]: https://input-output-hk.github.io/cardano-rest/explorer-api
 
-Usage examples:
+사용 예시:
 
 <Tabs
 defaultValue="curl"
@@ -107,7 +111,7 @@ curl -s https://explorer-api.mainnet.dandelion.link/api/txs/last
   </TabItem>
 </Tabs>
 
-Output example (REDACTED):
+출력 예시 (편집됨):
 
 ```json
 {
@@ -135,14 +139,15 @@ Output example (REDACTED):
 
 ![img](../../static/img/get-started/dandelion-apis/showcase-submit-api.png)
 
-Useful links:
+유용한 링크:
 
-- [Link][gimbalabs-submit-api] to Gimbalabs's endpoints information 
-- [Link][submit-official-doc] to project's official documentation
+- Gimbalabs의 엔드포인트 정보 - [Link][gimbalabs-submit-api] 
+- 프로젝트 공식 문서 - [Link][submit-official-doc] 
+
 [gimbalabs-submit-api]: https://gimbalabs.com/dandelion/endpoints/submit-api
 [submit-official-doc]: https://input-output-hk.github.io/cardano-rest/submit-api
 
-Usage examples assuming you have a valid `application/cbor` file containing a signed transaction (in e.g., from `cardano-cli` or any other library) located at `/tmp/cbor-tx`:
+사용 예시에서는 `/tmp/cbor-tx` 에 위치한 (e.g. `cardano-cli` 또는 다른 라이브러리부터 온) 서명된 트랜잭션을 포함하는 유효한 `application/cbor` 파일을 가지고 있다고 가정합니다.
 
 <Tabs
 defaultValue="curl"
@@ -160,7 +165,7 @@ curl -X POST \
   </TabItem>
 </Tabs>
 
-Output example (a transaction id):
+출력 예시 (트랜잭션 id):
 
 ```json
 92bcd06b25dfbd89b578d536b4d3b7dd269b7c2aa206ed518012cffe0444d67f
@@ -170,14 +175,15 @@ Output example (a transaction id):
 
 ![img](../../static/img/get-started/dandelion-apis/showcase-rosetta-api.png)
 
-Useful links:
+유용한 링크:
 
-- [Link][gimbalabs-rosetta-api] to Gimbalabs's endpoints information and official documentation
-- [Link][rosetta-official-doc] to project's official documentation
+- Gimbalabs의 엔드포인트 정보 - [Link][gimbalabs-rosetta-api] 
+- 프로젝트 공식 문서 - [Link][rosetta-official-doc] 
+
 [gimbalabs-rosetta-api]: https://gimbalabs.com/dandelion/endpoints/rosetta-api
 [rosetta-official-doc]: https://github.com/input-output-hk/cardano-rosetta#documentation
 
-Usage examples:
+사용 예시:
 
 <Tabs
 defaultValue="curl"
@@ -195,7 +201,7 @@ curl -s -X POST \
   </TabItem>
 </Tabs>
 
-Output example:
+출력 예시:
 
 ```json
 {
@@ -225,14 +231,15 @@ Output example:
 
 ![img](../../static/img/get-started/dandelion-apis/showcase-ogmios-api.png)
 
-Useful links:
+유용한 링크:
 
-- [Link][gimbalabs-ogmios-api] to Gimbalabs's endpoints information and official documentation
-- [Link][ogmios-official-doc] to project's official documentation
+- Gimbalabs의 엔드포인트 정보 - [Link][gimbalabs-ogmios-api] 
+- 프로젝트 공식 문서 - [Link][ogmios-official-doc] 
+
 [gimbalabs-ogmios-api]: https://gimbalabs.com/dandelion/endpoints/ogmios-api
 [ogmios-official-doc]: https://github.com/cardanosolutions/ogmios
 
-Usage examples:
+사용 예시:
 
 <Tabs
 defaultValue="websocat"
@@ -248,7 +255,7 @@ echo '{ "type": "jsonwsp/request", "version": "1.0", "servicename": "ogmios", "m
   </TabItem>
 </Tabs>
 
-Output example:
+출력 예시:
 
 ```json
 {
@@ -274,14 +281,15 @@ Output example:
 
 ![img](../../static/img/get-started/dandelion-apis/showcase-postgrest-api.png)
 
-Useful links:
+유용한 링크:
 
-- [Link][gimbalabs-postgrest-api] to Gimbalabs's endpoints information and official documentation
-- [Link][cardano-db-sync-official-doc] to `cardano-db-sync` official documentation
+- Gimbalabs의 엔드포인트 정보 - [Link][gimbalabs-postgrest-api] 
+- 프로젝트 공식 문서 - [Link][postgrest-official-doc] 
+
 [gimbalabs-postgrest-api]: https://gimbalabs.com/dandelion/endpoints/postgrest-api
 [cardano-db-sync-official-doc]: https://github.com/input-output-hk/cardano-db-sync/blob/master/doc/interesting-queries.md
 
-Usage examples:
+사용 예시:
 
 <Tabs
 defaultValue="curl"
@@ -309,8 +317,9 @@ curl -s "https://postgrest-api.mainnet.dandelion.link/tx_metadata?json->>Network
   </TabItem>
 </Tabs>
 
-## Deploy your own Dandelion
+## 나만의 Dandelion 배포하기
 
-If you already have Docker installed, you are almost done for using Dandelion in your local development environment. Please refer to [the official documentation][local-dandelion-deploy] to do so and do not hesitate to ask for support in our dedicated [Discord channel][discord-dandelion], we know operating systems, networks and cloud providers might differ a lot and give random problems!
+Docker가 이미 설치되어 있다면, 로컬 개발 환경에서 Dandelion 사용이 거의 완료된 것입니다. [공식 문서][local-dandelion-deploy]를 참고하시고, 전용 [Discord 채널][discord-dandelion]에서 지원을 요청하세요. 운영 체재, 네트워크 및 클라우드 공급자가 각각 다르기에 임의의 문제가 발생할 수 있음을 충분히 알고 있습니다!
+
 [discord-dandelion]: https://discord.gg/qDc3f9R7Ab
 [local-dandelion-deploy]: https://gitlab.com/gimbalabs/dandelion/kustomize-dandelion#local-deployment

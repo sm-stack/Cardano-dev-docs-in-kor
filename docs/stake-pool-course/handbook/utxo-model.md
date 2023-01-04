@@ -1,24 +1,24 @@
 ---
 id: utxo-model
-title: Classic UTxO model
-sidebar_label: Classic UTxO model
+title: 고전적인 UTxO 모델
+sidebar_label: 고전적인 UTxO 모델
 description: "Stake pool course: The classic UTxO model." 
 image: ../img/og/og-developer-portal.png
 ---
 
-In the classic UTxO model (Cardano SL in Byron and Shelley), a transaction output locked by a script carries two pieces of information:
+고전적인 UTxO 모델(Byron 및 Shelley의 Cardano SL)에서 스크립트에 의해 잠긴 트랜잭션 출력은 두 가지 정보를 전달합니다.
 
-* its value (the amount)
-* its reference address (the "proof" of ownership telling who is the owner of the output)
+* 값 (금액)
+* 참조 주소 (누가 출력의 소유자인지 알려주는 소유권의 "증거")
 
-Every transaction has at least one input and at least one output. Transactions carries the information about money flow. Inputs inform where the money came from (source address), while outputs inform where the money goes to (destination address). Every new transactions spend outputs of previous transactions and produce new outputs that can be spent by future transactions. The blockchain records the collective history of those transactions. 
+모든 트랜잭션에는 최소한 하나의 입력과 최소한 하나의 출력이 있습니다. 트랜잭션은 자금 흐름에 대한 정보를 전달합니다. 입력은 돈이 어디서 왔는지(발신자 주소) 알려주고, 출력은 돈이 가는 곳(수신자 주소)을 알려줍니다. 모든 새 트랜잭션은 이전 트랜잭션의 출력을 사용하고 향후 트랜잭션에서 사용할 수 있는 새 출력을 생성합니다. 블록체인은 이러한 트랜잭션의 집합적인 기록을 기록합니다.
 
-An unspent transaction output is called a UTxO (as in **U**nspent **Tx** **O**utput) and represents an amount of money owned by a participant that can be spent as an input in a new transaction. The key issue here is that a complete UTxO must be used as an input for a new transaction. UTxOs cannot be consumed in part. Rather, the difference is sent back to the source as a "change" during the transaction, which is represented as a new UTxO. 
+사용되지 않은 트랜잭션 출력은 UTxO라고 하며, 참가자가 소유 한 금액 중 새 트랜잭션에서 입력으로 사용할 수 있는 금액을 나타냅니다. 여기서 중요한 문제는 완전한 UTxO가 새 트랜잭션의 입력으로 사용되어야 한다는 것입니다. UTxO는 부분적으로 사용할 수 없습니다. 오히려 차액은 새로운 UTxO로 표시되는 트랜잭션 내에서 "거스름돈"으로 발신자에게 다시 전송됩니다.
 
-For example, asuming zero transaction fees, let's say Alice has 100 ada and Bob has 20 ada. If Alice wants to transfer Bob 40 ada, Alice must consume the full 100 ada as input to the new transaction. This new transaction will have two outputs: 40 ada to Bob and 60 ada to Alice. 
+예를 들어, 트랜잭션 수수료가 없는 상황에서 Alice가 100 ada를 가지고 있고 Bob이 20 ada를 가지고 있다고 가정해 보겠습니다. Alice가 Bob에게 40 ada를 전송하려는 경우 Alice는 새 트랜잭션에 대한 입력으로 전체 100 ada를 소비해야 합니다. 이 새로운 트랜잭션은 Bob에게 40 ada, Alice에게 60 ada의 두 가지 출력을 갖게 합니다.
 
-Therefore, the current balance in a wallet will be the sum of all its unspent transaction outputs (UTxOs). On future transactions, those UTxOs will become the inputs for those new transactions.
+따라서 지갑의 현재 잔액은 사용되지 않은 모든 트랜잭션 출력(UTxO)의 합계입니다. 향후 트랜잭션에서 해당 UTxO는 새 트랜잭션의 입력이 됩니다.
 
-### Reference material
+### 참고 문헌
 
-[Understanding Unspent Transaction Outputs in Cardano](https://emurgo.io/blog/understanding-unspent-transaction-outputs-in-cardano)
+[Cardano의 미사용 트랜잭션 출력 이해하기](https://emurgo.io/blog/understanding-unspent-transaction-outputs-in-cardano)

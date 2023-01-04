@@ -1,7 +1,7 @@
 ---
 id: portal-style-guide
-title: Style Guide
-sidebar_label: Style Guide
+title: 스타일 가이드
+sidebar_label: 스타일 가이드
 description: Style guide for the Cardano developer portal.
 image: ../img/og/og-developer-portal.png
 ---

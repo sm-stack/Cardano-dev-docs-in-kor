@@ -1,81 +1,81 @@
 ---
 id: tangocrypto
-title: Getting started with Tangocrypto
+title: Tangocrypto 시작하기
 sidebar_label: Tangocrypto
 description: Getting started with Tangocrypto
 image: ../img/og/og-getstarted-tangocrypto.png
 ---
 
-# What is Tangocrypto?
+# Tangocrypto란?
 
-We provide a suite of high availability APIs and developer tools for fast and reliable access to the Cardano network that requires only 1 minute to integrate. As a developer starting on Cardano you will face the following problems:
-- There's no way to access the information on a blockchain without using a node or an API provider.
-- You will have to start creating the infrastructure instead of focusing on your products and business. 
-- In-house infrastructure doesn’t scale automatically when user demand increases.
-- There is a high learning curve, a broader error surface and increase in cost when building integrations with several API services from multiple providers.
+Tangocrypto는 Cardano 네트워크를 위한, 통합하는 데 1분 밖에 걸리지 않는 API 및 개발자 도구 모음입니다. Cardano에서 시작하는 개발자는 다음과 같은 문제에 직면하기 일쑤입니다.
+- 노드나 API 공급자를 사용하지 않고는 블록체인의 정보에 액세스할 수 있는 방법이 없습니다.
+- 제품과 비즈니스에 집중하는 대신 인프라 구축을 먼저 해야 합니다.
+- 인프라 구축을 해 놓아도, 사용자 수요가 증가하면 이를 확장해야 합니다. 자동으로 확장되지 않습니다.
+- 여러 공급자의 여러 API 서비스와 통합할 때, 추가적인 학습과 비용이 필요합니다.
 
-We provide an unified platform where you'll be able to: 
-- Ship products faster and validate business ideas.
-- Use one platform to fetch, submit and listen on-chain information, mint tokens, store files and process payments.  
-- Grow their user base by relying on an elastic infrastructure capable of handling spikes in consumption without downtime. 
-- Reduce cost on engineering and infrastructure operations. 
+우리는 다음을 수행할 수 있는 플랫폼을 제공합니다.
+- 제품을 더 빨리 구성하고 비즈니스 아이디어를 검증할 수 있습니다.
+- 하나의 플랫폼으로 온체인 정보, 발행 토큰, 파일 저장 및 지불 처리에 대한 정보를 가져오고, 제출할 할 수 있습니다.
+- 다운타임 없이 사용량 급증에도 대처할 수 있는 탄력적인 인프라에 의존하여 사용자 기반을 확장합니다.
+- 엔지니어링 및 인프라 운영 비용을 절감합니다. 
 
-Our solution provides the following components:
+우리의 솔루션은 다음 구성 요소를 제공합니다.
 - REST API
-- Notify (Webhooks)
+- Notify (Webhook)
 
-💻 You can create a **free** account now at https://dashboard.tangocrypto.com/register and start coding your next product. 
+💻 지금 https://dashboard.tangocrypto.com/register에서 **무료** 계정을 만들고 프로덕트 빌딩을 시작할 수 있습니다.
 
 ## REST API
-The HTTP REST API goal is to make development faster and easier. There is no need for syncing with the blockchain and maintaining complicated setups. No more complex and multiple requests to the blockchain from different entry points, the developers can get all the data they need for transactions, token information and debug, in fewer requests.
+HTTP REST API의 목표는 개발을 더 빠르고 쉽게 만드는 것입니다. 이를 통해, 블록체인과 동기화하고 복잡한 설정 작업을 할 필요가 없습니다. 다른 진입점에서 블록제인에 대한 복잡하고 많은 요청들이 더 이상 필요하지 않으므로, 개발자는 더 적은 수의 요청으로 트랜잭션, 토큰 정보 및 디버그에 필요한 모든 데이터를 얻을 수 있습니다.
 
 ![alt text](../../static/img/get-started/tangocrypto/restapidiagram.png)
 
-We provide the most accessible and reliable Cardano infrastructure, freeing companies and developers from the responsibility to maintain complex infrastructures and focus instead on building their business logic and provide value to their customers. 
+우리는 가장 접근하기 쉽고 안정적인 Cardano 인프라를 제공하여, 기업가 개발자가 복잡한 인프라를 유지 관리하는 책임에서 벗어나 비즈니스 로직을 구축하고 고객들에게 가치를 제공하는 데 집중할 수 있도록 합니다.
 
-- **Enterprise-grade infrastructure**: Harness the processing power of our globally distributed cloud-hosted node network. Our API alleviates the friction of maintaining your own compute and storage resources, lowering the barrier to entry for developers and enterprises.
-- **Built for developers**: Easy to read documentation and resources to help developers get started quickly.
-- **Gain app insights**: Our dashboard provides direct insights about API usage. Drill down into specific request methods and get response times, most used endpoints, usage by time of the day, IP address, countries and more. These insights are a great way to optimize applications based on user behaviour.
-- **Standard Interface**: Supports Mainnet and Testnet via client-compatible REST API over HTTPS.
-- **Always Online**: Running on the latest network upgrades with a minimum 99.9% uptime guarantee.
+- **엔터프라이즈급 인프라**: 전 세계적으로 분산된 클라우드 호스팅 노드 네트워크의 처리 능력을 활용합니다. 당사의 API는 자체 컴퓨팅 및 스토리지 리소스 유지 관리에서 있는 마찰을 완화하여 개발자와 기업의 진입 장벽을 낮춥니다.
+- **개발자를 위한 서비스**: 개발자가 빠르게 시작할 수 있도록 도와주는 읽기 쉬운 문서 및 리소스입니다.
+- **앱 인사이트 확보**: 우리의 대시보드는 API 사용에 대한 직관적인 인사이트를 제공합니다. 요청 방법에 대해 자세히 살펴보고, 응답 시간, 가장 많이 사용된 엔드포인트, 시간별 사용량, IP 주소, 국가 등을 가져옵니다. 이러한 인사이트는 사용자 행동을 기반으로 어플리케이션을 최적화하는데 큰 도움이 됩니다.
+- **표준 인터페이스**: HTTPS를 통한 클라이언트 호환 REST API를 통해 메인넷 및 테스트넷을 지원합니다.
+- **항상 온라인**: 최소 99.9%의 가동 시간을 보장하는 최신 네트워크에서 실행됩니다.
 
-### Network and App ID
+### 네트워크와 앱 ID
 
-You can choose the mainnet or the testnet for your queries. The API requires a valid `app_id` to be included with your request traffic. This identifier should be appended to the request URL.
+메인넷과 테스트넷 중 하나를 선택할 수 있습니다. API는 요청 트래픽에 포함된 유효한 `app_id` 를 요구합니다. 이 식별자는 요청 URL에 추가되어야 합니다.
 
-| Network          |   Endpoint      
-| ---------------- | :-----------: 
-| Cardano mainnet  | https://cardano-mainnet.tangocrypto.com/{app_id}/v1 
-|Cardano testnet   |   https://cardano-testnet.tangocrypto.com/{app_id}/v1 
-
-
-### API Key header
-When you sign up on https://www.tangocrypto.com and create an App an `x-api-key` is created. You must include the HTTP header `x-api-key` in every request in order to authenticate the API calls.
+| 네트워크          |  엔드포인트     
+| :--------------: | :-----------: 
+| Cardano 메인넷    | https://cardano-mainnet.tangocrypto.com/{app_id}/v1 
+|Cardano 테스트넷   |   https://cardano-testnet.tangocrypto.com/{app_id}/v1 
 
 
-:::tip FULL API REFERENCE
+### API 키 헤더
+https://www.tangocrypto.com에 가입하고 앱을 생성하면 `x-api-key`가 생성됩니다. API 호출을 인증하려면 모든 요청에 HTTP 헤더인 `x-api-key`를 포함해야 합니다.
 
-Check our API full reference documentation here https://www.tangocrypto.com/api-reference/
+:::tip 전체 API 참조
+
+https://www.tangocrypto.com/api-reference/에서 API 전체 참조 문서를 확인하세요.
 
 :::
 
-### Steps to get started with Tangocrypto
+### Tangocrypto 시작하기
 
-#### 1. 🔑 Create an App
+#### 1. 🔑 App 만들기
 
-To use Tangocrypto's products, you need an API key to authenticate your requests.
+Tangocrypto의 제품을 사용하려면, 요청을 인증하기 위한 API 키가 필요합니다.
 
-You can create API keys from the dashboard, just click on +Create App, name it and hit create:
+대시보드에서 API 키를 생성할 수 있습니다. +Create App을 클릭하고 이름을 지정한 다음 생성을 누르십시오.
 
 ![alt text](../../static/img/get-started/tangocrypto/app.png)
 
 
-Once your app is created just copy you app-id and `x-api-key` and start making requests.
+앱이 생성되면 app-id와 `x-api-key`를 복사하고 요청을 만들어보세요. 
 
 ![alt text](../../static/img/get-started/tangocrypto/tangocrypto_app_details.png)
 
-#### 2. 🏗️ SMake a Request and start building
-With the app-id and the `x-api-key` you can make requests. For example, let's make a request to get the latest block number:
+#### 2. 🏗️ 요청 만들고 빌딩 시작하기
+app-id와 `x-api-key`를 통해 요청을 만들 수 있습니다.
+예를 들어, 최신 블록 번호를 가져오도록 요청해 보겠습니다.
 
 ```shell
 curl --location \
@@ -83,7 +83,7 @@ curl --location \
 --header 'x-api-key: <your-api-key>'
 ```
 
-You should get something like this:
+다음과 같은 결과를 얻어야 합니다.
 ```json
 {
     "id": "3064146",
@@ -105,23 +105,23 @@ You should get something like this:
 }
 ```
 
-#### API Pagination
+#### API 페이지 매기기
 
-Some API endpoints paginate their responses to make the result set easier to handle. For example, if you request a list of objects that are potentially too large to run efficiently, the endpoint returns the first batch of results along with a cursor to access the next set of results. 
+일부 API 엔드포인트는 결과를 더 쉽게 처리할 수 있도록 응답에 페이지를 매깁니다. 예를 들어, 잠재적으로 너무 커서 효율적으로 실행할 수 없는 객체 목록을 요청하면 엔드포인트는 커서와 함께 결과의 첫 번째 배치를 반환하여 다음 결과 집합에 액세스합니다.
 
-The query results are divided into "pages" of 1 MB in size (or less) data. An application can process the first page of results, then the second page, etc. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. 
+쿼리 결과는 크기가 1MB 이하인 "페이지" 데이터로 나뉩니다. 어플리케이션은 결과의 첫 번째 페이지를 처리한 다음 두 번째 페이지를 처리하는 방식으로 나아갑니다. 엔드포인트에 대한 다음 요청에 대해, 요청에 대한 URL 내 쿼리 매개변수의 형태로 커서를 포함합니다.
 
-To determine whether there are more results and to retrieve them one page at a time, applications should do the following:
-1. Make a request with the desired `size` and check the result, if the cursor is not empty, construct a new request with the same parameters as the previous one. However, this time, take the cursor value from the last query and use it as the cursor parameter in the new request.
-2. If the `cursor` is empty in the result it means there are no more items to be retrieved.
+결과가 더 있는지 확인하고, 한 번에 한 페이지씩 검색하려면 어플리케이션에서 다음을 수행해야 합니다.
+1. 원하는 `size`로 요청을 만들고 결과를 확인합니다. 커서가 비어 있지 않으면, 이전 요청과 동일한 매개 변수로 새 요청을 구성하십시오. 그러나, 이번엔 마지막 쿼리에서 커서 값을 가져와 새 요청에서 매개 변수로 사용해보십시오.
+2. 만약 `cursor`가 결과에서 비어 있으면 더 이상 검색할 항목이 없다는 것을 의미합니다.
 
-#### Example
-Let's make the following query with size=50
+#### 예제
+size=50으로 다음과 같은 쿼리를 만들어 보겠습니다.
 ```
 https://cardano-mainnet.tangocrypto.com/<app-id>/v1/nft/collections?size=50
 ```
 
-In the response, we see the cursor with a non-empty value (showing only one record for simplicity) 
+응답에서, 비어 있지 않은 값이 있는 커서를 볼 수 있습니다(단순화를 위해 하나의 레코드만 표시).
 
 ```json
 {
@@ -187,42 +187,40 @@ In the response, we see the cursor with a non-empty value (showing only one reco
 }
 ```
 
-To retrieve the next batch of items we use the same query but now inserting the obtained cursor from the previous step as a the query parameter:
+다음 배치를 검색하기 위해서, 동일한 쿼리를 사용하되 이전 단계에서 얻은 커서를 쿼리의 매개변수로 넣습니다.
 
 ```
 https://cardano-mainnet.tangocrypto.com/<app-id>/v1/nft/collections?size=50&cursor=a97f98a8c533ee55fc2c6897c9b50506dc8d65b921092e469f62f9d0e2d0dc92902605dba96d30b2e027557d3d6ea8cb3c1597d93e36f9c70771f19485f176607d834f6bc4fd664e0f68d4c28eff52cc298dee1dc17975c043d05903c31dae41ff84c779f1f8d2bcc00447e25d066a4e
 ```
 
-This process can be repeated until the cursor is empty because there are no more items to retrieve. 
-
+검색할 항목이 더 이상 없기 때문에 커서가 비워질 때까지 이 프로세스를 반복할 수 있습니다.
 
 ## NOTIFY (WEBHOOKS)
-With Notify you'll will be able to integrate production-ready notifications with our webhooks and SDKs integrations. Get access to all of the blockchain events your users might care about, like successful transactions, payments, minted blocks by a pool, new delegations and whatnot.
+Notify를 통해, webhook 및 SDK 통합과 프로덕션 준비 알림을 통합할 수 있습니다. 성공적인 트랜잭션, 풀에서 생성된 블록, 새로운 위임 등과 같이 사용자가 관심을 가질 수 있는 모든 블록체인 이벤트에 액세스할 수 있습니다.
 
 ![alt text](../../static/img/get-started/tangocrypto/notify.png)
 
-- **Payments and transactions**: Allows sending notifications to users to know when their deposits, purchases, in-game actions or other on-chain activity has officially occurred.
-- **Address Activity Webhooks**: Let your users know when transaction activity occurs on their address. No more refreshing the page or having to use the dust to identify a payment.
-- **Smart Retries**: Sometimes receiving endpoints fails or hangs more often than you think. That’s why we provide automatic retries to ensure deliverability.
-- **Monitoring and debug**: We log every triggered webhook so you can monitor their deliverability to different endpoints, disable failing ones and notify your customers.
-- **Development experience**: Offer your users a great developer experience, including the ability to test and inspect their webhooks.
+- **결제 및 거래**: 입금, 구매, 게임 내 작업 또는 기타 온체인 활동이 공식적으로 발생한 시점을 알림으로 보내줍니다.
+- **주소 활동 Webhook**: 사용자의 주소에서 트랜잭션 활동이 발생하면 사용자에게 알려줍니다. 더 이상 지불을 확인하기 위해 페이지를 새로 고칠 필요 없습니다. 
+- **자동 재시도**: 가끔 엔드포인트 수신이 생각보다 자주 실패하거나 중단되는 경우가 있습니다. 따라서 이를 위해 자동 재시도 기능을 제공하고 있습니다.
+- **모니터링 및 디버그**: 트리거된 모든 Webhook를 기록하므로, 다른 엔드포인트에 대한 전달 가능성을 모니터링하고 실패한 항목을 비활성화하며 고객에게 이를 알릴 수 있습니다.
+- **개발자 경험**: Webhook를 테스트하고 검사하는 기능을 포함하여, 사용자에게 뛰어난 개발자 경험을 제공합니다.
 
+### Webhook란 무엇인가요?
+Webhook(웹 콜백 혹은 HTTP 푸시 API라고도 불림)는 앱이 다른 어플리케이션에 실시간 정보를 제공하는 방법입니다. Webhook는 정보가 발생하는 대로 다른 어플리케이션에 데이터를 전달하므로, 즉시 데이터를 얻을 수 있습니다. 이는 실시간으로 데이터를 가져오기 위해 매우 자주 데이터를 폴링해야 하는 일반적인 API와는 다릅니다. 이는 공급자와 소비자 모두에게 webhook가 훨씬 효율적인 부분입니다. Webhook는 특정 이벤트가 발생하면 알림을 보내는 URL을 등록하는 방식으로 작동합니다.
 
-### What are Webhooks?
-A webhook (also called a web callback or HTTP push API) is a way for an app to provide other applications with real-time information. A webhook delivers data to other applications as it happens, meaning you get data immediately. Unlike typical APIs where you would need to poll for data very frequently in order to get it real-time. This makes webhooks much more efficient for both provider and consumer. Webhooks work by registering a URL to send notifications once certain events occur.
+Webhook는 Tangocrypto가 Cardano의 활동을 알리기 위해 호출하는 전화번호와 같다고 생각할 수 있습니다. 여기서 활동은 주소에 대한 지불 활동이거나, 특정 에포크에 도달하는 것일 수 있습니다. Webhook 엔드포인트는 수신한 특정 정보를 기반으로 조치를 취하는 사람에 해당합니다.
 
-You can think that Webhooks are like a phone number that Tangocrypto calls to notify you of activity in Cardano. The activity could be a payment to an address or reaching a particular epoch. The webhook endpoint is the person answering that call who takes actions based upon the specific information it receives.
-
-A webhook endpoint is just more code on your server, which could be written in Node.js, Go, Java, Ruby, or whatever. The webhook endpoint has an associated URL (e.g. https://myserver.com/callback). The Tangocrypto notifications are Event objects. This Event object contains all the relevant information about what just happened, including the type of event and the data associated with that event. The webhook endpoint uses the event details to take any required actions, such as indicating that an NFT should be sent to a wallet. 
+Webhook 엔드포인트는 Node.js, Go, Java, Ruby 등으로 작성될 수 있는 서버의 추가 코드입니다. Webhook 엔드포인트에는 연결된 URL(예: https://myserver.com/callback)이 있습니다. Tangocrypto 알림은 Event 객체입니다. 이 Event 객체에는 Event 유형 및 해당 Event와 관련된 게이터를 포함하여 방금 발생한 일에 대한 모든 관련 정보가 포함되어 있습니다. Webhook 엔드포인트에서는 Event 세부 정보를 사용하여 NFT를 지갑으로 보내야 한다는 것 등을 포함해 필요한 작업을 수행합니다.
 
 :::note
 Webhooks vs. WebSockets:
-The difference between webhooks and WebSockets is that webhooks can only facilitate one-way communication between two services, while WebSockets can facilitate two-way communication between a user and a service, recognizing events and displaying them to the user as they occur.
+Webhook와 WebSocket 간의 차이점은, Webhook는 두 서비스 간 단방향 통신만 할 수 있는 반면, WebSocket은 사용자와 서비스 간의 양방향 통신을 가능하도록 하여, 발생한 이벤트를 인식하고 사용자에게 이벤트를 표시할 수 있다는 것입니다.
 :::
 
-### Event standard structure
+### Event 표준 구조
 
-The Event structure always begins with the following parameters:
+Event 구조는 항상 다음 매개변수로 시작합니다.
 ```json
 {
     "id": "2921e3df-c671-4d20-b51b-d176d5c1e43g", //** Unique uuid per event .**
@@ -236,35 +234,33 @@ The Event structure always begins with the following parameters:
 }
 ```
 `id`
-Unique identifier per Event. 
+Event의 고유 식별자입니다. 
 
 `api_version`
-The event scheme you receive depends on the version of the Tangocrypto API. Currently, we use v1. When you set a subscription for an event while using v1 of the API, the callback will be returned according to v1 specifics.
-Each time we update our API to the next version you will have to reset your Event subscriptions so that they correspond to the newest version currently in use. To do that you'll need to remove the event subscription and set it up again. Otherwise, the callback response will be received in the format of the older API version it was set up in.
+귀하가 받게 될 Event의 체계는 Tangocrypto API 버전에 따라 다릅니다. 현재는 v1을 사용하고 있습니다. API의 v1을 사용하는 동안 Event에 대한 구독을 설정하면 v1사양에 따라 콜백이 반환됩니다. API를 다음 버전으로 업데이트할 때마다 현재 사용 중인 최신 버전과 일치하도록 Event 구독을 재설정해야 합니다. 그렇게 하려면 Event 구독을 제거하고 다시 설정해야 합니다. 그렇지 않으면 콜백 응답은 이전 API 버전의 형식으로 수신됩니다.
 
 `webhook_id`
-The webhook_id indicates a reference to the webhook and It's is a unique code. Each time you set up an event subscription, the corresponding Event always has a parameter `webhook_id`.
+webhook_id는 webhook에 대한 참조를 나타내며, 고유한 코드 형태입니다. Event 구독을 설정할 때마다 해당 Event에는 항상 매개변수 `webhook_id`가 있습니다.
 
 `idempotency_key`
-Idempotency represents a process in computing and REST that a server uses to recognise subsequent retries of the same request where the returned result always remains the same. It is a security mechanism for retrying requests without the risk of performing the same operation more than once.
+Idempotency는 반환된 결과가 항상 동일하게 유지되는 동일한 요청의 재시도를 인식하기 위해 서버가 사용하는 컴퓨팅 및 REST의 과정을 나타냅니다. 동일한 작업을 두 번 이상 수행할 위험 없이 요청을 재시도하기 위한 보안 메커니즘입니다.
 
-Such risks usually can occur when an API call is for some reason disrupted during processing (e.g. network connection error) and a response is not returned. In such cases, the API call would be retried. By including an idempotency_id in the initial request there is a guarantee that the specific action won’t be done more than once.
-The `idempotency_id` is generated only by Tangocrypto webhooks. It is added to the Event and is unique per triggered webhook. 
+이러한 위험은 일반적으로 처리 중에 특정 이유로 API 호출이 중단되고(예: 네트워크 연결 오류) 응답이 반환되지 않을 때 발생할 수 있습니다. 이러한 경우 API 호출이 재시도됩니다. 처음 요청에 idempotency_id를 포함하면 특정 작업이 수행되지 않는다는 보장을 할 수 있습니다. `idempotency_id`는 Tangocrypto 웹후크에서만 생성됩니다. 이는 Event에 추가되며, Webhook마다 고유한 값을 가집니다.
 
-### Types of Webhooks
-Tangocrypto offers 5 different types of webhooks:
-- Payments
-- Block
-- Transaction
-- Epoch
-- Delegation
+### Webhook의 종류
+Tangocrypto는 5가지 유형의 webhook를 제공합니다.
+- 지불
+- 블록
+- 트랜잭션
+- 에포크
+- 위임
 
-Callback requests sent from Tangocrypto are always POST and it contains a JSON payload;
+Tangocrypto에서 보낸 콜백 요청은 항상 POST이며, 여기에는 JSON 페이로드가 포함됩니다.
 
-### 1. Payment
-The Payment Webhook allows you to track payments to an address. This provides your app with real-time state changes when an address sends or receives tokens. 
+### 1. 지불
+지불 Webhook를 사용하면 주소에 대한 지불 목록을 추적할 수 있습니다. 이는 주소가 토큰을 보내거나 받을 때 앱에 실시간 상태 변경을 제공합니다.
 
-Payload example
+페이로드 예시
 ```json
 {
     "id": "3c23ff25-481c-4e3e-859b-f515135a49b0",
@@ -348,10 +344,10 @@ Payload example
 
 ```
 
-### 2. Block
-This event is triggered every time a new block is created. 
+### 2. 블록
+이 Event는 새로운 블록이 생성될 때마다 트리거됩니다.
 
-Payload example 
+페이로드 예시 
 ```json
 {
   "id": "7b7c0d8a-8885-46d6-8e05-0d0802d95473",
@@ -393,10 +389,10 @@ Payload example
 }
 ```
 
-### 3. Transaction
-This event is triggered every time a new transaction is added to the blockchain. 
-Payload example
+### 3. 트랜잭션
+이 Event는 새로운 트랜잭션이 블록체인에 추가될 때마다 트리거됩니다. 
 
+페이로드 예시
 ```json
 {
   "id": "123c4446-7a4f-4e8b-8baf-3c1437101859",
@@ -448,9 +444,9 @@ Payload example
 }
 ```
 
-### 4. Epoch
-Get notified when an epoch starts.
-Payload example
+### 4. 에포크
+새로운 에포크가 시작할 때마다 알림을 받습니다.
+페이로드 예시
 ```json
 {
     "no": 178,
@@ -458,9 +454,9 @@ Payload example
 }
 ```
 
-### 5. Delegation
-This allows you to track delegations in the specified pool by its ticker or pool ID. 
-Payload Example 
+### 5. 위임
+이를 통해 티커 또는 풀 ID로 특정 풀에 대한 위임을 추적할 수 있습니다.
+페이로드 예시
 ```json
 {
   "id": "d0cf3218-761f-4ca1-900b-7750fb66fb59",
@@ -492,11 +488,11 @@ Payload Example
 }
 ```
 
-### Trigger Rules
- You can create rules or trigger conditions for every webhook. You can create rules through the Tangocrypto Dashboard or the API.  Every rule is composed of a `field`, a `value` and an `operator`. All the conditions have to be met for the webhook to be triggered. Rules are optional; depending on the number of rules and their parameters, the webhook will be triggered or not.
+### 트리거 규칙
+모든 Webhook에 대해 규칙을 생성하거나 조건을 트리거할 수 있습니다. 규칙은 Tangocrypto 대시보드나 API를 통해 생성할 수 있습니다. 모든 규칙은 `field`, `value`, `operator`로 구성됩니다. Webhook가 트리거되려면 모든 조건이 충족되어야 합니다. 규칙은 선택 사항입니다. 규칙 및 해당 매개변수의 수에 따라 Webhook가 트리거되는지가 결정됩니다.
 
-**Example**
-Trigger the webhook when the address receives more than 5 RBERRY tokens:
+**예**
+주소가 5개 이상의 RBERRY 토큰을 수신할 때 웹후크를 트리거합니다.
 
 ```bash
 curl --location --request POST 'https://cardano-testnet.tangocrypto.com/<app-id>/v1/webhooks' \
@@ -524,10 +520,10 @@ curl --location --request POST 'https://cardano-testnet.tangocrypto.com/<app-id>
 }'
 ```
 
-Rules can be created also from the dashboard:
+대시보드에서도 규칙을 만들 수 있습니다.
 
 ![alt text](../../static/img/get-started/tangocrypto/webhooks.png)
 
-#### MORE INFO
+#### 추가 정보
 https://docs.tangocrypto.com/notify/notify/using-webhooks
 

@@ -6,42 +6,42 @@ description: "Stake pool course: Lesson 1."
 image: ../img/og/og-developer-portal.png
 ---
 
-## Install VirtualBox
-Learn how to install VirtualBox on your machine and in it a Linux system. To be able to follow the video better you can find the written tutorial [how to install VirtualBox](/docs/stake-pool-course/handbook/setup-virtual-box-written) in the stake pool operator handbook.
+## VirtualBox 설치하기
+당신의 기기에 VirtualBox와 그 안에 Linux 시스템을 설치하는 방법을 배워보세요. 비디오를 더 잘 따라가려면, 스테이크 풀 운영자 핸드북에서 [VirtualBox 설치 방법](/docs/stake-pool-course/handbook/setup-virtual-box-written)에 대한 튜토리얼을 찾아보시기 바랍니다.
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/jYisjnTxtms" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br/><br/>  
 
 
-## Setup a Linux server on AWS
-Learn how to set up a Linux server on AWS. To be able to follow the video better you can find the written tutorial [how to setup a server on AWS](/docs/stake-pool-course/handbook/setup-a-server-on-aws-written) in the stake pool operator handbook.
+## AWS에 Linux 서버 설정하기
+AWS에서 Linux 서버를 설정하는 법에 대해 알아봅니다. 비디오를 더 잘 따라가려면, 스테이크 풀 운영자 핸드북에서 [AWS 설정 방법](/docs/stake-pool-course/handbook/setup-a-server-on-aws-written)에 대한 튜토리얼을 찾아보시기 바랍니다. 
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/6f1CQGTd4Lo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; allowfullscreen;"></iframe>
 <br/><br/>  
 
 
-## Alternative to AWS
-Learn how to configure a server on a different service provider. To be able to follow the video better you can find the written tutorial [how to configure the firewall](/docs/stake-pool-course/handbook/setup-firewall) in the stake pool operator handbook.
+## AWS에 대한 대안
+다른 서비스 공급자에서 서버를 구성하는 방법을 알아봅니다. 비디오를 더 잘 따라가려면, 스테이크 풀 운영자 핸드북에서 [방화벽 구성 방법](/docs/stake-pool-course/handbook/setup-a-server-on-aws-written)에 대한 튜토리얼을 찾아보시기 바랍니다. 
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/4Um9pCsZVSE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"></iframe>
 <br/><br/>  
 
 
-## Install cardano-node
-The Cardano node is the core component that underpins the Cardano network. Ultimately, a blockchain network is just a collection of interconnected nodes, all working together to validate transactions and blocks by means of consensus. The definition of consensus for any given network varies, but for the Cardano network it’s defined by the Ouroboros protocol. 
+## cardano-node 설치
+Cardano 노드는 Cardano 네트워크를 뒷받침하는 핵심 구성 요소입니다. 궁극적으로 블록체인 네트워크는 상호 연결된 노드의 모음일 뿐이며, 모두 함께 작동하여 합의를 통해 트랜잭션과 블록을 검증합니다. 주어진 네트워크에 대한 합의의 정의는 다양하지만, Cardano 네트워크의 경우 Ouroboros 프로토콜에 의해 정의됩니다. 
 
-Learn how to install cardano-node with all necessary dependencies on Linux. To be able to follow the video better you can find the written tutorial [how to install cardano-node](/docs/get-started/installing-cardano-node) in the stake pool operator handbook.
+Linux에서 필요한 모든 의존성과 함께 cardano-node를 설치하는 법에 대해 알아보세요. 비디오를 더 잘 따라가려면, 스테이크 풀 운영자 핸드북에서 [cardano-node 설치 방법](/docs/get-started/installing-cardano-node)에 대한 튜토리얼을 찾아보시기 바랍니다. 
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/zW8gmRzRXP0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"></iframe>
 <br/><br/>
 
 
-## Run cardano-node
-Learn how to run a cardano-node and get configuration files on Linux. To be able to follow the video better you can find the written tutorial [how to run a node](/docs/get-started/running-cardano) in the stake pool operator handbook.
+## cardano-node 실행
+cardano-node를 실행하고 Linux에서 구성 파일을 가져오는 법에 대해 알아보세요. 비디오를 더 잘 따라가려면, 스테이크 풀 운영자 핸드북에서 [노드 실행 방법](/docs/get-started/running-cardano)에 대한 튜토리얼을 찾아보시기 바랍니다.
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed//miYXZFBrOJ8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"></iframe>
 <br/><br/>
 
-:::tip questions or suggestions?
-If you have any questions and suggestions while taking the lessons please feel free to [ask in the Cardano forum](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158) and we will respond as soon as possible.
+:::tip 질문이나 제안 사항
+수업을 듣는 동안 질문이나 제안 사항이 있는 경우, [Cardano forum에 질문](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158)해 주시면 최대한 빨리 답변해 드리겠습니다.
 :::

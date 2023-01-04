@@ -1,83 +1,82 @@
 ---
 id: creating-wallet-faucet
-title: Exploring Cardano wallets
-sidebar_label: Exploring Cardano wallets
+title: Cardano 지갑 알아보기
+sidebar_label: Cardano 지갑 알아보기
 description: This article explains how you can create different kinds of Cardano Wallets and how you can recieve some tAda(test ada) from the faucet.
 image: ../img/og/og-developer-portal.png
 --- 
 
-### Overview 
+### 개요
 
-In this guide, we will show you how to create a **Cardano** wallet, receive some `tAda` (**test ada**) in the `testnet` network and send basic example transactions. We will explore tools like `cardano-cli` and `cardano-wallet` on how they can help with these functionalities.
+이 가이드에선, **Cardano** 지갑을 생성하는 방법, `testnet` 네트워크에서 `tAda` (**test ada**)를 받는 방법 및 기본적인 트랜잭션을 보내는 방법을 알아볼 것입니다. 이를 위해 `cardano-cli` 나 `cardano-wallet` 와 같은 도구들이 어떻게 작동하는지에 대해서도 살펴볼 예정입니다.
 
 :::note
-This guide assumes you have installed `cardano-node` and `cardano-cli` into your system. If not you can refer to [Installing cardano-node](/docs/get-started/installing-cardano-node) guide for instructions on how to do that.
+이 가이드는 이미 `cardano-node` 와 `cardano-cli`를 설치한 사람을 대상으로 합니다. 만약 설치되어 있지 않다면, [cardano-node 설치하기](/docs/get-started/installing-cardano-node)를 확인하고 설치를 진행하십시오.
 
-You must also connect your `cardano-node` to the `testnet` network and make sure it is fully synchronized.
+또한 당신의 `cardano-node` 를 `testnet` 네트워크에 완전히 동기화시키는 것도 잊지 마십시오.
 
-If you are not sure how to do that, It is recommended to read [Running cardano-node](/docs/get-started/running-cardano) guide before proceeding.
+만약 이를 어떻게 하는지 모르겠다면, [Cardano 노드 실행 방법](/docs/get-started/running-cardano)을 읽어보시는 것을 추천드립니다.
 :::
 
-### Cardano Wallets 
+### Cardano 지갑 
 
-So you installed your `cardano-node` and got it running, you probably even tried to query some simple blockchain data (If you read [Running cardano-node](/docs/get-started/running-cardano) guide). But how do you actually create a **Cardano** wallet, receive and send some `ada` or `tAda` tokens?
+`cardano-node`를 설치하고 작동하는 것을 확인했다면, 아마 간단한 블록체인 데이터를 쿼리하는 것까지도 해보셨을 것입니다 (만약 [Cardano 노드 실행 방법](/docs/get-started/running-cardano)를 읽어보셨다면). 그런데 실제로 **Cardano** 지갑을 만들고, `Ada` 나 `tAda` 토큰을 받고 전송하는 것은 어떻게 할까요?
 
-First we have to look at the applications we can use to create wallets.
+우선 지갑 생성에 사용할 어플리케이션들부터 살펴보겠습니다.
 
-- [Daedalus](https://daedaluswallet.io/) : **Daedalus Wallet** is the official **Cardano** full-node wallet, which is a [GUI (Graphical User Interface)](https://en.wikipedia.org/wiki/Graphical_user_interface) application for the Desktop (**Linux**, **MacOS**, **Windows**). That means that users will get to use a nice UI (User Interface), buttons and layout to interact with the **Cardano** blockchain.
+- [Daedalus](https://daedaluswallet.io/) : **Daedalus 지갑**은 **Cardano** 공식 풀노드 지갑으로, 데스크탑(**Linux**, **MacOS**, **Windows**)을 위한 [GUI (Graphical User Interface)](https://en.wikipedia.org/wiki/Graphical_user_interface) 어플리케이션입니다. 이는 사용자로 하여금 좋은 UI(유저 인터페이스), 버튼 및 레이아웃을 통해 **Cardano** 블록체인과 상호작용할 수 있다는 것을 의미합니다.
 
-    A full-node wallet basically means that it has to synchronize and download the blockchain first before users are able to send transactions and interact with the wallet.
+    풀노드 지갑은 기본적으로 사용자가 지갑에서 트랜잭션을 보내고 상호작용하기 전에 블록체인과 동기화하고 정보를 다운받아야 함을 의미합니다.
     
-    It is open-source mainly being developed by [InputOutputGlobal](https://iohk.io/), the development company behind the **Cardano** protocol and also one of the three foundational entities of the **Cardano** project.
+    이는 **Cardano** 프로토콜 뒤에 있는 개발사이자 **Cardano** 프로젝트 내 세 개의 주축 중 하나인 [InputOutputGlobal](https://iohk.io/)에 의해 개발된 오픈소스 프로젝트입니다.
 
-- [Yoroi](https://yoroi-wallet.com/#/) : **Yoroi Wallet** is the official **Cardano** light-wallet, It is available as a **mobile application** and as a **browser extension**. 
+- [Yoroi](https://yoroi-wallet.com/#/) : **Yoroi 지갑** 은 **Cardano** 공식 라이트 지갑으로, **모바일 어플리케이션**과 **브라우저 익스텐션** 두 가지 버전 모두 사용가능합니다.
   
-  A light-wallet means that users will not be forced to download the entire blockchain, Instead **Yoroi** has a backend server and downloads the blockchain data for the user without the user exposing sensitive data(**Private Keys**) to the server and ultimately maintaining security. This achieves a faster experience for the user due to the fact the user will not have to wait for hours before being able to use the wallet.
+  라이트 지갑은 사용자가 전체 블록체인을 다운받지 않아도 됨을 의미합니다. **Yoroi**에는 백엔드 서버가 있고, 사용자를 위해 서버에 블록체인 데이터를 다운받습니다. 이 과정에서 사용자의 민감한 정보(**개인 키**)는 서버에 노출되지 않고, 보안이 보장됩니다. 이를 통해 사용자가 지갑 사용을 위해 몇 시간을 기다리지 않아도 되기 때문에, 더 나은 사용자 경험을 제공합니다.
 
-  It is open-source mainly being developed by [Emurgo](https://emurgo.io), A company based in [Japan](https://en.wikipedia.org/wiki/Japan) which focuses on Business and Enterprise adoption of the **Cardano** blockchain. It is also one of the three foundational entities of the **Cardano** project.
+  이는 **Cardano** 블록체인의 비즈니스와 기업 도입에 집중하는 일본 기업인 [Emurgo](https://emurgo.io)에 의해 개발된 오픈소스 프로젝트입니다. 해당 회사도 **Cardano** 프로젝트의 세 가지 주축 중 하나입니다.
 
-- [cardano-wallet](https://github.com/input-output-hk/cardano-wallet) : `cardano-wallet` is a [CLI (Command Line Interface)](https://en.wikipedia.org/wiki/Command-line_interface) application that provides **Cardano** wallet functionalities both via command-line parameters or via a [Web API](https://en.wikipedia.org/wiki/Web_API). 
+- [cardano-wallet](https://github.com/input-output-hk/cardano-wallet) : `cardano-wallet` 은 명령줄 매개변수 또는 [Web API](https://en.wikipedia.org/wiki/Web_API)의 형태로 **Cardano** 지갑의 기능을 제공하는 [CLI (Command Line Interface)](https://en.wikipedia.org/wiki/Command-line_interface) 어플리케이션입니다.
 
- It is the wallet-backend that **Daedalus** wallet uses under-the-hood so it is also open-source, one of the many Haskell-based **Cardano** software components being written by [InputOutputGlobal](https://iohk.io/).
+  이는 **Daedalus** 지갑이 내부적으로 사용하는 지갑 백엔드로서, 역시 [InputOutputGlobal](https://iohk.io/)에 의해 작성된 Haskell 기반 **Cardano** 소프트웨어 구성요소 중 하나입니다.
 
- You can find `cardano-wallet` **REST API** documentation here: [https://input-output-hk.github.io/cardano-wallet/api/edge/](https://input-output-hk.github.io/cardano-wallet/api/edge/)
+  [https://input-output-hk.github.io/cardano-wallet/api/edge/](https://input-output-hk.github.io/cardano-wallet/api/edge/)에서 `cardano-wallet` **REST API** 문서를 찾을 수 있습니다.
 
-- [cardano-cli](https://github.com/input-output-hk/cardano-node) : `cardano-cli` is also a [CLI (Command Line Interface)](https://en.wikipedia.org/wiki/Command-line_interface) application that provides **Cardano** wallet functionalities. But `cardano-cli` purpose is geared more towards general **Cardano** functionalities like generating **keys**, building and submitting **transactions**, managing **stake pools** certificates, simple blockchain queries like wallet address **UTXO** and more.
+- [cardano-cli](https://github.com/input-output-hk/cardano-node) : `cardano-cli` 는 **Cardano** 지갑 기능을 제공하는 [CLI (Command Line Interface)](https://en.wikipedia.org/wiki/Command-line_interface) 어플리케이션이기도 합니다. 그러나 `cardano-cli`의 목적은 **키** 생성, **트랜잭션** 구축 및 제출, **스테이크 풀** 인증서 관리, 지갑 주소와 **UTXO** 등 간단한 블록체인 쿼리 등과 같은 일반적인 **Cardano** 기능에 더 맞춰져 있습니다.
 
-    It is part of the `cardano-node` project repository, so if you [compile and install](/docs/get-started/installing-cardano-node) `cardano-node` you should also have `cardano-cli` as-well. It is one of the many Haskell-based **Cardano** software components being written by [InputOutputGlobal](https://iohk.io/).
+    이는 `cardano-node` 프로젝트 레퍼지토리의 일부이므로, `cardano-node`를 [컴파일하고 설치](/docs/get-started/installing-cardano-node)하는 경우에도 `cardano-cli`가 있어야 합니다. 이도 역시 [InputOutputGlobal](https://iohk.io/)에 의해 작성된 Haskell 기반 **Cardano** 소프트웨어 구성요소 중 하나입니다
 
 :::warning
-Always download the wallets from official sources. There are many fake wallets, malicious software pretending to be **Cardano** wallets that could potentially steal your tokens / assets.
+항상 공식 소스에서 지갑을 다운로드하십시오. 잠재적으로 토큰/자산을 훔치려고 **Cardano** 지갑인 것처럼 가장한 악성 소프트웨어 및 가짜 지갑들이 많이 있습니다.
 :::
 
-### Creating a wallet
+### 지갑 생성
 
-As mentioned before, in this guide we will only be focusing on the `cardano-cli` and `cardano-wallet` since they provide some level of programmability which is important when we are talking about **Cardano** integrations for different kinds of use-cases.
+위에서 언급한 바와 같이, 이 가이드에서는 `cardano-cli` 와 `cardano-wallet`에만 초점을 맞출 것인데, 이 두 가지가 다양한 사용 사례에서 **Cardano** 통합에 대해 중요한 프로그래밍 가능성을 제공하기 때문입니다.
 
-
-#### Creating a wallet with `cardano-cli`
+#### `cardano-cli`로 지갑 만들기
 
 :::note
-In this section, We will use the path `$HOME/cardano` to store all the `cardano-cli` related files as an example, please replace it with the directory you have choosen to store the files.
+이 섹션에서는, 모든 `cardano-cli` 관련 파일을 `$HOME/cardano` 경로에 저장할 것입니다. 이를 반드시 파일 저장에 쓰이는 디렉토리로 바꾸십시오.
 :::
 
 :::important
-Please make sure your `cardano-node` is connected and synchronized to the `testnet` network before proceeding.
+계속하기 전에 `cardano-node`가 `testnet` 네트워크에 연결되어 동기화되었는지 확인하십시오.
 :::
 
 :::warning
-In a production environment, it might not be a good idea to store wallets / keys in a public server unless you know what you are doing.
+프로덕션 환경에서 본인이 무엇을 하고 있는지 제대로 알지 못하는 상황이라면, 공개 서버에다가 지갑이나 키를 보관하는 것은 좋지 않을 수 있습니다.
 :::
 
-First, lets create a directory to store all our `keys` like so:
+우선, 다음과 같이 모든 `keys`를 저장할 디렉토리를 만듭니다.
 
 ```bash
 mkdir -p $HOME/cardano/keys
 ```
 
-Make sure we are inside the `keys` directory like so: `cd $HOME/cardano/keys`
+`cd $HOME/cardano/keys`를 통해 `keys` 디렉토리로 들어가세요.
 
-Next, we generate our **payment key-pair** using `cardano-cli`:
+그런 다음, `cardano-cli`를 사용해 **지불 키 쌍**을 생성합니다.
 
 ```bash
 cardano-cli address key-gen \
@@ -85,13 +84,13 @@ cardano-cli address key-gen \
 --signing-key-file $HOME/cardano/keys/payment1.skey
 ```
 
-`cardano-cli address key-gen` : generates a **payment key-pair**.
+`cardano-cli address key-gen` : **지불 키 쌍**을 생성하는 명령어 입니다.
 
-`--verification-key-file` : points to the path where you want to save the `vkey` file.
+`--verification-key-file` : `vkey` 파일을 저장할 경로를 가리킵니다.
 
-`--signing-key-file` : points to the path where you want to save the `skey` file.
+`--signing-key-file` : `skey` 파일을 저장할 경로를 가리킵니다.
 
-You should now have two files in your `keys` directory like so: 
+이제 `keys` 디렉토리에 다음과 같은 두 파일이 있어야 합니다.
 
 ```bash
 $HOME/cardano/keys/
@@ -101,11 +100,11 @@ $HOME/cardano/keys/
 0 directories, 2 files
 ```
 
-Lets try to understand what these keys are used for in a very high-level overview that is relevant to our topic:
+이제 우리 주제와 관련된 높은 수준의 개요에서 이 키들이 사용된다는 것을 이해해보도록 합시다.
 
-- `.vkey` / **Public Verification Key** : Is used to derive a **Cardano** wallet address, a wallet address is basically the hash string value that you share to other users to provide them a way to send `ada` / `tAda` or other assets in the **Cardano** blockchain into your wallet.
+- `.vkey` / **공개 검증 키** : 이는 **Cardano** 지갑 주소를 유도하는 데에 사용합니다. 지갑 주소는 기본적으로 다른 사람들이 **Cardano** 블록체인에서 `ada` / `tAda`나 다른 자산들을 귀하의 지갑으로 전송하는 데 사용하는 해시 문자열 값입니다.
 
-    **The verification key file should look something like this**:
+    **검증 키 파일은 다음과 같아야 합니다**:
     ```json
     {
         "type": "PaymentVerificationKeyShelley_ed25519",
@@ -114,9 +113,9 @@ Lets try to understand what these keys are used for in a very high-level overvie
     }
     ```
 
-- `.skey` / **Private Signing Key** : Is used to sign / approve transactions for your wallet. As you can imagine, it is very important to not expose this file to the public and must be kept secure.
+- `.skey` / **개인 서명 키** : 이는 지갑에서 트랜잭션에 서명하고 승인하는 데에 사용됩니다. 당연히 해당 파일은 공개되지 않는 것이 매우 중요하며, 보안을 유지해야 합니다.
 
-    **The signing key file should look something like this**:
+    **T서명 키 파일은 다음과 같아야 합니다**:
     ```json
     {
         "type": "PaymentSigningKeyShelley_ed25519",
@@ -125,7 +124,7 @@ Lets try to understand what these keys are used for in a very high-level overvie
     }
     ```
 
-Since we now have our **payment key-pair**, the next step would be to generate a **wallet address** for the `testnet` network like so:
+이제 **지불 키 쌍**이 있으니, 다음 단계는 다음과 같이 `testnet` 네트워크의 **지갑 주소**를 생성하는 것입니다.
 
 ```bash
 cardano-cli address build \
@@ -134,15 +133,15 @@ cardano-cli address build \
 --testnet-magic 1097911063
 ```
 
-- `cardano-cli address build` : Generates a **wallet address** from a `vkey` file.
+- `cardano-cli address build` : `vkey` 파일에서 **지갑 주소**를 생성합니다.
 
-- `--payment-verification-key-file` : The path to the `vkey` file to be used for the derivation.
+- `--payment-verification-key-file` : 키 유도에 사용되는 `vkey` 파일로의 경로입니다.
 
-- `--out-file` : The path to save the wallet address file.
+- `--out-file` : 지갑 주소 파일을 저장하는 경로입니다.
 
-- `--testnet-magic` : The **NetworkMagic** of the network that where you want to use the wallet address.
+- `--testnet-magic` : 지갑 주소를 사용하려는 네트워크의 **NetworkMagic**입니다.
 
-You should now have `payment1.vkey`, `payment1.skey` and `payment1.addr` in your `keys` directory. It should look something like this:
+이제 `keys` 디렉토리에 `payment1.vkey`, `payment1.skey` 및 `payment1.addr`가 들어가 있을 것입니다. 이는 다음과 같은 모습을 갖춰야 합니다.
 
 ```bash
 $HOME/cardano/keys/
@@ -153,25 +152,24 @@ $HOME/cardano/keys/
 0 directories, 3 files
 ```
 
-The `payment1.addr` file contains the derived **wallet address** from your `vkey` file. It should look something like this:
+`payment1.addr` 파일은 `vkey` 파일에서 유도된 **지갑 주소**를 포함하고 있습니다. 이는 다음과 같은 모습을 갖춰야 합니다.
 
 ```
 addr_test1vz95zjvtwm9u9mc83uzsfj55tzwf99fgeyt3gmwm9gdw2xgwrvsa5
 ```
 
 :::note
- You can derive more than one **wallet address** from a **Public Verification Key** for more advanced use-cases using `cardano-addresses` component. Which we discuss in more details here: ***@TODO: link to article***
+`cardano-addresses`를 사용해서 더 뛰어난 사용 사례를 위해 **공개 검증 키**로부터 한 개 이상의 **지갑 주소**를 유도할 수 있습니다. 자세한 사항은 향후에 업데이트할 예정입니다.
 
-  - `mainnet` addresses are **prefixed** with the string value `addr1`. 
-  - `testnet` addresses are **prefixed** with the string value `addr_test1`. 
+  - `mainnet` 주소는 `addr1`이라는 문자열이 앞에 붙어있습니다.
+  - `testnet` 주소는 `addr_test1`이라는 문자열이 앞에 붙어있습니다. 
 
-
- If you want to create a wallet address to be used on `mainnet`, please use the `--mainnet` flag instead of `--testnet-magic 1097911063`. You can learn more about the different **Cardano** blockchain networks [here](/docs/get-started/running-cardano#mainnet--production).
+만약 `mainnet`에서 사용될 지갑 주소를 생성하려면, `--testnet-magic 1097911063` 대신 `--mainnet`를 사용하세요. [여기](/docs/get-started/running-cardano#mainnet--production)에서 **Cardano**의 여러 블록체인 네트워크에 대해 배울 수 있습니다.
 :::
 
-#### Querying the wallet **UTXO (Unspent Transaction Output)** with `cardano-cli`
+#### `cardano-cli`로 지갑 **UTXO (미사용 트랜잭션 출력)** 쿼리하기
 
-Now that we have a **wallet address**, we can then query the **UTXO** of the address like so: 
+이제 **지갑 주소**가 있으니, 다음과 같이 주소의 **UTXO**를 쿼리할 수 있습니다.
 
 ```bash
 cardano-cli query utxo \
@@ -179,28 +177,27 @@ cardano-cli query utxo \
 --address $(cat $HOME/cardano/keys/payment1.addr)
 ```
 
-- `cardano-cli query utxo` : Queries the wallet address **UTXO**.
+- `cardano-cli query utxo` : 지갑 주소의 **UTXO**를 쿼리합니다.
 
-- `--testnet-magic 1097911063` : Specifies that we want to query the `testnet` **Cardano** network.
+- `--testnet-magic 1097911063` : 우리가 `testnet` **Cardano** 네트워크를 쿼리하고 싶다는 것을 특정하는 명령어입니다.
 
-- `--address $(cat $HOME/cardano/keys/payment1.addr)` : The **wallet address** string value that we want to query, In this case we read the contents of `$HOME/cardano/keys/payment1.addr` using the `cat` command and we pass that value to the `--address` flag. That means you could also directly paste the **wallet address** value like so: 
+- `--address $(cat $HOME/cardano/keys/payment1.addr)` : 쿼리하고 싶은 **지갑 주소**의 문자열 값입니다. 이 경우 `cat` 명령어를 통해 `$HOME/cardano/keys/payment1.addr` 내 컨텐츠를 읽고, `--address`를 통해 해당 값을 보냅니다. 이는 다음과 같이 **지갑 주소**를 직접 붙여넣을 수 있다는 것을 의미합니다.
 ```
 --address addr_test1vz95zjvtwm9u9mc83uzsfj55tzwf99fgeyt3gmwm9gdw2xgwrvsa5
 ```
 
-You should see something like this:
+다음과 같은 내용이 표시되어야 합니다.
 
 ```
                            TxHash                                 TxIx        Amount
 --------------------------------------------------------------------------------------
 ```
 
+여기서 명령을 반환한 결과값에 그다지 많은 정보가 있지 않다는 것에 이상함을 느낄 수 있지만, 이는 우리가 쿼리한 지갑이 새 지갑이기에 해당 주소에 사용가능한 **UTXO**가 없기 때문입니다.
 
-Now you might find it odd that there is not much information in the result that was returned the command, but that is totally normal as there are no available **UTXO** in the specific **wallet address** that we have queried just yet as it is a new wallet.
+다음 단계는 [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet)에서 몇 개의 `tAda`를 요청하는 것입니다.
 
-Our next step is to request some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet).
-
-Once you requested some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) we can then run the query again and you should see something like this:
+[Cardano Testnet Faucet](../integrate-cardano/testnet-faucet)에서 `tAda`를 요청하면, 쿼리를 다시 실행했을 때 다음과 같이 표시되어야 합니다.
 
 ```
                            TxHash                                 TxIx        Amount
@@ -208,35 +205,34 @@ Once you requested some `tAda` from the [Cardano Testnet Faucet](../integrate-ca
 cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85     0        1000000000 lovelace
 ```
 
-This result tells us that there is one **UTXO** with the amount of 1,000,000,000 `lovelaces` in our specific **wallet address**, that means our wallet has a balance of `1,000 tAda`. 
+이 결과는 우리의 **지갑 주소**에 1,000,000,000 `lovelaces` 만큼의 **UTXO** 한 개가 있다는 것을 나타냅니다. 즉, 이 지갑에는 `1,000 tAda` 만큼의 잔고가 있는 것이죠.
 
-The result also specifies that the **UTXO** **transaction id** (`TxHash` / `TxId`) is `cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85` with the **transaction index** of `0`.
+또한 이 결과는 **UTXO** **트랜잭션 id** (`TxHash` / `TxId`)가 `cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85`임을 나타냅니다. 여기서 **트랜잭션 인덱스**는 0입니다.
 
 :::note
-In the **Cardano** blockchain, the `lovelace` is the unit used to represent `ada` in **transactions** and **UTXO**. 
+**Cardano** 블록체인에서, `lovelace`는 **트랜잭션**과 **UTXO**에서 `Ada`를 나타내는 단위입니다.
 
-Where `1 ada` is equal to `1,000,000 lovelace`, so moving forward we will be using `lovelace` instead of `ada` / `tAda`.
+여기서 `1 Ada`는 `1,000,000 lovelace`과 같고, 앞으로 `Ada` / `tAda` 대신 `lovelace`를 사용할 것입니다.
 
-You can also use the `TxHash` to view the complete transaction via the **Cardano Blockchain Explorer** for the relevant network. You can check the specific transaction for the example **UTXO** here: [f3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85](https://explorer.cardano-testnet.iohkdev.io/en/transaction?id=cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85)
+또한 `TxHash`를 사용하여 **Cardano 블록체인 익스플로러**를 통해 완결된 트랜잭션을 확인할 수 있습니다. 예시 **UTXO**에 대한 트랜잭션은 다음 링크에서 확인할 수 있습니다: [f3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85](https://explorer.cardano-testnet.iohkdev.io/en/transaction?id=cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85)
 
-To learn more about **UTXO (unspent transaction output)** and how transactions work for the **UTXO Model**, we recommend watching this lecture by [Dr. Lars Brünjes](https://iohk.io/en/team/lars-brunjes), Education Director at [InputOutputGlobal](https://iohk.io).
-
+**UTXO (미사용 트랜잭션 출력)**에 대해 더 자세히 알아보고 싶다면, [InputOutputGlobal](https://iohk.io)의 교육 책임자인 [Dr. Lars Brünjes](https://iohk.io/en/team/lars-brunjes)의 강의를 보는 것을 추천합니다.
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/EoO76YCSTLo?t=1854" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
 :::
 
-#### Creating simple transactions
+#### 간단한 트랜잭션 생성하기
 
-To have a clearer understanding of how sending transactions work using `cardano-cli`, first lets create another wallet like so:
+`cardano-cli`를 사용하여 트랜잭션을 전송하는 방법에 대해 더 명확하게 이해하기 위해, 다음과 같이 다른 지갑을 생성해 보겠습니다.
 
-**Generate payment key-pair**
+**지불 키 쌍 생성**
 ```bash
 cardano-cli address key-gen \
 --verification-key-file $HOME/cardano/keys/payment2.vkey \
 --signing-key-file $HOME/cardano/keys/payment2.skey 
 ```
 
-**Generate wallet address**
+**지갑 주소 생성**
 ```bash
 cardano-cli address build \
 --payment-verification-key-file $HOME/cardano/keys/payment2.vkey \
@@ -244,7 +240,7 @@ cardano-cli address build \
 --testnet-magic 1097911063
 ```
 
-Once complete you should have the following directory structure:
+완료되면 다음과 같은 디렉토리 구조가 형성되어야 합니다.
 
 ```bash
 $HOME/cardano/keys
@@ -258,7 +254,7 @@ $HOME/cardano/keys
 0 directories, 6 files
 ```
 
-Querying the **UTXO** for the second wallet `payment2.addr` should give you a familiar result:
+두 번째 지갑 `payment2.addr`에 대한 **UTXO**를 쿼리하면, 다음과 같은 익숙한 결과를 얻을 수 있습니다.
 
 ```bash
 cardano-cli query utxo \
@@ -266,17 +262,17 @@ cardano-cli query utxo \
 --address $(cat $HOME/cardano/keys/payment2.addr)
 ```
 
-**UTXO Result**
+**UTXO 결과**
 ```
                            TxHash                                 TxIx        Amount
 --------------------------------------------------------------------------------------
 ```
 
-Again, this is to be expected as the `payment2.addr` wallet address and keys has just recently been generated. So we expect that no one has sent any `tAda` to this wallet yet.
+다시 말하지만, `payment2.addr` 지갑 주소와 키가 최근에 생성되었습니다. 따라서, 아직 아무도 `tAda`를 이 지갑으로 보내지 않았다고 예상할 수 있습니다.
 
-In this example, we now have two wallets. We can call them `payment1` and `payment2`. Now remember that we requested some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) for `payment1` wallet, and thats how we have the following:
+이 예제에서 우리는 이제 두 개의 지갑이 있습니다. 각각을 `payment1` 와 `payment2`로 부르도록 합시다. `payment1` 지갑에 대해서는 우리가 [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet)에서 몇 개의 `tAda`를 요청했기 때문에, 다음과 같은 결과가 나오게 됩니다.
 
-`payment1` **wallet**: `1,000,000,000 lovelace`
+`payment1` **지갑**: `1,000,000,000 lovelace`
 
 ```
 UTXO
@@ -285,24 +281,24 @@ UTXO
 cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85     0        1000000000 lovelace
 ```
 
-`payment2` **wallet**: `0 lovelace`
+`payment2` **지갑**: `0 lovelace`
 ```
 UTXO
                            TxHash                                 TxIx        Amount
 --------------------------------------------------------------------------------------
 ```
 
-Now let's say we want to send `250,000,000 lovelace` to `payment2` **wallet**, how can we achieve that?
+이제 `250,000,000 lovelace`를 `payment2` **지갑**으로 보내고 싶은 상황이라고 해봅시다. 어떻게 하면 이를 수행할 수 있을까요?
 
-We start by storing the current on-chain protocol parameters to a **JSON** file:
+현재 온체인 프로토콜 매개변수를 **JSON** 파일에 저장하는 것부터 시작합니다.
 
-**Query Protocol Parameters**
+**프로토콜 매개변수 쿼리**
 ```bash
 cardano-cli query protocol-parameters \
   --testnet-magic 1097911063 \
   --out-file $HOME/cardano/protocol.json
 ```
-This will produce a **JSON** file that looks something like this:
+이는 다음과 같은 **JSON** 파일을 생성할 것입니다.
 ```json
 {
     "poolDeposit": 500000000,
@@ -331,9 +327,9 @@ This will produce a **JSON** file that looks something like this:
 ```
 
 
-**Create draft transaction**
+**트랜잭션 초안 생성**
 
-Next, we create a draft transaction like so:
+이제, 다음과 같이 트랜잭션 초안을 생성합니다.
 
 ```bash
 cardano-cli transaction build-raw \
@@ -344,17 +340,18 @@ cardano-cli transaction build-raw \
 --out-file $HOME/cardano/tx.draft
 ```
 
-`cardano-cli transaction build-raw` : This tells `cardano-cli` to build a raw transaction.
+`cardano-cli transaction build-raw` : `cardano-cli`에게 미가공 트랜잭션을 만들라고 지시합니다.
 
-`--tx-in` : This specifices the **UTXO** input that the transaction will use, you can add as many **UTXO** input as you want by adding multiple `--tx-in` in the `cardano-cli` arguments as long as they have a unique `TxHash` and `TxIdx` within all your inputs.
+`--tx-in` : 이는 트랜잭션이 사용할 **UTXO** 입력을 구체화합니다. 이에 따라, `cardano-cli` 인자 내 여러 개의 `--tx-in`을 추가함으로써 원하는 만큼의 **UTXO** 입력을 추가할 수 있습니다. 물론 각각이 모든 입력에 대해 고유한 `TxHash`와 `TxIdx`를 가지고 있어야 합니다.
 
-`--tx-out` : This specifies the target **wallet address**, **assets** and **quantity** to be sent to. You can add as many **UTXO** outputs as you want as long as the total **UTXO** input can satisfy the **assets** and **quantity** specified by the output.
+`--tx-out` : 이는 보낼 대상의 **지갑 주소**, **보낼 자산**, **보낼 양**을 구체화합니다. 총 **UTXO** 입력이 출력에 의해 구체화된 **자산**과 **양**을 충족시키는 한, 원하는 만큼 **UTXO** 출력을 추가할 수 있습니다.
+This specifies the target **wallet address**, **assets** and **quantity** to be sent to. You can add as many **UTXO** outputs as you want as long as the total **UTXO** input can satisfy the **assets** and **quantity** specified by the output.
 
-`--fee` : This specifies the fee amount of the transaction in `lovelace`.
+`--fee` : 이는 거래의 수수료 금액을 `lovelace` 단위로 지정합니다.
 
-`--out-file` : This is the path to the transaction file that will be generated.
+`--out-file` : 이는 생성될 트랜잭션 파일의 경로입니다.
 
-In this case, we are just building a draft transaction to calculate how much fee would the transaction need. We can do that by executing the following command: 
+이 경우에는, 거래에 필요한 수수료를 계산하기 위해 트랜잭션 초안을 작성하고 있는 것입니다. 다음 명령을 실행하여 이를 수행할 수 있습니다.
 
 ```bash
 cardano-cli transaction calculate-min-fee \
@@ -366,22 +363,22 @@ cardano-cli transaction calculate-min-fee \
 --protocol-params-file $HOME/cardano/protocol.json
 ```
 
-You should see something like this for the output: 
+출력에 대해 다음과 같이 표시되어야 합니다.
 
 ```bash
 174169 Lovelace
 ```
 
-You will notice that we use the `protocol.json` we queried awhile ago to calculate the transaction fee:
+트랜잭션 수수료를 계산하기 위해 좀 전에 쿼리했던 `protocol.json`을 사용한다는 것을 눈치채셨을 겁니다.
 ```
 --protocol-params-file $HOME/cardano/protocol.json
 ```
 
-That is because the transaction fee calculation results changes depending on the on-chain protocol parameters.
+이는 온체인 프로토콜 매개변수에 따라 트랜잭션 수수료의 계산 결과가 달라지기 때문입니다.
 
-The `--witness-count 1` basically tells `cardano-cli` that there will be only `1` **signing key** required for this transaction to be valid. Since the **UTXO** input involved in this transaction will only be coming from `payment1` wallet, so that means we indeed only need `1` key to sign the transaction.
+`--witness-count 1`는 기본적으로 트랜잭션이 유효하기 위해 `1`개의 **서명 키**만 존재해야 한다고 `cardano-cli`에게 말합니다. 이 트랜잭션의 **UTXO** 입력은 `payment1` 지갑으로부터 오기 때문에, 트랜잭션 서명에는 확실히 `1`개의 키만 필요합니다.
 
-We can then finally build the real transaction like so:
+이제 다음과 같이 최종적으로 실제 트랜잭션을 빌드할 수 있습니다.
 
 ```bash
 cardano-cli transaction build-raw \
@@ -392,7 +389,7 @@ cardano-cli transaction build-raw \
 --out-file $HOME/cardano/tx.draft
 ```
 
-To recap, We want to send `250,000,000 lovelace` from `payment1` wallet to `payment2` wallet. Our `payment1` wallet had the following **UTXO**:
+요약하자면, 우리는 `250,000,000 lovelace`를 `payment1` 지갑에서 `payment2` 지갑으로 보내고 싶습니다. `payment1`은 다음과 같은 **UTXO**를 가지고 있는 상황이었습니다.
 
 ```
                            TxHash                                 TxIx        Amount
@@ -400,39 +397,39 @@ To recap, We want to send `250,000,000 lovelace` from `payment1` wallet to `paym
 cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85     0        1000000000 lovelace
 ```
 
-So we will use the `TxHash` `cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85` and `TxIx` `0` as our `--tx-input`. 
+따라서 `--tx-input`으로 `TxHash` `cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85`와 `TxIx` `0`을 사용할 것입니다.
 
 ```bash
 --tx-in cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85#0
 ```
 
-We then tell `cardano-cli` that the destination of the `250,000,000 lovelace` is the **wallet address** of `payment2`.
+그런 다음 `cardano-cli`에게 `250,000,000 lovelace`의 목적지가 `payment2`라고 말해주어야 합니다.
 
 ```bash
 --tx-out $(cat $HOME/cardano/keys/payment2.addr)+250000000
 ```
 
-Now, we still have `750000000 lovelace` as the change amount, so we will simply send it back to ourselves like so:
+이제, 우리는 아직 `750000000 lovelace` 만큼의 거스름돈이 남았으므로, 다시 `payment1`로 이를 돌려보냅니다.
 
 ```bash
 --tx-out $(cat $HOME/cardano/keys/payment1.addr)+749825831
 ```
 
-Now an important question you might ask here is that, why is the amount `749825831 lovelace`? Well remember that we calculated the fee to be `174169 lovelace` and someone has to shoulder the transaction fee, so we decide that `payment` should pay for the fee with the change `lovelace` amount. So we calculate that `750000000 - 174169 = 749825831` and so the total change would be `749825831 lovelace`.
+여기서 중요한 질문 하나를 할 수 있습니다. 왜 금액이 `749825831 lovelace`일까요? 우리가 계산한 수수료는 `174169 lovelace`였습니다. 그리고, 누군가는 트랜잭션 수수료를 부담해야 하기 때문에, 전송하는 사람이 거스름돈에서 차감하는 방식으로 수수료를 지불하게 됩니다. 따라서 `750000000 - 174169 = 749825831` 만큼의 거스름돈 `749825831 lovelace`를 받게 되는 것입니다.
 
-We then specify the transaction fee like so:
+그런 다음 거래 수수료를 다음과 같이 지정합니다.
 
 ```
 --fee 174169
 ```
 
-And then we specify where we will save the transaction file:
+또한 트랜잭션 파일을 저장할 위치에 대해 지정합니다.
 
 ```
 --out-file $HOME/cardano/tx.draft
 ```
 
-Now that we have the transaction file, we must sign the transaction in-order to prove that we are the owner of the input **UTXO** that was used.
+이제 트랜잭션 파일이 있으므로, 사용된 입력 **UTXO**의 소유자가 우리임을 증명하기 위해 트랜잭션에 서명합니다.
 
 ```bash
 cardano-cli transaction sign \
@@ -442,9 +439,9 @@ cardano-cli transaction sign \
 --out-file $HOME/cardano/tx.signed
 ```
 
-`--signing-key-file $HOME/cardano/keys/payment1.skey` : This argument tells the `cardano-cli` that we will use `payment1.skey` to sign the transaction.
+`--signing-key-file $HOME/cardano/keys/payment1.skey` : 이 인자는 트랜잭션 서명에 `payment1.skey`를 사용할 것임을 `cardano-cli`에 알려줍니다.
 
-Finally, we submit the transaction to the blockchain!
+마지막으로, 이 트랜잭션을 블록체인에 제출합니다!
 
 ```bash
 cardano-cli transaction submit \
@@ -452,10 +449,10 @@ cardano-cli transaction submit \
 --testnet-magic 1097911063 
 ```
 :::important
-If you have waited too long to sign and submit the transaction, the fees might've changed during that time and therefore the transaction might get rejected by the network. To solve this, you simply have to **recalculate the fees, rebuild the transaction, sign it and submit it**!
+트랜잭션에 서명하고 제출하는 데 너무 오래 기다린 경우, 해당 시간 동안 수수료가 변경되었을 수 있으므로 트랜잭션이 네트워크에서 거부될 수 있습니다. 이 문제를 해결하려면 **수수료를 다시 계산하고, 트랜잭션을 다시 빌드해서 서명하고 제출하기만 하면 됩니다**!
 :::
 
-Checking the balances of both wallets `payment1` and `payment2`:
+`payment1` 와 `payment2` 두 지갑의 잔고를 확인하면 다음과 같습니다.
 
 ```bash
 # payment1 wallet UTXO
@@ -472,35 +469,35 @@ Checking the balances of both wallets `payment1` and `payment2`:
 63eeeb7e43171aeea0b3d53c5a36236cf9af92d5ee39e99bfadfe0237c46bd91     0        250000000 lovelace
 ```
 
-As we can see, `payment2` now has a **UTXO** with the amount of `250,000,000 lovelace` with the change amount returned to `payment1` and has generated a new **UTXO** with the amount of `749,825,303 lovelace` as-well.
+보시다시피, `payment2`는 `250,000,000 lovelace` 만큼의 **UTXO**를 가지게 되었고, `payment1`는 거스름돈을 받아 `749,825,303 lovelace` 만큼의 **UTXO**를 가진 것을 확인할 수 있습니다.
 
-Congratulations, You have created and sent your first **Cardano** transaction using `cardano-cli`! 🎉🎉🎉
+축하합니다! `cardano-cli`를 사용하여 첫 번째 **Cardano** 트랜잭션을 생성하고 보냈습니다! 🎉🎉🎉
 
-#### Creating a wallet with `cardano-wallet`
+#### `cardano-wallet`으로 지갑 만들기
 
 :::note
-This guide assumes you have installed `cardano-wallet` into your system. If not you can refer to [Installing cardano-wallet](/docs/get-started/installing-cardano-wallet) guide for instructions on how to do that.
+이 가이드는 이미 `cardano-wallet`을 설치한 상황을 가정합니다. 만약 설치하지 않았다면, [cardano-wallet 설치하기](/docs/get-started/installing-cardano-wallet) 가이드로 가서 지시에 따르시기 바랍니다.
 
-We will use the path `$HOME/cardano/wallets` to store all the `cardano-wallet` related files as an example, please replace it with the directory you have choosen to store the files.
+이 예제에선 모든 `cardano-wallet` 관련 파일을 저장할 때 `$HOME/cardano/wallets` 경로를 사용할 것입니다. 이를 각자 선택한 디렉토리로 바꾸시기 바랍니다.
 :::
 
 :::important
-Please make sure your `cardano-node` is connected and synchronized to the `testnet` network before proceeding.
+계속하기 전에 `cardano-node`가 `testnet` 네트워크와 연결되고 동기화되었는지 확인하세요.
 :::
 
 :::warning
-In a production environment, it might not be a good idea to store wallets / keys in a public server unless you know what you are doing.
+프로덕션 환경에서 본인이 무엇을 하고 있는지 제대로 알지 못하는 상황이라면, 공개 서버에다가 지갑이나 키를 보관하는 것은 좋지 않을 수 있습니다.
 :::
 
-First, lets create a directory to store all our `wallets` like so:
+우선 모든 `wallets`을 저장할 디렉토리를 다음과 같이 생성합니다.
 
 ```bash
 mkdir -p $HOME/cardano/wallets
 ```
 
-**Starting cardano-wallet as a REST API server**
+**REST API server로 cardano-wallet 시작하기**
 
-We will be focusing on the [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) that `cardano-wallet` provides. In-order to interact with the API, we must first start the server.
+`cardano-wallet`이 제공하는 [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer)에 중점을 두고 진행할 것입니다. API와 상호작용하려면 우선 서버를 시작해야 합니다.
 
 ```bash
 cardano-wallet serve \
@@ -510,37 +507,38 @@ cardano-wallet serve \
 --node-socket $CARDANO_NODE_SOCKET_PATH
 ```
 
-`cardano-wallet serve` : Runs `cardano-wallet` as a web server that provides a [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer).
+`cardano-wallet serve` : `cardano-wallet`을 [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer)를 제공하는 웹 서버의 형태로 구동합니다.
 
-`--port` : Specifies the port that the web server will listen to for any requests.
+`--port` : 웹 서버가 요청을 수신할 포트를 지정합니다.
 
-> You can choose whatever `port` number you like, but it is recommended to use `port` numbers `1024` and above. See [Registered Port](https://www.sciencedirect.com/topics/computer-science/registered-port) for more information.
+> 원하는 `port` 숫자를 지정할 수 있지만, `1024` 이상으로 설정하는 것을 추천합니다. 자세한 내용은 [Registered Port](https://www.sciencedirect.com/topics/computer-science/registered-port)를 참조하세요.
 
-`--testnet` : Specifies the **Byron** genesis file path for the `testnet` network.
+`--testnet` : `testnet` 네트워크를 위한 **Byron** 제네시스 파일 경로를 지정합니다.
 
-> This should match the genesis file that the `cardano-node` you are connected is using as-well. If you meant to connect to `mainnet` then use the `--mainnet` flag and the `mainnet` **Byron** genesis file instead.
+> 이는 연결되어 있는 `cardano-node`가 사용하는 제네시스 파일과도 일치해야 합니다. 만약 `mainnet`에 연결하고 싶다면 `--mainnet`과 `mainnet` **Byron** 제네시스 파일을 사용하세요.
 
-`--database` : Specifies the path where the wallet database will be saved.
+`--database` : 지갑 데이터베이스가 저장될 경로를 지정합니다.
 
-> It is important to note that the wallet creation function requires a passphrase so all the wallet data will be encrypted by the passphrase.
+> 지갑 생성 함수에는 암호가 필요하므로, 모든 지갑 데이터는 암호화된다는 점을 기억하세요.
 
-`--node-socket` : Specifies the `cardano-node` socket path that will be used by the `cardano-wallet` to communicate with the node.
+`--node-socket` : `cardano-wallet`이 노드와 통신하기 위해 사용하는 `cardano-node` 소켓 경로를 지정합니다.
 
-> The `cardano-node` uses **IPC (Inter-Process-Communication)** for communicating with the other **Cardano** components like `cardano-cli`, `cardano-wallet` and `cardano-db-sync`. In **Linux** and **MacOS** it uses something called [unix sockets](https://en.wikipedia.org/wiki/Unix_domain_socket) and [Named Pipes](https://docs.microsoft.com/en-us/windows/win32/ipc/named-pipes) in **Windows**.
+> `cardano-node`는 `cardano-cli`, `cardano-wallet` 및 `cardano-db-sync`와 같은 **Cardano** 구성요소들과 통신할 때 **IPC (Inter-Process-Communication)**를 사용합니다. **Linux**와 **MacOS**에서는 [unix sockets](https://en.wikipedia.org/wiki/Unix_domain_socket)라 불리는 것을 사용하고, **Windows**에서는 [Named Pipes](https://docs.microsoft.com/en-us/windows/win32/ipc/named-pipes)라는 것을 사용합니다.
+
 > 
-> Here is an example `--socket-path` argument for **Linux**:
+> 다음은 **Linux**에 대한 `--socket-path` 인자의 예시입니다.
 ```
 --socket-path $HOME/cardano/db/node.socket
 ```
-> As you can see the argument points to a file since **unix sockets** are represented as files (like everything else in **Linux**). In this case we put the socket file in the `db` directory that we have just created before.
+> 해당 인자가 파일을 가리키는 것을 볼 수 있는데, 이는 **unix sockets**이 (**Linux** 내 다른 모든 것처럼) 파일의 형태를 띠고 있기 때문입니다. 이 경우 우리는 이전에 생성했던 `db` 디렉토리에 소켓 파일을 넣었습니다.
 > 
-> In **Windows**, the `--socket-path` argument would look something like this:
+> **Windows**의 경우, `--socket-path` 인자는 다음과 같은 형태를 가집니다.
 ```
 --socket-path "\\\\.\\pipe\\cardano-node-testnet"
 ```
-> As you notice its almost like a network `URI` or a network `Path` than a file, this is a key difference that you will have to be aware depending on your operating system. You can replace the string `cardano-node-testnet` in the argument to whatever you like, this example path in particular is used in the [Daedalus Testnet Wallet](https://daedaluswallet.io) for **Windows**.
+> 이는 파일보다는 네트워크 `URI`나 `Path`와 유사한데, 이는 운영 체제에 따른 가장 중요한 차이점 중 하나입니다. 인자 내 `cardano-node-testnet` 문자열을 얼마든지 원하는 형태로 바꿀 수 있으며, 이 예시 경로는 **Windows** 내 [Daedalus 테스트넷 지갑](https://daedaluswallet.io)에 쓰입니다.
 
-Once the server is running you should see sometihng like this (among other things): 
+서버가 실행되면 다음과 같은 부분이 표시되어야 합니다.
 
 ```
 [cardano-wallet.network:Info:12] [2021-06-03 13:48:24.82 UTC] Protocol parameters for tip are:
@@ -564,15 +562,15 @@ Slotting parameters for tip are:
 [cardano-wallet.main:Info:4] [2021-06-03 13:48:24.86 UTC] Wallet backend server listening on http://127.0.0.1:1337/
 ```
 
-**Checking Wallet Server Information**
+**지갑 서버 정보 확인**
 
-The first thing we can do to test if the wallet server is working correctly is to query the network information via the API.
+지갑 서버가 제대로 작동하는지 테스트하기 위해 가장 먼저 할 수 있는 일은 API를 통해 네트워크 정보를 쿼리하는 것입니다.
 
 ```bash
 curl --url http://localhost:1337/v2/network/information | jq
 ```
 
-The result should be something like this: 
+결과는 다음과 같아야 합니다.
 
 ```json
 {
@@ -603,23 +601,23 @@ The result should be something like this:
 }
 ```
 
-It is important to make sure that the `sync_progress.status` is equal to `ready` before proceeding.
+진행하기 전에, `sync_progress.status`가 `ready`와 같은지 확인하여야 합니다.
 
-**Creating the wallet**
+**지갑 생성**
 
-To create a wallet we must first generate a wallet **recovery phrase** using the `cardano-wallet` in the CLI.
+지갑을 생성하려면 먼저 CLI에서 `cardano-wallet`을 사용하여 지갑 **복구 문구**를 생성해야 합니다.
 
 ```bash
 cardano-wallet recovery-phrase generate | jq -c --raw-input 'split(" ")'
 ```
 
-You should get a **24-word mnemonic seed** in return similar to this: 
+다음과 같은 **24단어 니모닉 시드**를 반환값으로 얻어야 합니다.
 
 ```
 ["shift", "badge", "heavy", "action", "tube", "divide", "course", "quality", "capable", "velvet", "cart", "marriage", "vague", "aware", "maximum", "exist", "crime", "file", "analyst", "great", "cabbage", "course", "sad", "apology"]
 ```
 
-We can now create a **Cardano** wallet using the `/v2/wallets` API endpoint:
+이제 `/v2/wallets` API 엔드포인트를 사용하여 **Cardano** 지갑을 만들 수 있습니다.
 
 ```bash
 curl --request POST \
@@ -632,15 +630,15 @@ curl --request POST \
 }' | jq
 ```
 
-Our requests payload data is composed of:
+요청 페이로드 데이터는 다음과 같이 구성됩니다.
 
-`name` : The name of the wallet.
+`name` : 지갑의 이름입니다.
 
-`passphrase` : Sets the security phrase to protect the funds inside the wallet. It will be required everytime you need write access to the wallet, more specifically sending assets.
+`passphrase` : 지갑 내부의 자금을 보호하기 위한 보안 문구를 설정합니다. 지갑에 대한 쓰기 권한이 필요할 때마다, 특히 자산을 보낼 때마다 필요합니다.
 
-`mnemonic_sentence` : This is the wallet **recovery phrase** formatted into a `JSON` array.
+`mnemonic_sentence` : `JSON` 배열로 포맷된 지갑 **복구 문구**입니다.
 
-If succesful, you should see something like this: 
+성공하면 다음과 같이 표시됩니다.
 
 ```json
 {
@@ -694,15 +692,15 @@ If succesful, you should see something like this:
 }
 ```
 
-Initially, the newly created/restored wallet will need to be synced before it can be used. You can verify if the wallet is already synced by executing the following request:
+처음에, 새로 생성/복원된 지갑은 사용 전에 동기화되어야 합니다. 다음 요청을 실행하여 지갑이 이미 동기화되었는지 확인할 수 있습니다. 
 
 ```bash
 curl --url http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce | jq '.state'
 ```
 
-***It is important to note that the `5076b34c6949dbd150eb9c39039037543946bdce` string is actually the `wallet.id` of the previously generated wallet.***
+***`5076b34c6949dbd150eb9c39039037543946bdce`라는 문자열이 실제로 이전에 생성된 지갑의 `wallet.id`라는 점에 유의해야 합니다!***
 
-You should see something like this:
+다음과 같은 내용이 표시되어야 합니다.
 
 ```json
 {
@@ -710,17 +708,17 @@ You should see something like this:
 }
 ```
 
-**Receiving tAda (test ada)**
+**tAda(test ada) 받기**
 
-Now that we have created a wallet, we can now request some tAda from the **Testnet Faucet**. But before we can do that we must first get a cardano address for our wallet.
+이제 지갑을 만들었으므로, **Testnet Faucet**에서 몇 개의 tADA를 요청할 수 있습니다. 하지만 그전에 먼저 지갑용 Cardano 주소를 얻어야 합니다.
 
-We can do that by executing the command:
+이는 다음 명령을 통해 수행됩니다.
 
 ```bash
 curl --url 'http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce/addresses?state=unused' | jq '.[0]'
 ```
 
-The result should be something like this:
+결과는 다음과 같아야 합니다.
 
 ```json
 {
@@ -735,19 +733,19 @@ The result should be something like this:
   "state": "unused"
 }
 ```
-It is important to note that the parameter of this request is the **wallet id** of the target wallet you want to get the address. In this case it is `5076b34c6949dbd150eb9c39039037543946bdce` our previously generated wallet.
+이 요청의 매개변수가 주소를 얻으려는 대상 지갑의 **지갑 id**라는 점에 유의해야 합니다. 이 경우 이전에 생성된 지갑의 id인 `5076b34c6949dbd150eb9c39039037543946bdce`를 매개변수로 사용합니다.
 
-We are basically querying the first wallet address that has not been used just yet, Indicated by `state: "unused"`. As we can see the wallet address value is: `addr_test1qzf9q3qjcaf6kxshwjfw9ge29njtm56r2a08g49l79xgt4je0592agqpwraqajx2dsu2sxj64uese5s4qum293wuc00q7j6vsp"`
+우리는 기본적으로 아직 사용되지 않은 지갑 주소를 쿼리하고 있고, 이는 `state: "unused"`로 나타납니다. 보시다시피 지갑 주소 값은 다음과 같습니다: `addr_test1qzf9q3qjcaf6kxshwjfw9ge29njtm56r2a08g49l79xgt4je0592agqpwraqajx2dsu2sxj64uese5s4qum293wuc00q7j6vsp"`
 
-Now we can finally request some `tAda` for the wallet address from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet).
+이제 드디어 [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet)으로부터 지갑 주소에 대해 `tAda`를 받을 수 있습니다.
 
-Once you requested some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet), we can then check if it has arrived into our wallet like so:
+[Cardano Testnet Faucet](../integrate-cardano/testnet-faucet)에서 `tAda`를 요청하면, 다음과 같이 지갑에 잘 도착했는지 확인할 수 있습니다.
 
 ```bash
 curl --url http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce | jq '.balance'
 ```
 
-You should see something like this:
+다음과 같은 내용이 표시되어야 합니다.
 
 ```json
 {
@@ -766,24 +764,24 @@ You should see something like this:
 }
 ```
 
-As we can see here we have a total of `1,000,000,000 lovelace` available to spend that we received from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet).
+보시다시피,  [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet)으로부터 `1,000,000,000 lovelace`를 받은 것을 확인할 수 있습니다.
 
-#### Creating simple transactions
+#### 간단한 트랜잭션 만들기
 
-To have a clearer understanding of how sending transactions work using `cardano-wallet`, first lets create another wallet like so:
+`cardano-wallet`을 사용하여 트랜잭션을 보내는 방법에 대해 더 명확하게 이해하기 위해, 다음과 같이 다른 지갑을 하나 더 생성해 보겠습니다.
 
-**Generate recovery-phrase**
+**복구 문구 생성**
 
 ```bash
 cardano-wallet recovery-phrase generate | jq -c --raw-input 'split(" ")'
 ```
-**Recovery-phrase result**
+**복구 문구 결과**
 
 ```
 ["then", "tattoo", "copy", "glance", "silk", "kitchen", "kingdom", "pioneer", "off", "path", "connect", "artwork", "alley", "smooth", "also", "foil", "glare", "trouble", "erupt", "move", "position", "merge", "scale", "echo"]
 ```
 
-**Create Wallet Request**
+**지갑 요청 생성**
 ```bash
 curl --request POST \
   --url http://localhost:1337/v2/wallets \
@@ -795,7 +793,7 @@ curl --request POST \
 }' | jq
 ```
 
-**Create Wallet Result**
+**지갑 생성 결과**
 
 ```json
 {
@@ -849,20 +847,20 @@ curl --request POST \
 }
 ```
 
-We now have the following wallets:
+이제 우리는 다음과 같은 지갑들을 가지고 있습니다.
 
 | WalletId                                        | Wallet Name       | Balance(Lovelace)     |
 | --------                                        | ---------         | ----------            |
 | 5076b34c6949dbd150eb9c39039037543946bdce        | test_cf_1         | 1000000000            |
 | 4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb        | test_cf_2         | 0                     | 
 
-Now let's say that we want to send `250,000,000 lovelaces` to `test_cf_2` wallet. Well first we have to get `test_cf_2` wallet address like so:
+이제 `test_cf_2` 지갑으로 `250,000,000 lovelaces`를 보내고 싶다고 가정해 보겠습니다. 먼저 다음과 같이 `test_cf_2`의 지갑 주소를 얻어야 합니다.
 
 ```bash
 curl --url 'http://localhost:1337/v2/wallets/4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb/addresses?state=unused' | jq '.[0]'
 ```
 
-and we should see something like this:
+다음과 같은 결과값을 얻을 수 있습니다.
 
 ```json
 {
@@ -878,7 +876,7 @@ and we should see something like this:
 }
 ```
 
-So now that we have `test_cf_2` wallet address `addr_test1qzyfnjk3zmgzmvnnvnpeguv6se2ptjj3w3uuh30llqe5xdtzdduxxvke8rekwukyn0qt9g5pahasrnrdmv7nr86x537qxdgza0`. We can now use it to send some `tAda` to it from `test_cf_1` wallet like so:
+이제 `test_cf_2` 지갑 주소가 `addr_test1qzyfnjk3zmgzmvnnvnpeguv6se2ptjj3w3uuh30llqe5xdtzdduxxvke8rekwukyn0qt9g5pahasrnrdmv7nr86x537qxdgza0` 임을 알았습니다. 이제 이를 사용하여 다음과 같이 `test_cf_1` 지갑에서 `tAda` 몇 개를 전송할 수 있습니다.
 
 ```bash
 curl --request POST \
@@ -899,16 +897,17 @@ curl --request POST \
 ```
 
 :::note
-Remember, we use the `test_cf_1` wallet id in the `http://localhost:1337/v2/wallets/<walletId>` endpoint, because we want the `test_cf_1` to send to `test_cf_2` wallet address.
+우리는 `test_cf_1`에서 `test_cf_2`로 전송하는 것을 원하기 때문에, `http://localhost:1337/v2/wallets/<walletId>` 엔드포인트에서 `test_cf_1` 지갑 id를 사용합니다.
 :::
 
-Now we can check `test_cf_2` wallet balance like so:
+이제 다음과 같이 `test_cf_2`의 지갑 잔고를 확인할 수 있습니다.
 
 ```bash
 curl --url http://localhost:1337/v2/wallets/4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb | jq '.balance'
 ```
 
-And we should see that indeed the `250,000,000 tAda` has been received (***you might need to wait for a few seconds***).
+그리고 실제로 `250,000,000 tAda`가 수신되었는지 확인해야 합니다 (***몇 초동안 기다려야 할 수도 있습니다***).
+
 
 ```json
 {
@@ -927,7 +926,7 @@ And we should see that indeed the `250,000,000 tAda` has been received (***you m
 }
 ```
 
-Checking `test_cf_1` wallet balance should show you something like this:
+`test_cf_1`의 지갑 잔액을 확인하면 다음과 같이 표시됩니다.
 
 ```json
 {
@@ -946,7 +945,7 @@ Checking `test_cf_1` wallet balance should show you something like this:
 }
 ```
 
-Our wallets should now be the following:
+이제 지갑은 다음과 같아야 합니다.
 
 | WalletId                                        | Wallet Name       | Balance(Lovelace)     |
 | --------                                        | ---------         | ----------            |
@@ -956,16 +955,16 @@ Our wallets should now be the following:
 
 :::note
 
-It is important to note that `cardano-wallet` has automatically determined the fee for the transaction to send `250,000,000 lovelace` from wallet `test_cf_1` to `test_cf_2` and `cardano_wallet` has deducted the fee from `test_cf_1` wallet automatically.
+`cardano-wallet`에서는 트랜잭션 수수료를 자동으로 결정해서, `test_cf_1`에서 `test_cf_2`으로 `250,000,000 lovelace`을 보낼 때 `test_cf_1`으로부터 수수료를 자동으로 차감했습니다.
 
 :::
 
 :::tip
 
-Full documentation of the `cardano-wallet` [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) can be found here: [https://input-output-hk.github.io/cardano-wallet/api/edge](https://input-output-hk.github.io/cardano-wallet/api/edge)
+`cardano-wallet` [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer)의 전체 문서는 [https://input-output-hk.github.io/cardano-wallet/api/edge](https://input-output-hk.github.io/cardano-wallet/api/edge)에서 찾을 수 있습니다.
 
 :::
 
-Congratulations, You have created and sent your first **Cardano** transaction using `cardano-wallet`! 🎉🎉🎉
+축하합니다! `cardano-wallet`을 사용하여 첫 번째 **Cardano** 거래를 생성하고 보냈습니다! 🎉🎉🎉
 
 

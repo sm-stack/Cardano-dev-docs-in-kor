@@ -1,31 +1,31 @@
 ---
 id: cscli
-title: Get Started with cscli
+title: cscli 시작하기
 sidebar_label: cscli
 description: Get Started with cscli
 image: ../img/og/og-getstarted-cscli.png
 --- 
 
-`cscli` is a lightweight cross-platform CLI tool for Cardano supporting the following features out of the box:
- - Building and serialising wallet primitives (i.e. recovery-phrases, keys, addresses and transactions) 
- - Live querying of accounts, addresses, transactions and native assets across both Testnet and Mainnet networks
- - Submitting transactions to the Testnet or Mainnet network
- - Cryptographic and encoding transformations (blake2b, bech32, etc.)
+`cscli` 는 다음 기능을 즉시 지원하는 Cardano용 경량 크로스 플랫폼 CLI 도구입니다.
+ - 지갑 프리미티브(예: 복구 문구, 키, 주소 및 트랜잭션) 구축 및 직렬화
+ - 테스트넷 및 메인넷 네트워크 모두에서 계정, 주소, 트랜잭션 및 네이티브 자산의 실시간 쿼리
+ - 테스트넷 또는 메인넷 네트워크에 트랜잭션 제출
+ - 암호화 및 인코딩 변환(blake2b, bech32)
 
-## Advantages
+## 이점
 
-Why would you use `cscli` in addition to `cardano-cli`, `cardano-address`, `cardano-wallet` and a host of other tools?
- - Simple installation and powerful commands with **no dependencies** on a local full node or other tools/sdks
- - Easy recovery-phrase (aka mnemonic) based key and address derivation for [Hierarchical Deterministic (HD) wallets](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki), perfect for offline management
- - [Passphrase](https://vault12.com/securemycrypto/crypto-security-basics/what-is-a-passphrase/passphrases-increase-your-protection-and-your-risk) support for additional root key security
- - [International multi-language](https://github.com/CardanoSharp/cardanosharp-wallet/tree/main/CardanoSharp.Wallet/Words) support for [recovery-phrases](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
- - Generates compatible outputs for `cardano-cli`, `cardano-address` and `cardano-wallet`
+왜 `cardano-cli`, `cardano-address`, `cardano-wallet` 및 여타 도구와 함께 `cscli` 를 사용할까요? 그 이유는 다음과 같습니다.
+ - 로컬 풀노드 및 다른 도구/sdk에 **의존성이 없는** 간단한 설치 및 강력한 명령어
+ - 오프라인 관리에 적합한 [계층적 결정성 (HD) 지갑](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)을 위한 손쉬운 복구 문구(일명 니모닉) 기반 키 및 주소 도출
+ - 추가 루트 키 보안을 위한 [Passphrase](https://vault12.com/securemycrypto/crypto-security-basics/what-is-a-passphrase/passphrases-increase-your-protection-and-your-risk) 지원
+ - [복구 문구](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)에 대한 [다국어](https://github.com/CardanoSharp/cardanosharp-wallet/tree/main/CardanoSharp.Wallet/Words) 지원
+ - `cardano-cli`, `cardano-address` 및 `cardano-wallet` 에 대해 호환되는 출력 생성
 
-## Getting Started
+## 시작하기
 
-Download the platform-specific binaries from the [latest release](https://github.com/CardanoSharp/cscli/releases) and run. Alternatively build from source following the [instructions on GitHub](https://github.com/CardanoSharp/cscli#as-a-net-global-tool-or-built-from-source).
+[최신 릴리스](https://github.com/CardanoSharp/cscli/releases)에서 플랫폼별 바이너리를 다운로드하고 실행합니다. 이 대신 [GitHub 내 지침](https://github.com/CardanoSharp/cscli#as-a-net-global-tool-or-built-from-source)에 따라 소스로부터 빌드해도 괜찮습니다.
 
-## Overview and Help
+## 개요 및 도움말
 ```console
 $ cscli --help
 cscli v0.3.0
@@ -75,12 +75,13 @@ Arguments:
     <digest_length> ::= 160 | 224(default) | 256 | 512
 ```
 
-## Wallet Commands
+## 지갑 명령어
 
-### Generate Recovery Phrase
+### 복구 문구 생성
+
 :::caution
 
-Note: Recovery-phrases and keys should ideally be generated and stored in airgapped machines 
+참고: 복구 문구와 키는 이상적으로 에어 갭 기기 내에서 생성되고 저장되어야 합니다.
 
 :::
 
@@ -90,7 +91,7 @@ more enjoy seminar food bench online render dry essence indoor crazy page eight 
 ```
 
 <details>
-  <summary>Generating a recovery phrase in Spanish</summary>
+  <summary>스페인어로 복구 문구 생성</summary>
 
 ```console
 $ cscli wallet recovery-phrase generate --language spanish | tee phrase.es.prv
@@ -98,20 +99,20 @@ solución aborto víspera puma molino ático ética feroz hacer orador saler
 ```
 </details>
 
-### Derive Root Key
+### 루트 키 도출
 ```console
 $ cscli wallet key root derive --recovery-phrase "$(cat phrase.en.prv)" | tee root.en.xsk
 root_xsk12qpr53a6r7dpjpu2mr6zh96vp4whx2td4zccmplq3am6ph6z4dga6td8nph4qpcnlkdcjkd96p83t23mplvh2w42n6yc3urav8qgph3d9az6lc0px7xq7sau4r4dsfp9h0syfkhge8e6muhd69vz9j6fggdhgd4e
 ```
 
-### Derive Account Key
+### 계정 키 도출
 ```console
 $ cscli wallet key account derive --recovery-phrase "$(cat phrase.en.prv)" | tee acct_0.en.xsk
 acct_xsk13pfkzdyzuagmsquy0xjvszdxdjt84x49yrmvt2f3z8ndp6zz4dgka03j3ctm4gne9s5gullvjd7kynxxkny4qwyuuup2mcjfztctswdu3zp4s3ps5dskaq929vrp6cw8z3u77x7mymgntjw46f4l9kh3mcvg78y9
 ```
 
 <details>
-  <summary>Account Key with Specific Index</summary>
+  <summary>특정 인덱스가 있는 계정 키</summary>
 
 ```console
 $ cscli wallet key account derive --recovery-phrase "$(cat phrase.en.prv)" --account-index 96884067 | tee acct_96884067.en.xsk
@@ -119,13 +120,13 @@ acct_xsk1vzcpqwahy0asxuua4gswzjagmt5awjepy9clhmvtr8tgpejz4dglkfl7zhunx0dcrvljtmg
 ```
 </details>
 
-### Derive Payment Key
+### 지불 키 도출
 ```console
 $ cscli wallet key payment derive --recovery-phrase "$(cat phrase.en.prv)" | tee pay_0_0.en.xsk
 addr_xsk1fzw9r482t0ekua7rcqewg3k8ju5d9run4juuehm2p24jtuzz4dg4wpeulnqhualvtx9lyy7u0h9pdjvmyhxdhzsyy49szs6y8c9zwfp0eqyrqyl290e6dr0q3fvngmsjn4aask9jjr6q34juh25hczw3euust0dw
 ```
 <details>
-  <summary>Payment Key with Custom Indexes</summary>
+  <summary>사용자 지정 인덱스가 있는 결제 키</summary>
 
 ```console
 $ cscli wallet key payment derive --recovery-phrase "$(cat phrase.en.prv)" --account-index 569 --address-index 6949 | tee pay_569_6949.en.xsk
@@ -133,7 +134,7 @@ addr_xsk1kzjky39hv28q30qecg46f3cag3nwsjnnvn5uf0jtkrsxau2z4dgssyrv8jfwdh6frfkd0hs
 ```
 </details>
 <details>
-  <summary>Payment Key with cardano-cli Output Key Files</summary>
+  <summary>cardano-cli 출력 키 파일이 포함된 지불 키</summary>
 
 ```console
 $ cscli wallet key payment derive --recovery-phrase "$(cat phrase.en.prv)" --signing-key-file pay_0_0.en.skey --verification-key-file pay_0_0.en.vkey | tee pay_0_0.en.xsk
@@ -153,7 +154,7 @@ $ cat pay_0_0.en.vkey
 ```
 </details>
 <details>
-  <summary>Payment Key from Spanish recovery-phrase with custom passphrase</summary>
+  <summary>사용자 지정 암호가 포함된 스페인어 복구 문구를 가진 지불 키</summary>
 
 ```console
 $ cscli wallet key payment derive --language spanish --recovery-phrase "$(cat phrase.es.prv)" --passphrase "/\\/\\`/ |\\|4/\\/\\3 !5 02`//\\/\\4|\\||)!45, |<!|\\|9 0|= |<!|\\|95" --signing-key-file pay_0_0.es.skey --verification-key-file pay_0_0.es.vkey | tee pay_0_0.es.xsk
@@ -173,14 +174,14 @@ $ cat pay_0_0.es.vkey
 ```
 </details>
 
-### Derive Stake Key
+### 스테이크 키 도출
 ```console
 $ cscli wallet key stake derive --recovery-phrase "$(cat phrase.en.prv)" | tee stake_0_0.en.xsk
 stake_xsk1xr5c8423vymrfvrqz58wqqtpekg8cl2s7zvuedeass77emzz4dgs32nfp944ljxw86h7wkxcrut8gr8qmql8gvc9slc8nj9x47a6jtaqqxf9ywd4wfhrzv4c54vcjp827fytdzrxs3gdh5f0a0s7hcf8a5e4ay8g
 ```
 
 <details>
-  <summary>Stake Key with Custom Indexes</summary>
+  <summary>사용자 지정 인덱스를 가진 스테이크 키</summary>
 
 ```console
 $ cscli wallet key stake derive --recovery-phrase "$(cat phrase.en.prv)" --account-index 968 --address-index 83106 | tee stake_968_83106.en.xsk
@@ -188,7 +189,7 @@ stake_xsk14p0lhj3txvfcj8j08dk3ur954hmcfz6u6t00q0a3vnrsd7zz4dgcy9dwcxgf67v4rdp4mk
 ```
 </details>
 <details>
-  <summary>Stake Key with cardano-cli Output Key Files</summary>
+  <summary>cardano-cli 출력 키 파일을 가진 스테이크 키</summary>
 
 ```console
 $ cscli wallet key stake derive --recovery-phrase "$(cat phrase.en.prv)" --signing-key-file stake_0_0.en.skey --verification-key-file stake_0_0.en.vkey | tee stake_0_0.en.xsk
@@ -208,14 +209,14 @@ $ cat stake_0_0.en.vkey
 ```
 </details>
 
-### Derive Stake/Reward Address
+### 스테이크/보상 주소 도출
 ```console
 $ cscli wallet address stake derive --recovery-phrase "$(cat phrase.en.prv)" --network mainnet | tee stake_0_0.en.addr
 stake1u9wqktpz964g6jaemt5wr5tspy9cqxpdkw98d022d85kxxc2n2yxj
 ```
 
 <details>
-  <summary>Stake Address with Custom Indexes</summary>
+  <summary>사용자 지정 인덱스를 가진 스테이크 주소</summary>
 
 ```console
 $ cscli wallet address stake derive --recovery-phrase "$(cat phrase.en.prv)" --network mainnet --account-index 1 --address-index 7 | tee stake_1_7.en.addr
@@ -223,7 +224,7 @@ stake1u87phtdn9shvp39c44elyfdduuqg7wz072vs0vjvc20hvaqym7xan
 ```
 </details>
 <details>
-  <summary>Stake Address from Spanish recovery-phrase with custom passphrase</summary>
+  <summary>사용자 지정 암호가 있는 스페인어 복구 문구를 가진 스테이크 주소</summary>
 
 ```console
 $ cscli wallet address stake derive --language spanish --recovery-phrase "$(cat phrase.es.prv)" --passphrase "/\\/\\`/ |\\|4/\\/\\3 !5 02`//\\/\\4|\\||)!45, |<!|\\|9 0|= |<!|\\|95" --network testnet | tee stake_0_0.es.addr
@@ -231,14 +232,14 @@ stake_test1uztkvps54v3yrwvxhvfz9uph8g6e2zd8jcg2cyss45g7xqclj4scq
 ```
 </details>
 
-### Derive Payment Enterprise Address
+### 기업 지불 주소 도출
 ```console
 $ cscli wallet address payment derive --recovery-phrase "$(cat phrase.en.prv)" --payment-address-type enterprise --network mainnet | tee pay_0_0.en.addr
 addr1vy5zuhh9685fup86syuzmu3e6eengzv8t46mfqxg086cvqqrukl6w
 ```
 
 <details>
-  <summary>Payment Enterprise Address with Custom Indexes</summary>
+  <summary>사용자 지정 인덱스가 있는 기업 지불 주소</summary>
 
 ```console
 $ cscli wallet address payment derive --recovery-phrase "$(cat phrase.en.prv)" --payment-address-type enterprise --network mainnet --account-index 1387 --address-index 12 | tee pay_1387_12.en.addr
@@ -246,14 +247,14 @@ addr1vy3y89nnzdqs4fmqv49fmpqw24hjheen3ce7tch082hh6xcc8pzd9
 ```
 </details>
 
-### Derive Payment Base Address
+### 지불 기반 주소 도출
 ```console
 $ cscli wallet address payment derive --recovery-phrase "$(cat phrase.en.prv)" --payment-address-type base --network mainnet | tee pay_0_0_0_0.en.addr
 addr1qy5zuhh9685fup86syuzmu3e6eengzv8t46mfqxg086cvqzupvkzyt42349mnkhgu8ghqzgtsqvzmvu2w675560fvvdspma4ht
 ```
 
 <details>
-  <summary>Payment Base Address with Custom Indexes</summary>
+  <summary>사용자 지정 인덱스가 있는 지불 기반 주소</summary>
 
 ```console
 $ cscli wallet address payment derive --recovery-phrase "$(cat phrase.en.prv)" --payment-address-type base --network mainnet --account-index 1387 --address-index 12 --stake-account-index 968 --stake-address-index 83106 | tee pay_1387_12_968_83106.en.addr
@@ -261,7 +262,7 @@ addr1qy3y89nnzdqs4fmqv49fmpqw24hjheen3ce7tch082hh6x7nwwgg06dngunf9ea4rd7mu9084sd
 ```
 </details>
 <details>
-  <summary>Payment Base Address from Spanish recovery-phrase with custom passphrase</summary>
+  <summary>사용자 지정 암호가 있는 스페인어 복구 문구를 가진 지불 기반 주소</summary>
 
 ```console
 $ cscli wallet address payment derive --language spanish --recovery-phrase "$(cat phrase.es.prv)" --passphrase "/\\/\\`/ |\\|4/\\/\\3 !5 02`//\\/\\4|\\||)!45, |<!|\\|9 0|= |<!|\\|95" --network testnet --payment-address-type base | tee pay_0_0_0_0.es.addr
@@ -269,13 +270,13 @@ addr_test1qpvttg5263dnutj749k5dcr35yk5mr94fxx0q2zs2xeuxq5hvcrpf2ezgxucdwcjytcrww
 ```
 </details>
 
-### Derive Policy Key
+### 정책 키 도출
 ```console
 $ cscli wallet key policy derive --recovery-phrase "$(cat phrase.en.prv)" | tee policy_0.en.sk
 policy_sk1trt3shjrd4gy70q4m2ejgjgsdzwej4whc4r2trrcwedlpm6z4dglxl4nycrd8fptxrkye3tl3q29euxlqj7zndk9cfg4tskqlnp90uqwjqz02
 ```
 <details>
-  <summary>Policy Key with Custom Indexes</summary>
+  <summary>사용자 지정 인덱스가 있는 정책 키</summary>
 
 ```console
 $ cscli wallet key policy derive --recovery-phrase "$(cat phrase.en.prv)" --policy-index 88 | tee policy_88.en.xsk
@@ -283,7 +284,7 @@ policy_sk1tz5k03lravcx7ecjveg6j0ndyydma2a89ny4zkmvzvpz4u6z4dgkxctdpcvhjvjl3j4pey
 ```
 </details>
 <details>
-  <summary>Policy Key with cardano-cli Output Key Files</summary>
+  <summary>cardano-cli 출력 키 파일이 포함된 정책 키</summary>
 
 ```console
 $ cscli wallet key policy derive --recovery-phrase "$(cat phrase.en.prv)" --signing-key-file policy_0.skey --verification-key-file policy_0.vkey | tee policy_0.xsk
@@ -303,14 +304,14 @@ $ cat policy_0.vkey
 ```
 </details>
 
-### Convert Signing to Verification Key 
+### 서명을 검증 키로 변환
 ```console
 $ cscli wallet key verification convert --signing-key $(cat pay_0_0.en.xsk) | tee pay_0_0.en.xvk
 addr_xvk1m62sxsn8t8apscjx2l6mejfj7wpzpmy7e6ex9yru4uk3nzmwp74zljqgxqf752ln56x7pzjex3hp98tmmpvt9y85prt9ew4f0syarncveq5jl
 ```
 
 <details>
-  <summary>Verification Key with cardano-cli Output Key Files</summary>
+  <summary>cardano-cli 출력 키 파일이 있는 검증 키</summary>
 
 ```console
 $ cscli wallet key verification convert --signing-key $(cat stake_0_0.en.xsk) --verification-key-file stake_0_0.en.vkey | tee stake_0_0.en.xvk
@@ -324,9 +325,9 @@ $ cat stake_0_0.en.vkey
 ```
 </details>
 
-## Query Commands
+## 명령어 쿼리
 
-### Query Tip
+### 팁 쿼리
 ```console
 $ cscli query tip --network mainnet
 {
@@ -339,7 +340,7 @@ $ cscli query tip --network mainnet
 }
 ```
 
-### Query Protocol Parameters
+### 프로토콜 매개변수 쿼리
 ```console
 $ cscli query protocol-parameters --network mainnet
 {
@@ -351,7 +352,7 @@ $ cscli query protocol-parameters --network mainnet
 }    
 ```
 
-### Query Account Info
+### 계정 정보 쿼리
 ```console
 $ cscli query info account --network mainnet --stake-address stake1uyrx65wjqjgeeksd8hptmcgl5jfyrqkfq0xe8xlp367kphsckq250
 [
@@ -369,7 +370,7 @@ $ cscli query info account --network mainnet --stake-address stake1uyrx65wjqjgee
 ]
 ```
 <details>
-  <summary>Query Account Info of Payment Address (requires base address)</summary>
+  <summary>지불 주소의 계정 정보 쿼리(기본 주소 필요)</summary>
 
 ```console
 $ cscli query info account --network mainnet --address addr1q9r4307pqxq93fh554yvfssha46atz7h8waha568d8ddvnktwkkz3tg57qd9knlsfyhlgjuxpyxhl09u2w8f4l20hk2q7dt678
@@ -389,7 +390,7 @@ $ cscli query info account --network mainnet --address addr1q9r4307pqxq93fh554yv
 ```
 </details>
 
-### Query Account Asset 
+### 계정 자산 쿼리
 ```console
 $ cscli query asset account --network testnet --stake-address $(cat stake_0_0.es.addr)
 [
@@ -401,7 +402,7 @@ $ cscli query asset account --network testnet --stake-address $(cat stake_0_0.es
 ]
 ```
 <details>
-  <summary>Query Account Asset of Payment Address (requires base address)</summary>
+  <summary>지불 주소의 계정 자산 쿼리(기본 주소 필요)</summary>
 
 ```console
 $ cscli query asset account --network testnet --address $(cat pay_0_0_0_0.es.addr)
@@ -415,7 +416,7 @@ $ cscli query asset account --network testnet --address $(cat pay_0_0_0_0.es.add
 ```
 </details>
 
-### Query Address Info 
+### 주소 정보 쿼리
 ```console
 $ cscli query info address --network testnet --address $(cat pay_0_0_0_0.es.addr)
 {
@@ -425,7 +426,7 @@ $ cscli query info address --network testnet --address $(cat pay_0_0_0_0.es.addr
 }
 ```
 
-### Query Transaction Info 
+### 트랜잭션 정보 쿼리
 ```console
 $ cscli query info transaction --network testnet --txid 4fe73db7e345f6853ade214b0779d5db51f9a4b5e296198d3cb84b7b707e7d34
 [
@@ -440,29 +441,29 @@ $ cscli query info transaction --network testnet --txid 4fe73db7e345f6853ade214b
 ]
 ```
 
-## Transaction Commands
+## 트랜잭션 명령어
 
-### Submit Transaction
+### 트랜잭션 제출
 ```console
 $ cscli transaction submit --network testnet --cbor-hex 84a600818258207f1d24706e65b3eaef608d6ba5adf8b2bf69254bbd1e1532fa7c601a1d6aca3d000d8001828258390058b5a28ad45b3e2e5ea96d46e071a12d4d8cb5498cf0285051b3c30297660614ab2241b986bb1222f0373a359509a79610ac1210ad11e3031a05f5e10082581d60f3a76db98805ebfb391d8a7fa176e0a4da4d20955c47a5d35936353c1a35a23dbb021a0002ab45031a03831a6f0e80a1008182582047a69a1a41541c00a1e62ab8d78c1870e4f04c0507530b90c7dfde2a144d0cfa58406f50cd131250768a3b707e5eb5797e1dc519157e8c7ac27a72ac472fb546bc4604d3b51b2460e4517e28aea5fd0d19ddf8d95d9bf223e59f0306db0a7794d40af5f6
 5c9f1456a2f7cdf30c12d569ede3f298b377115a63dc0cef791e692dbe4be26b
 ```
 
-## Cryptography / Encoding Commands
+## 암호화 / 인코딩 명령어
 
-### Bech32 Decode
+### Bech32 복호화
 ```console
 $ cscli bech32 decode --value "$(cat pay_0_0.en.addr)"
 61282e5ee5d1e89e04fa81382df239d6733409875d75b480c879f58600
 ```
 
-### Bech32 Encode
+### Bech32 암호화
 ```console
 $ cscli bech32 encode --value 61282e5ee5d1e89e04fa81382df239d6733409875d75b480c879f58600 --prefix addr
 addr1vy5zuhh9685fup86syuzmu3e6eengzv8t46mfqxg086cvqqrukl6w
 ```
 
-### Blake2b Hash
+### Blake2b 해시
 ```console
 $ cscli blake2b hash --length 224 --value de9503426759fa18624657f5bcc932f38220ec9eceb262907caf2d198b6e0faa  
 282e5ee5d1e89e04fa81382df239d6733409875d75b480c879f58600

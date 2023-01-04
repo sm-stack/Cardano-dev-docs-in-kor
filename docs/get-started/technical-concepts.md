@@ -1,132 +1,134 @@
 ---
 id: technical-concepts
-title: Get started with the technical concepts
-sidebar_label: Technical Concepts
+title: 기술 개념 시작하기
+sidebar_label: 기술 개념
 description: Get started with the technical concepts behind Cardano.
 image: ../img/og/og-getstarted-technical-concepts.png
 --- 
 
-To get the most out of the Cardano Developer Portal, you should have programming experience and a basic understanding of blockchain concepts such as [UTxO](#unspent-transaction-output-utxo), [transactions](#transactions), [addresses](#addresses), [key derivation](#key-derivation), and [networking](#networking).
-## Unspent Transaction Output (UTxO)
-UTxO or Unspent Transaction Outputs are how ada moves around the Cardano network. Learn how they work in the Cardano ledger.  
+Cardano 개발자 포털을 최대한 활용하려면, 프로그래밍 경험과 더불어
+[UTxO](#미사용-트랜잭션-출력), [트랜잭션](#트랜잭션), [주소](#주소), [키 유도](#키-유도), and [네트워킹](#네트워킹)과 같은 블록체인 기본 개념에 대한 이해가 있어야 합니다.
+
+## 미사용 트랜잭션 출력 (UTxO)
+UTxO 혹은 미사용 트랜잭션 출력은 ada가 Cardano 네트워크에서 이동하는 방식입니다. Cardano 렛저에서 UTxO가 어떻게 동작하는지 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/e4YZkgi4V3U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Transactions
-Learn what is inside the guts of a Cardano transaction. We show how unsigned and signed transactions look like, and we cover how signing works.  
+## 트랜잭션
+Cardano 트랜잭션 안에 무엇이 있는지 알아보세요. 서명되지 않은 트랜잭션과 서명된 트랜잭션이 어떤 형태인지 보여주고, 서명의 작동 방식을 다룹니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/OSNf1MgAbII" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Addresses
-Cardano Addresses are used as destinations to send ada on the blockchain. We break them down into their parts and show how they're created.  
+## 주소
+Cardano 주소는 블록체인에서 ada를 보내는 목적지로 사용됩니다. 다음 영상에서는 이를 파트별로 나눠서 각각이 어떻게 만들어지는지 보여줍니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/NjPf_b9UQNs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Transaction Fees
-Understand how transaction fees are calculated on Cardano. Brief coverage of the topics reserve and treasury.  
+## 트랜잭션 수수료
+Cardano에서 트랜잭션 수수료가 계산되는 방식을 이해해봅시다. 저장소와 트레져리에 대해 간단하게 다룹니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/lpSIpPWp7H8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Mnemonic seed phrase (BIP39)
-BIP39 is the standard for creating a mnemonic seed phrase for wallets. In this video, we break down how it's created from randomness on Cardano.  
+## 니모닉 시드 구문 (BIP39)
+BIP39는 지갑에 대해 니모닉 시드 문구를 생성하는 표준입니다. 아래 비디오에서는 Cardano에서 랜덤하게 시드 문구가 생성되는 방법에 대해 분석합니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/5P1jx1ELUHk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Key Derivation
-Key Derivation is the process a wallet uses to go from a mnemonic phrase to a whole set of keys and addresses that the wallet controls.    
+## 키 유도
+키 유도는 지갑이 니모닉 문구로부터 전체 키와 주소들을 추출하는데에 사용하는 프로세스입니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/4tSQBK75CPU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Block and transaction propagation
-Learn how transactions make it from the mempool into blocks and how blocks move around the network.  
+## 블록 및 트랜잭션 전파
+트랜잭션이 멤풀에서 블록으로 만들어지는 방법과, 블록이 네트워크에서 이동하는 방법에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/K7c-5S-23dg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Networking
-We answer your questions about how nodes on Cardano talk to each other. Learn about TCP Sockets,  mini-protocols and the future of P2P.  
+## 네트워킹
+Cardano의 노드가 서로 대화하는 방법에 대해 알려드립니다. TCP Socket, mini-protocol과 P2P의 미래에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/pyhYtLgn1r0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Cardano Improvement Proposals (CIP)
-The [Cardano Improvement Proposal](/docs/governance/cardano-improvement-proposals/CIP-0001) (CIP) process allows the community to interact with the Cardano Foundation to improve the Cardano ecosystem in a formal way.  
+## Cardano 개선 제안 (CIP)
+[Cardano 개선 제안](/docs/governance/cardano-improvement-proposals/CIP-0001) (CIP) 을 통해 커뮤니티는 Cardano Foundation과 상호작용하여 공식적인 방식으로 Cardano 생태계를 개선할 수 있습니다. 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/z9wz_WJGGiQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Slot Lottery
-In this video, we describe exactly how a stake pool on Cardano gets elected to make a block.  
+## 슬롯 추첨
+이 비디오에서는, Cardano의 스테이크 풀이 블록 생성자로 선출되는 방법에 대해 다룹니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/M3Xq1qz3ljU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Slot Battles
-On Cardano, slot battles happen when two pools try to make a block in the same slot (at the same time). We break down how the blockchain determines which block should win and what is the "correct" source of truth on the blockchain.  
+## 슬롯 배틀
+Cardano에서, 슬롯 배틀은 두 개의 풀이 같은 슬롯에서 (동시에) 블록을 만드려고 할 때 발생합니다. 아래 영상은 이 상황에서 블록체인이 어떤 블록이 이길지 결정하는 방법과, 블록체인에서 "올바른" 진실의 출처가 무엇인지 분석합니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/Cm5pBM7UYa0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Catalyst Voting
-What is Catalyst voting, how to register, how to vote and why you should participate.
+## Catalyst 투표
+Catalyst 투표가 무엇인지, 어떻게 등록하는지, 투표는 어떻게 하는지 및 왜 참여해야 하는지에 대한 영상입니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/OwGdSw1T0aI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Franken Addresses
-Franken Addresses are a way to register additional pledge to a pool without registering a second owner on the blockchain.
+## Franken 주소
+Franken 주소는 블록체인에 두 번째 소유자를 등록하지 않고 풀에 추가 서약을 등록하는 방법입니다. 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/KULzovfWn-M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
 ## NFT
-Non-Fungible Tokens on cardano are native assets that represent immutable art or physical things.
+Cardano의 대체 불가능한 토큰(NFT)은 불변의 예술 또는 물리적인 사물을 나타내는 기본 자산입니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/P-wQ0VymzKU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Catalyst Voting Registration
-How does the Catalyst voting registration on the side-chain work?
+## Catalyst 투표 등록
+사이드체인에서 Catalyst 투표 등록이 어떻게 작동하는지에 대한 영상입니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/PPuhH1ihoAY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Epoch Nonce
-The epoch nonce allows you to calculate leaderlogs for your stake pool on Cardano.
+## 에포크 논스
+에포크 논스를 사용하면, Cardano의 스테이크 풀에 대한 리더 로그를 계산할 수 있습니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/vF82ZalZlcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Guaranteed Transaction Delivery
-How dropped transactions happen on cardano and how to ensure we always deliver them into blocks.
+## 보장된 트랜잭션 전송
+Cardano에서 삭제된 트랜잭션이 발생하는 방식과 이를 항상 블록으로 전달하는 방법에 대한 영상입니다.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/gm-phCUGEoY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## SundaeSwap & Merkel Trees
-Learn about the SundaeSwap ISO and who Merkel Trees work.
+## SundaeSwap & 머클 트리
+SundaeSwap ISO와 머클트리가 동작하는 방식에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/hStyO1L1qOE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
 ## DripDropz & Phyrhose
-DripDropz, the token AirDrop vending machine, powered by Phyrhose.
+Phyrhose에 의해 만들어진 토큰 에어드랍 자판기인 DripDropz에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/x2bwK4Svnps" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## P2P Networking
-Learn about Byron era network, Shelley era network, unidirectional (Half-Duplex) connections, the Topology Updater, manual P2P vs. automatic P2P.
+## P2P 네트워킹
+Byron 시대 네트워크, Shelley 시대 네트워크, 단방향(반이중) 연결, Topology Updater, 수동 P2P vs. 자동 P2P에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/ek_DK6Qoqrc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
 ## TPS vs. eUTxO
-Which is better, high transactions per second or eUTxO?  
+높은 초당 트랜잭션 속도와 eUTxO 중 뭐가 더 나을까요?  
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/wDmLVMmevNQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
 ## LocalTxMonitor
-Learn about the new LocalTxMonitor miniprotocol in cardano-node.
+cardano-node의 새로운 LocalTxMonitor miniprotocol에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/TLJ--GpFjKo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Network Congestion
-How does network congestion happen? What are mempool errors?
+## 네트워크 혼잡
+네트워크 혼잡은 어떻게 발생할까요? 멤풀 오류는 무엇인가요?
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/jxHFGPP1uc0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Multisig
-What is multisig? And how does it work on Cardano?
+## 멀티시그
+멀티시그란 무엇인가요? 이는 Cardano에서 어떻게 동작하나요?
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/k_ph_V7xkio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
 ## JorManager 6
-Learn about what's new in the Cardano stakepool management software JorManager 6.
+Cardano 스테이크 풀 관리 소프트웨어 JorManager 6의 새로운 기능에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/7dNCcGWnkwY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-##  How to create a FT on Cardano that doesn't completely suck!
-Learn how to create fungible tokens on Cardano using StakePool Operator Scripts.
+##  Cardano에서 꽤 괜찮은 FT를 만드는 방법
+StakePool 운영자 스크립트를 통해 Cardano에서 대체 가능한 토큰을 생성하는 법을 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/pK7xShX9etI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
- ##  Governance Snapshots
-Learn how to take blockchain snapshots for Governance voting purposes.
+##  거버넌스 스냅샷
+거버넌스 투표 목적으로 블록체인 스냅샷을 찍는 방법을 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/NI3_VeLwyxc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
- ##  Djed Stablecoin 
-Learn a little bit about the Algorithmic stablecoin Djed coming to Cardano.
+##  Djed 스테이블코인
+Cardano에 출시된 알고리즘 스테이블코인 Djed에 대해 간단히 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/dfsy0fib3tM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
- ##  Genesis Key Delegation
-Learn about how Genesis Keys work on cardano and how they are delegated.
+##  제네시스 키 위임
+제네시스 키가 Cardano에서 작동하는 방식과 어떻게 위임하는지에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/DF3dDXHSuv8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
- ##  Music NFTs
-Learn and dive into CIP-60 which is the Music NFT metadata standard on Cardano.
+##  음악 NFT
+Cardano의 음악 NFT 메타데이터 표준인 CIP-60에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/EolfBVq9y3A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
- ##  Pointer Addresses
-Learn and dive into CPS-0002 which focuses on Pointer Addresses.
+##  포인터 주소
+포인터 주소에 중점을 둔 CPS-0002에 대해 알아보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/XKgmP1r_GSA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>

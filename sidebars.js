@@ -1,10 +1,10 @@
 module.exports = {
   someSidebar: {
-    "Get Started": [
-      "get-started/overview",
+    "시작하기": [
+      "get-started/개요",
       {
         type: "category",
-        label: "Cardano Components",
+        label: "Cardano 구성 요소",
         items: [
           "get-started/cardano-components",
           "get-started/installing-cardano-node",
@@ -14,7 +14,7 @@ module.exports = {
       },
       {
         type: "category",
-        label: "Security Best Practices",
+        label: "보안 모범 사례",
         items: [
           "get-started/air-gap",
           "get-started/secure-workflow",
@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         type: "category",
-        label: "Builder Tools",
+        label: "빌더 도구",
         items: [
           "get-started/blockfrost",
           "get-started/cardanocli-js",
@@ -50,7 +50,7 @@ module.exports = {
       "get-started/testnets-and-devnets",
       "get-started/cardano-developer-community",
     ],
-    "Integrate Cardano": [
+    "Cardano 통합하기": [
       "integrate-cardano/overview",
       "integrate-cardano/creating-wallet-faucet",
       "integrate-cardano/multi-witness-transactions-cli",
@@ -59,13 +59,13 @@ module.exports = {
       "integrate-cardano/testnet-faucet",
       "integrate-cardano/user-wallet-authentication",
     ],
-    "Build with Transaction Metadata": [
+    "트랜잭션 메타데이터로 빌딩하기": [
       "transaction-metadata/overview",
       "transaction-metadata/how-to-create-a-metadata-transaction-cli",
       "transaction-metadata/how-to-create-a-metadata-transaction-wallet",
       "transaction-metadata/retrieving-metadata",
     ],
-    "Discover Native Tokens": [
+    "네이티브 토큰 알아보기": [
       "native-tokens/overview",
       "native-tokens/minting",
       "native-tokens/minting-nfts",
@@ -82,12 +82,12 @@ module.exports = {
        },
 
     ],
-    "Create Smart Contracts": [
+    "스마트 컨트랙트 생성하기": [
       "smart-contracts/overview",
       "smart-contracts/marlowe",
       "smart-contracts/plutus",
     ],
-    "Be Part of the Governance": [
+    "거버넌스 참여하기": [
       "governance/overview",
        {
          type: "category",
@@ -102,7 +102,7 @@ module.exports = {
        },
        "governance/project-catalyst",
     ],
-    "Operate a Stake Pool": [
+    "스테이크 풀 운영하기": [
       "operate-a-stake-pool/overview",
       "operate-a-stake-pool/cardano-key-pairs",
       {
@@ -118,7 +118,7 @@ module.exports = {
           "stake-pool-course/lesson-5",
           {
             type: "category",
-            label: "Handbook",
+            label: "핸드북",
             items: [
               "stake-pool-course/handbook/grafana-dashboard-tutorial",
               "stake-pool-course/handbook/grafana-loki",
@@ -141,7 +141,7 @@ module.exports = {
           },
           {
             type: "category",
-            label: "Assignments",
+            label: "과제",
             items: [
               "stake-pool-course/assignments/assignment-1",
               "stake-pool-course/assignments/assignment-2",
@@ -152,7 +152,7 @@ module.exports = {
       },
       {
         type: "category",
-        label: "Operator Tools",
+        label: "운영자 도구",
         items: [
           "operate-a-stake-pool/guild-ops-suite",
           "operate-a-stake-pool/ansible-cardano-node",
@@ -161,7 +161,7 @@ module.exports = {
       },
       "operate-a-stake-pool/marketing-stake-pool",
     ],
-    "Contribute to the Developer Portal": [
+    "개발자 포털에 기여하기": [
       "portal-contributors",
       "portal-contribute",
       "portal-style-guide",

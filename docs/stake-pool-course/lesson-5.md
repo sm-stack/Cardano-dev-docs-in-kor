@@ -6,21 +6,21 @@ description: "Stake pool course: Lesson 5."
 image: ../img/og/og-developer-portal.png
 ---
  
-## Logging and Monitoring with Prometheus
+## Prometheus를 사용한 로깅 및 모니터링
 
-Learn how to perform logging and monitoring of your stake pool with prometheus. To be able to follow the video better you can find the written tutorial [how to perform logging and monitoring with prometheus](/docs/stake-pool-course/handbook/apply-logging-prometheus) in the stake pool operator handbook.
+Prometheus로 스테이크 풀에 대한 로깅 및 모니터링을 수행하는 방법에 대해 알아보세요. 비디오를 더 잘 따라가려면, 스테이크 풀 운영자 핸드북에서 [Prometheus로 로깅 및 모니터링을 수행하는 방법](/docs/stake-pool-course/handbook/apply-logging-prometheus)에 대한 튜토리얼을 찾아보시기 바랍니다.
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/VIyDBz7Gd4Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"></iframe>
 <br/><br/>
 
 
-## Grafana Dashboard
+## Grafana 대시보드
 
-Learn how to use Grafana to build a dashboard to monitor your nodes. To be able to follow the video better you can find the written tutorial [how to use Grafana](https://docs.cardano.org/projects/cardano-node/en/latest/logging-monitoring/grafana.html) in the stake pool operator handbook.
+Grafana를 사용하여 대시보드를 구축하고 노드를 모니터링하는 방법에 대해 알아보세요. 비디오를 더 잘 따라가려면, 스테이크 풀 운영자 핸드북에서 [Grafana 사용 방법](https://docs.cardano.org/projects/cardano-node/en/latest/logging-monitoring/grafana.html)에 대한 튜토리얼을 찾아보시기 바랍니다.
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/KsYqeEjjVbQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"></iframe>
 <br/><br/>
 
-:::tip questions or suggestions?
-If you have any questions and suggestions while taking the lessons please feel free to [ask in the Cardano forum](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158) and we will respond as soon as possible.
+:::tip 질문이나 제안 사항
+수업을 듣는 동안 질문이나 제안 사항이 있는 경우, [Cardano forum에 질문](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158)해 주시면 최대한 빨리 답변해 드리겠습니다.
 :::

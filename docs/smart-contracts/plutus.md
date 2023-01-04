@@ -6,63 +6,62 @@ description: Plutus
 image: ../img/og/og-developer-portal.png
 --- 
 
-## Get started with Plutus 
-Plutus is the smart contract platform of the Cardano blockchain. It allows you to write applications that interact with the Cardano blockchain.
+## Plutus 시작하기
+Plutus는 Cardano 블록체인의 스마트 컨트랙트 플랫폼입니다. Cardano 블록체인과 상호작용하는 어플리케이션을 작성할 수 있습니다.
 
-Take a look at the [Plutus Tutorial](https://plutus.readthedocs.io/en/latest/tutorials/) if you want to learn Plutus from the beginning or see [Plutus resources](https://docs.cardano.org/plutus/plutus-resources), where you can find references to all Plutus-related repositories, documentation, and training materials. If you don't know Haskell yet, consider [starting with Haskell](#get-started-with-haskell).
+Plutus를 처음 접한다면, [Plutus Tutorial](https://plutus.readthedocs.io/en/latest/tutorials/)을 보거나, 모든 Plutus 관련 레퍼지토리, 문서 및 교육 자료를 찾을 수 있는 [Plutus resources](https://docs.cardano.org/plutus/plutus-resources)를 참조하세요. Haskell을 아직 모른다면, [Haskell부터 시작](#get-started-with-haskell)해 보세요.
 
-[Follow Chris Moreton's content updates](https://plutus-pioneer-program.readthedocs.io/en/latest/plutus_pioneer_program.html). With a high effort he transcribes the lectures of the Plutus Pioneer Program. 
+[Chris Moreton의 컨텐츠 업데이트를 따르세요](https://plutus-pioneer-program.readthedocs.io/en/latest/plutus_pioneer_program.html). 그는 Plutus Pioneer Program의 강의를 필사하는 데 많은 노력이 들였습니다.
 
-Talk to others about [Plutus on the Cardano Forum](https://forum.cardano.org/c/developers/cardano-plutus/148) or if you prefer Discord 
-head to the the [IOG Technical Discord](https://discord.com/invite/w6TwW9bGA6).
+[Cardano Forum](https://forum.cardano.org/c/developers/cardano-plutus/148)에서 다른 사람들과 Plutus에 대해 이야기 하거나, Discord를 선호하는 경우 [IOG Technical Discord](https://discord.com/invite/w6TwW9bGA6)로 이동하세요.
 
-## The Plutus platform
-In this Video Michael Peyton-Jones starts by walking us through working with Plutus. Plutus allows all programming to be done from a single Haskell library. This lets users build secure applications, forge new assets, and create smart contracts in a predictable, deterministic environment with the highest level of assurance. Furthemore, developers don’t have to run a full Cardano node to test their work. 
+## Plutus platform
+이 비디오는 Michael Peyton-Jones가 Plutus와 함께 작업하는 과정을 안내하는 것으로 시작합니다. 이는 단일 Haskell 라이브러리에서 모든 프로그래밍을 구행할 수 있도록 합니다. 이를 통해 사용자는 최고 수준의 보증을 통해 예측 가능하고 결정론적인 환경에서 안전한 어플리케이션을 구축하고, 새로운 자산을 만들며, 스마트 컨트랙트를 생성할 수 있습니다. 또한 개발자는 작업을 테스트하기 위해 Cardano 풀노드를 실행할 필요도 없습니다.
 
-Jann Müller then takes us through the Plutus Application Platform, where assets can be built and launched. He also demonstrates how tokens can be transferred using a smart contract. With Plutus you can:
+그런 다음 Jann Müller가 자산을 구축하고 런칭되는 Plutus Application Platform을 소개합니다. 또한 그는 스마트 컨트랙트를 사용하여 토큰을 전송하는 방법을 시연합니다. Plutus를 사용하면 다음을 수행할 수 있습니다.
 
-- Forge new tokens in a lightweight environment
-- Build smart contracts
-- Support basic multi-sig scripts
+- 가벼운 환경에서 새로운 토큰 만들기.
+- 스마트 컨트랙트를 구축.
+- 기본적인 멀티시그 스크립트 지원 
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/usMPt8KpBeI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
 ## Plutus Playground
-The Plutus Playground is a code editor and simulator in one.
+Plutus Playground는 코드 에디터이자 시뮬레이터입니다.
 
 [![Plutus Playground](../../static/img/get-started/smart-contracts/plutus-playground.jpg)](https://playground.plutus.iohkdev.io)
 
-There is a written tutorial on [how to compile and test a Plutus App](https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/plutus-playground.html) or you can watch this video tutorial:   
+[Plutus App을 컴파일하고 테스트하는 방법](https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/plutus-playground.html)에 대한 튜토리얼을 보거나, 다음 비디오를 확인해보세요.
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/DhRS-JvoCw8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"></iframe>
 
-## Further Tutorials
-- [Writing a basic Plutus app in the Plutus Playground](https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/basic-apps.html)
-- [Using Plutus Tx](https://plutus.readthedocs.io/en/latest/tutorials/plutus-tx.html)
-- [Writing basic validator scripts](https://plutus.readthedocs.io/en/latest/tutorials/basic-validators.html)
-- [Writing basic minting policies](https://plutus.readthedocs.io/en/latest/tutorials/basic-minting-policies.html)
-- [Property-based testing of Plutus contracts](https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/contract-testing.html)
+## 추가 튜토리얼
+- [Plutus Playground에서 기본적인 Plutus App 작성](https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/basic-apps.html)
+- [Plutus Tx 사용](https://plutus.readthedocs.io/en/latest/tutorials/plutus-tx.html)
+- [기본적인 밸리데이터 스크립트 작성](https://plutus.readthedocs.io/en/latest/tutorials/basic-validators.html)
+- [기본적인 발행 정책 작성](https://plutus.readthedocs.io/en/latest/tutorials/basic-minting-policies.html)
+- [Plutus 컨트랙트의 속성 기반 테스트](https://plutus-apps.readthedocs.io/en/latest/plutus/tutorials/contract-testing.html)
 
-## How-to guides
-- [How to export scripts, datums and redeemers](https://plutus.readthedocs.io/en/latest/howtos/exporting-a-script.html)
-- [How to write a scalable Plutus app](https://plutus-apps.readthedocs.io/en/latest/plutus/howtos/writing-a-scalable-app.html)
-- [How to handle blockchain events](https://plutus-apps.readthedocs.io/en/latest/plutus/howtos/handling-blockchain-events.html)
-- [How to analyse the cost and size of Plutus scripts](https://plutus-apps.readthedocs.io/en/latest/plutus/howtos/analysing-scripts.html)
+## 방법 가이드
+- [script, datum과 redeemer를 내보내는 방법](https://plutus.readthedocs.io/en/latest/howtos/exporting-a-script.html)
+- [확장 가능한 Plutus app 작성 방법](https://plutus-apps.readthedocs.io/en/latest/plutus/howtos/writing-a-scalable-app.html)
+- [블록체인 이벤트 처리 방법](https://plutus-apps.readthedocs.io/en/latest/plutus/howtos/handling-blockchain-events.html)
+- [Plutus 스크립트의 비용과 크기를 분석하는 방법](https://plutus-apps.readthedocs.io/en/latest/plutus/howtos/analysing-scripts.html)
 
-## Get started with Haskell
-Haskell is the programming language for Plutus contracts. If you are looking for the best guide to Haskell and unsure where to start, we recommend you check out the book or website [Learn You a Haskell for Great Good](http://learnyouahaskell.com/introduction) by Miran Lipovača. 
+## Haskell 시작하기
+Haskell은 Plutus 컨트랙트를 위한 프로그래밍 언어입니다. 만약 Haskell에 대한 최고의 가이드를 찾고 있는데 어디서부터 시작해야 할지 모르겠다면 Miran Lipovača의 책이나 웹사이트 [Learn You a Haskell for Great Good](http://learnyouahaskell.com/introduction)을 확인하는 것을 추천합니다.
 
-Learning Haskell is made easy with this illustrated guide, one of the most engaging ways to learn this fascinating programming language.
+위 가이드를 통해, Haskell을 굉장히 쉽게 배울 수 있습니다.
 
-Another great learning resource is the online course [Haskell and Crypto Mongolia 2020](https://www.youtube.com/watch?v=ctfZ6DwFiPg&list=PLJ3w5xyG4JWmBVIigNBytJhvSSfZZzfTm&index=4) lectured by [Andres Löh](https://kosmikus.org/), co-founder of the Well-Typed consultancy and [Dr. Lars Brünjes](https://iohk.io/en/team/lars-brunjes), Education Director at IOHK. The course is the suggested *starting point* for Plutus Pioneers at the beginning of the [Plutus Pioneer Program](#get-started-with-the-plutus-pioneer-program). It's a 10-week, 40 hours/week deep dive into Haskell and Cryptocurrencies.
+또 다른 훌륭한 학습 리소스는 Well-Typed 컨설팅의 공동 창립자인 [Andres Löh](https://kosmikus.org/)와 IOHK의 교육 디렉터인 [Dr. Lars Brünjes](https://iohk.io/en/team/lars-brunjes)가 강의하는 [Haskell and Crypto Mongolia 2020](https://www.youtube.com/watch?v=ctfZ6DwFiPg&list=PLJ3w5xyG4JWmBVIigNBytJhvSSfZZzfTm&index=4)입니다. 이 코스는 [Plutus Pioneer Program](#plutus-pioneer-program-시작하기)을 시작할 때 Plutus Pioneers가 제한하는 *출발점* 입니다. Haskell 및 암호화폐에 대해 10주, 주당 40시간 강의로 심층 분석을 진행합니다.
 
-If you are coming from a Python background, there is an informative project [py2hs](https://github.com/cffls/py2hs) that explains essential Haskell concepts using Python.
+Python을 배운 적이 있다면, Python을 사용하여 필수 Haskell 개념을 설명하는 [py2hs](https://github.com/cffls/py2hs)라는 유익한 프로젝트도 있습니다.
 
-## Get started with the Plutus pioneer program
-The Plutus pioneer program was created in order to recruit and train developers in Plutus for the Cardano ecosystem. By entering the program, you will become part of a group with early access to a set of courses that teach you the core principles of how to code in both Haskell and Plutus. It will be highly interactive, with weekly videos, exercises, and Q&A sessions and exclusive access to the creators and key experts in the language. 
+## Plutus pioneer program 시작하기
+Plutus pioneer program은 Cardano 생태계를 위해 Plutus 개발자를 모집하고 교육하기 위해 만들어졌습니다. 프로그램에 참여하면 Haskell과 Plutus에서 코딩하는 방법의 핵심 원칙을 배우는 그룹의 일원이 됩니다. 해당 프로그램은 주간 비디오, 과제, Q&A 세션과 해당 언어의 제작자 및 주요 전문가에 대한 독점적인 액세스와 같은 과정들로 구성됩니다.
 
-**This course is not for coding beginners.** You do not need to be an expert in formal methods, but programming experience and a general aptitude for logical and mathematical thinking are highly advisable. We recommend to [get started with Haskell](#get-started-with-haskell) before taking the course.
+**이 과정은 코딩 초보자를 위한 것이 아닙니다.** 공식적인 전문가가 될 필요는 없지만, 프로그래밍 경험과 논리/수학적인 사고에 대한 적성은 어느 정도 요구됩니다. 과정을 수강하기 전에 [Haskell을 시작하는 것](#haskell-시작하기)이 좋습니다.
 
-Prior knowledge of Haskell or functional programming is also recommended, as Plutus is heavily based on Haskell and includes advanced features like Template Haskell, type-level programming, and effect systems.
-- [Apply for the Plutus Pioneer Program](https://testnets.cardano.org/en/plutus-pioneer-program/)
+Plutus는 Haskell에 기반을 두고 있고, Template Haskell, 자료형 수준 프로그래밍 및 효과 시스템과 같은 고급 기능을 포함하므로, Haskell 또는 함수형 프로그래밍에 대한 사전 지식도 권장됩니다.
+- [Plutus Pioneer Program 신청 링크](https://testnets.cardano.org/en/plutus-pioneer-program/)
 
-You can also check out the book "Plutus - Learning a smart-contract language" that follows the 3rd iteration of the Plutus pioneer programm and contains all code examples from the course. The book is availabe at this repository: https://github.com/LukaKurnjek/plutus-pioneer-program.
+또한 Plutus pioneer program의 3차 과정을 따르고 해당 과정의 모든 코드 예제가 포함된 책 "Plutus - Learning a smart-contract language"을 확인해봐도 좋습니다. 이 책은 [링크](https://github.com/LukaKurnjek/plutus-pioneer-program)의 레퍼지토리에서 구할 수 있습니다.

@@ -6,15 +6,13 @@ description: "Stake pool course: KES period assignment."
 image: ../img/og/og-developer-portal.png
 ---
 
-To create an Operational Certificate for a block-producing node, you need a _KES key pair_.
+블록 생성 노드에 대한 운영 인증서를 생성하려면 KES 키 쌍이 필요합니다.
 
-Here "KES" stands for _**K**ey **E**volving **S**ignature_, which means that after a certain _period_, the key will _evolve_ to a new key
-and discard its old version. This is useful, because it means that even if an attacker compromises the key and gets access to the signing key, he can only use that to sign blocks _from now on_, but not blocks dating from _earlier periods_, making it impossible for the attacker to rewrite history. To generate a new KES key pair, see below.
+여기서 "KES"는 Key Evolving Signature를 의미하며, 일정 _기간_ 이 지나면 키가 새 키로 _진화_ 하고 이전 버전을 폐기한다는 의미입니다. 이는 공격자가 키를 손상시키고 서명 키에 액세스하더라도 지금부터 블록에 서명하는 데만 키를 사용할 수 있고 이전 기간 의 블록 은 사용할 수 없다는 점으로 인해 유용하게 사용됩니다. 즉, 공격자는 체인의 역사를 다시 쓰지 못한다는 것을 의미합니다. 새 KES 키 쌍을 생성하려면 아래를 참조하십시오.
 
-A KES key can only evolve for a certain number of periods and becomes useless afterwards.
-This means that before that number of periods has passed, the node operator has to generate a new KES key pair, issue a new operational node certificate with that new key pair and restart the node with the new certificate.
+KES 키는 특정 기간 동안만 진화할 수 있으며 이후에는 쓸모가 없게 됩니다. 즉, 해당 기간이 경과하기 전에 노드 운영자는 새 KES 키 쌍을 생성하고 해당 새 키 쌍으로 새 운영 노드 인증서를 발급하고 새 인증서로 노드를 다시 시작해야 합니다.
 
-### KES key generation
+### KES 키 생성
 
 ```bash
 cardano-cli node key-gen-KES \
@@ -22,8 +20,7 @@ cardano-cli node key-gen-KES \
   --signing-key-file kes.skey
 ```
 
-To find out how long one period is and for how long a key can evolve, we can look into the _genesis file_. If that file is called `mainnet-shelley-genesis.json`,
-we can type:
+한 기간이 얼마나 길고 키가 얼마나 오래 진화할 수 있는지 알아보려면 _제네시스 파일_ 을 살펴볼 수 있습니다 . 해당 파일의 이름이 `mainnet-shelley-genesis.json`라고 하면, 다음과 같이 입력할 수 있습니다.
 
 ```bash
 cat mainnet-shelley-genesis.json | grep KES
@@ -31,11 +28,11 @@ cat mainnet-shelley-genesis.json | grep KES
 "maxKESEvolutions": 62,
 ```
 
-The key will evolve after each period of 129600 slots and it can evolve up to 62 times before it needs to be renewed.
+키는 129600 슬롯의 각 기간 후에 진화하며 갱신 전 최대 62번까지 진화할 수 있습니다.
 
-Before we can create an Operational Certificate for our node, we need to figure out the start of the KES validity period, i.e. which KES evolution period we are in.
+우리 노드에 대한 운영 인증서를 생성하려면, KES 유효 기간의 시작, 즉 우리가 속한 KES 진화 기간을 파악해야 합니다.
 
-We check the current tip of the blockchain:
+블록체인의 현재 팁을 확인합니다.
 
 ```bash
 cardano-cli query tip --mainnet
@@ -46,15 +43,14 @@ cardano-cli query tip --mainnet
     "block": 5580350
 }
 ```
-
-In this example, we are currently in slot 26633911, and we know from the genesis file that one period lasts for 129600 slots. So we calculate the current period:
+이 예에서 우리는 현재 슬롯 26633911에 있으며, 제네시스 파일에서 한 기간이 129600 슬롯 동안 지속된다는 것을 알고 있습니다. 따라서 현재 기간을 계산합니다.
 
 ```bash
 expr 26633911 / 129600
 > 205
 ```
 
-### Issue Operational Certificate
+### 운영 인증서 발급
 
 ```bash
 cardano-cli node issue-op-cert \
@@ -65,19 +61,19 @@ cardano-cli node issue-op-cert \
   --out-file opcert.cert
 ```
 
-**This command increments the cold counter by 1.**
+**이 명령은 콜드 카운터를 1씩 증가시킵니다.**
 
-## :warning: Vasil hard fork breaking changes
+## :warning: Vasil 하드 포크 변동 사항
 
-Note that from the Vasil hard fork onwards there is a new rule for the opcert.counter:
+Vasil 하드포크부터는 opcert.counter에 대한 새로운 규칙이 있습니다.
 
-A new Operational Certificate will be considered valid only if its counter value is exactly one more than the previous Operational Certificate that has successfully minted at least one block.
+새로운 운영 인증서는 카운터 값에 있어 적어도 하나의 블록을 성공적으로 발행한 이전 운영 인증서보다 정확히 하나 더 큰 카운터 값을 가지는 경우에만 유효한 것으로 간주됩니다.
 
-Prior to Vasil, it was permitted to use any strictly larger counter value than used on chain previously, but this is no longer permitted. It must be incremented by exactly one. In particular, this means one cannot use the current time or slot number as a counter value.
+Vasil 이전에는 이전에 체인에서 사용된 것보다 더 큰 카운터 값을 얼마든지 사용할 수 있었지만 더 이상 허용되지 않습니다. 정확히 1씩 증가해야 합니다. 특히 이것은 현재 시간이나 슬롯 번호를 카운터 값으로 사용할 수 없음을 의미합니다.
 
-### Find the counter value used on-chain
+### 온체인에서 사용되는 카운터 값 찾기
 
-To find out the current **Operational Certificate Counter** registered on-chain, run:
+온체인에 등록된 현재 **운영 인증서 카운터**를 찾으려면 다음을 실행하세요.
 
 ```bash
 > cardano-cli query kes-period-info --testnet-magic 42 --op-cert-file node-spo3/opcert.cert
@@ -99,65 +95,64 @@ To find out the current **Operational Certificate Counter** registered on-chain,
 }
 ```
 
-Where:
+여기서
 
-* `"qKesNodeStateOperationalCertificateNumber": 3,` is the last counter registered **OnChain** to forge a block.
+* `"qKesNodeStateOperationalCertificateNumber": 3`은 블록을 생성했을 때 **온체인**에 등록된 마지막 카운터 값입니다.
 
 and
 
-* `"qKesOnDiskOperationalCertificateNumber": 3,` is the counter value of your **OnDisk** operational certificate.
+* `"qKesOnDiskOperationalCertificateNumber": 3` 는 현재 가지고 있는 운영 인증서의 카운터 값입니다.
 
-When your pool has already forged a block with the current Operational Certificate the above values will match.
+풀이 이미 현재 운영 인증서로 블록을 생성한 경우 위의 값이 일치합니다.
 
-If your pool has **not** yet forged a block with the current Operational Certificate,  `cardano-cli query kes-period-info` shows that `"qKesOnDiskOperationalCertificateNumber"` is greater than `"qKesNodeStateOperationalCertificateNumber"` by exactly one (1), for example:
+풀이 아직 현재 작동 인증서로 블록을 위조 하지 않은 경우 `cardano-cli query kes-period-info`는 `"qKesOnDiskOperationalCertificateNumber"`가 `"qKesNodeStateOperationalCertificateNumber"`보다 정확히 1 큰 것으로 표시할 것입니다. 예를 들면 다음과 같습니다.
 
 ```json
 "qKesNodeStateOperationalCertificateNumber": 2,
 "qKesOnDiskOperationalCertificateNumber": 3,
 ```
 
-Once your pool forges a block `qKesNodeStateOperationalCertificateNumber` will be updated accordingly **(OnChain)** and these values will be the same.
+풀이 블록을 생성하면  `qKesNodeStateOperationalCertificateNumber`는 이에 따라 **온체인에서** 증가할 것이고, 값은 같아질 것입니다.
 
-### How do I know if I have issued an _invalid_ Operational Certificate
+### 유효하지 않은 운영 인증서를 발급했는지 확인하기
 
-Run `cardano-cli query kes-period-info` right after you have created the new Operational Certificate. If the **OnDisk** counter differs from the **OnChain** counter by more than 1, your certificate will be _invalid_, for example:
+새 운영 인증서를 만든 직후 `cardano-cli query kes-period-info`를 실행하세요. 가지고 있는 것과 온체인 인증서의 카운터 값이 1보다 많이 차이나면, 당신의 인증서는 유효하지 않습니다. 다음은 그 예시입니다.
 
 ```json
 "qKesNodeStateOperationalCertificateNumber": 2,
 "qKesOnDiskOperationalCertificateNumber": 4,
 ```
 
-Any blocks forged with such a certificate will be _invalid blocks_.
+이러한 인증서로 생성된 모든 블록은 유효하지 않은 블록 이 됩니다.
 
-Issuing a **valid certificate** after having issued an **invalid** one requires a new **Operational Certificate Counter** and a new Operatinal Certificate.
+**유효하지 않은** 인증서를 발급 한 후 **유효한** 인증서 를 발급 하려면 새로운 **운영 인증서 카운터**와 새로운 운영 인증서가 필요합니다.
 
+### 현재 운영 인증서로 생성된 블록이 없을 경우, 카운터는 어떻게 하나요?
 
-### No blocks forged with current operational certificate. What to do with the counter?
+새 규칙에서는, 카운터가 현재 체인에서 실제로 블록을 생성하는 데 사용된 마지막 카운터보다 **하나** 더 많아야 합니다.
 
-Keep in mind that the new rule is that the counter must be **one** more than the last counter used to _actually_ forge a block in the _current chain_.
+**이전 운영 인증서의 카운터를 증가시켰지만 이를 사용하여 블록을 위조하지 않은 경우, 새 운영 인증서를 발행할 때 카운터를 다시 증가시키지 않아야 합니다. 즉, 카운터 값은 동일하게 유지됩니다. 이 경우 새 운영 인증서를 발급하기 전에 새 카운터를 발급해야 합니다.**
 
-**If we have incremented the counter on a previous Operational Certificate but we have NOT forged a block with it, the counter must not be incremented again when issuing a new Operational Certificate i.e it remains the same. In this case we need to issue a new Counter before we issue the new Operational Certificate.**
+**참조: 아래에서 새 카운터 및 운영 인증서를 발급합니다.**
 
-**See: Issue new counter and Operational Certificate below.**
-
-Note that in this scenario we **cannot** use `cardano-cli node issue-op-cert...` right away to issue a new Operational Certificate because this would increment the **OnDisk** counter by 1 more, resulting in an invalid certificate, for example:
+이 시나리오에서는 새 인증서 발급을 위해 `cardano-cli node issue-op-cert...`를 바로 쓸 수 **없습니다**. 이는 **가지고 있는 인증서**의 카운터가 1 더 증가시켜서 유효하지 않은 인증서로 만들 것이기 때문입니다. 예를 들면 다음과 같습니다.
 
 ```
 "qKesNodeStateOperationalCertificateNumber": 2,
 "qKesOnDiskOperationalCertificateNumber": 4,
 ```
 
-If we issue a certificate with such a counter, any block we forge with it will be an **Invalid Block**. The node logs will show the error:
+이러한 카운터를 사용하여 인증서를 발급하면, 이를 사용하여 생성하는 모든 블록은 **유효하지 않은 블록**이 됩니다. 노드 로그에 다음과 같은 오류가 표시될 것입니다.
 
 ```
 Invalid block 237602735e6b56985109480aefbc4821f57e6389736be238ffbec4c0188f9702 at slot 5206: ExtValidationErrorHeader (HeaderProtocolError (HardForkValidationErrFromEra S (S (S (S (S (Z (WrapValidationErr {unwrapValidationErr = CounterOverIncrementedOCERT 2 4}))))))))
 ```
 
-### Issue new counter and Operational Certificate
+### 새로운 카운터 및 운영 인증서 발행
 
-**On a running node:**
+**실행중인 노드에서:**
 
-1. Query `kes-period-info`. You can save the json output to a file using the `--out-file` flag
+1. `kes-period-info`를 쿼리하세요. `--out-file` 플래그를 사용하여 json 출력을 파일에 저장할 수 있습니다.
 
 ```bash
 > cardano-cli query kes-period-info --testnet-magic 42 --op-cert-file node-spo3/opcert.cert --out-file kes_period_info.json
@@ -178,11 +173,11 @@ Invalid block 237602735e6b56985109480aefbc4821f57e6389736be238ffbec4c0188f9702 a
 }
 ```
 
-**On your cold environment:**
+**콜드 환경에서:**
 
-2. Create a new Counter
+2. 새 카운터 만들기
 
-Take the **OnChain** Counter from above. In this case `"qKesNodeStateOperationalCertificateNumber": 2` and increment it by exactly 1 when issuing the new Counter:
+위에서 **온체인**에 저장된 카운터를 가져옵니다. 이 경우 `"qKesNodeStateOperationalCertificateNumber": 2`일 것이고, 새 카운터를 발행할 때 정확히 1만큼 증가시킵니다.  
 
 ```bash
 cardano-cli node new-counter \
@@ -191,7 +186,7 @@ cardano-cli node new-counter \
   --operational-certificate-issue-counter-file opcert.counter
 ```
 
-3. Generate new KES keys if needed (because of _MaxKESEvolutions_ reached):
+3. 필요한 경우 새 KES 키를 생성합니다(MaxKESEvolutions 에 도달했기 때문에):
 
 ```bash
 cardano-cli node key-gen-KES \
@@ -199,7 +194,7 @@ cardano-cli node key-gen-KES \
   --signing-key-file kes.skey
 ```
 
-4. Issue the new Operational Certificate:
+4. 새 운영 인증서를 발급합니다.
 
 ```bash
   cardano-cli node issue-op-cert --kes-verification-key-file kes.vkey \
@@ -209,4 +204,4 @@ cardano-cli node key-gen-KES \
   --out-file opcert.cert
 ```
 
-5. Copy the new `opcert.cert` and `kes.skey` to your block producer node and restart it.
+5. 새 `opcert.cert` 와 `kes.skey`를 블록 생산 노드에 복사하고 다시 시작하세요.

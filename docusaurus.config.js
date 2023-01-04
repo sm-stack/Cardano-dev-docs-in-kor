@@ -3,7 +3,7 @@ const vars = require('./variables')
 
 // Docusaurus Config
 module.exports = {
-  title: "Cardano Developer Portal",
+  title: "Cardano 개발자 포털",
   tagline: "Let’s build together",
   url: "https://developers.cardano.org",
   baseUrl: "/",
@@ -35,7 +35,7 @@ module.exports = {
     announcementBar: {
       id: "announcement_index3", // Any value that will identify this message + increment the number every time to be unique
       content:
-        `<strong>Build out the Developer Portal together with us, ⭐️<a target="_blank" rel="noopener noreferrer" href="https://discord.gg/Exe6XmqKDx">join Discord.</a></strong>`,
+        `<strong>개발자 포털을 같이 만들어 나갑시다. ⭐️<a target="_blank" rel="noopener noreferrer" href="https://discord.gg/Exe6XmqKDx">Discord에 참여하세요!</a></strong>`,
       backgroundColor: "#2AA18A",
       textColor: "#FFFFFF", // Use #FFFFFF
       isCloseable: true, // Use true
@@ -57,7 +57,7 @@ module.exports = {
     // Navbar title, logo and items
     navbar: {
       hideOnScroll: false,
-      title: "Developers",
+      title: "개발자",
       logo: {
         alt: "Cardano Logo",
         src: "img/cardano-black.svg",
@@ -67,22 +67,22 @@ module.exports = {
       items: [
         {
           to: "docs/get-started/",
-          label: "Get Started",
+          label: "시작하기",
           position: "left",
         },
         {
           to: "tools",
-          label: "Builder Tools",
+          label: "개발자 도구",
           position: "left",
         },
         {
           to: "showcase",
-          label: "Showcase",
+          label: "쇼케이스",
           position: "left",
         },
         {
           to: "blog/",
-          label: "Dev Blog",
+          label: "개발 블로그",
           position: "left",
         },
         {
@@ -101,36 +101,36 @@ module.exports = {
       style: "dark",
       links: [
         {
-          title: "Developer Portal",
+          title: "개발자 포털",
           items: [
             {
-              label: "Contributors",
+              label: "기여자",
               to: "docs/portal-contributors/",
             },
             {
-              label: "Changelog",
+              label: "변경 내역",
               to: "/changelog",
             },
             {
-              label: "How to Contribute",
+              label: "기여하는 방법",
               to: "docs/portal-contribute/",
             },
             {
-              label: "Style Guide",
+              label: "스타일 가이드",
               to: "docs/portal-style-guide",
             },
             {
-              label: "Suggest Content",
+              label: "컨텐츠 제안",
               href: "https://github.com/cardano-foundation/developer-portal/discussions/161",
             },
             {
-              label: "Raise an Issue",
+              label: "Issue 제안",
               href: "https://github.com/cardano-foundation/developer-portal/issues",
             },
           ],
         },
         {
-          title: "Developer Community",
+          title: "개발자 커뮤니티",
           items: [
             {
               label: "Stack Exchange",
@@ -141,11 +141,11 @@ module.exports = {
               href: "https://forum.cardano.org/c/developers/29",
             },
             {
-              label: "Developer Portal Discord",
+              label: "개발자 포털 Discord",
               href: "https://discord.com/invite/Exe6XmqKDx",
             },
             {
-              label: "Developer Ecosystem Survey",
+              label: "Developer 생태계 설문",
               href: "https://cardano-foundation.github.io/state-of-the-developer-ecosystem/2022",
             },
             {
@@ -158,7 +158,7 @@ module.exports = {
           title: "More about Cardano",
           items: [
             {
-              label: "Careers on Cardano",
+              label: "Cardano에서의 커리어",
               to: "docs/careers",
             },
             {
@@ -170,11 +170,11 @@ module.exports = {
               href: "https://www.cardanofoundation.org",
             },
             {
-              label: "Development Updates",
+              label: "개발 업데이트",
               href: "https://cardanoupdates.com",
             },
             {
-              label: "Ouroboros Protocol",
+              label: "Ouroboros 프로토콜",
               href: "https://cardano.org/ouroboros/",
             },
           ],
@@ -225,7 +225,7 @@ module.exports = {
     [
       require.resolve('./src/plugins/changelog/index.js'),
       {
-        blogTitle: 'Developer Portal Changelog',
+        blogTitle: '개발자 포털 변경 내역',
         blogDescription:
           'Keep yourself up-to-date about new features in every release',
         blogSidebarCount: 'ALL',
@@ -237,7 +237,7 @@ module.exports = {
         authorsMapPath: 'authors.json',
         feedOptions: {
           type: 'all',
-          title: 'Developer Portal Changelog',
+          title: '개발자 포털 변경 내역',
           description:
             'Keep yourself up-to-date about new features in every release',
           language: 'en',

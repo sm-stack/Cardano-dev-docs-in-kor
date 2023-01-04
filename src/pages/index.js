@@ -10,78 +10,77 @@ import OpenStickyButton from "../components/buttons/openStickyButton";
 
 const features = [
   {
-    title: "Get Started",
+    title: "시작하기",
     imageUrl: "img/card-get-started.svg",
     targetUrl: "docs/get-started/",
     description: (
       <>
-        Get an overview of Cardano, understand the components, discover builder
-        tools, learn technical concepts and connect to the developer community.
+        Cardano의 개요 정보를 얻고, 구성 요소를 이해하며, 개발자 도구를 발견하고,
+        기술 개념을 배우며 개발자 커뮤니티에 참여하세요.
       </>
     ),
   },
   {
-    title: "Integrate Cardano",
+    title: "Cardano 통합하기",
     imageUrl: "img/card-integrate-cardano.svg",
     targetUrl: "docs/integrate-cardano/",
     description: (
       <>
-        Explore Cardano wallets and learn how to integrate Cardano into
-        applications and websites.
+        Cardano 지갑을 알아보고 어플리케이션과 웹사이트에 Cardano를 통합하는
+        방법에 대해 알아보세요.
       </>
     ),
   },
   {
-    title: "Build with Transaction Metadata",
+    title: "트랜잭션 메타데이터 빌딩하기",
     imageUrl: "img/card-transaction-metadata.svg",
     targetUrl: "docs/transaction-metadata/",
     description: (
       <>
-        Learn what transaction metadata is, how to add it to a transaction, how
-        to view the metadata and what potential use cases are.
+        트랜잭션 메타데이터가 무엇인지, 이를 트랜잭션에 어떻게 추가하는지, 그리고
+        메타데이터를 보는 방법은 무엇이고 사용 사례는 무엇이 있는지 알아보세요.
       </>
     ),
   },
   {
-    title: "Discover Native Tokens",
+    title: "네이티브 토큰 알아보기",
     imageUrl: "img/card-native-tokens.svg",
     targetUrl: "docs/native-tokens/",
     description: (
       <>
-        Read what native tokens are, how to mint them, ways to create NFT and
-        why you don't need smart contracts for all this.
+        네이티브 토큰이 무엇인지, 어떻게 발행하는지, NFT는 어떻게 생성하는지, 그리고
+        왜 이를 위한 스마트 컨트랙트가 필요없는지 읽어보세요.
       </>
     ),
   },
   {
-    title: "Create Smart Contracts",
+    title: "스마트 컨트랙트 생성하기",
     imageUrl: "img/card-smart-contracts.svg",
     targetUrl: "docs/smart-contracts/",
     description: (
       <>
-        Discover Marlowe and Plutus and learn how to create smart contracts on Cardano.
+        Marlowe와 Plutus에 대해 알아보고 Cardano에서 스마트 컨트랙트를 생성하는 방법에 대해 알아보세요.
       </>
     ),
   },
   {
-    title: "Be Part of the Governance",
+    title: "거버넌스 참여하기",
     imageUrl: "img/card-governance.svg",
     targetUrl: "docs/governance/",
     description: (
       <>
-        Governance is an essential topic that includes Cardano Improvement Proposals (CIP), 
-        project funding, voting, and network parameters.
+        거버넌스는 Cardano 개선 제안(CIP), 프로젝트 자금 지원 및 네트워크 매개변수를 포함하는 
+        필수 주제입니다.
       </>
     ),
   },
   {
-    title: "Operate a Stake Pool",
+    title: "스테이크 풀 운영하기",
     imageUrl: "img/card-operate-a-stake-pool.svg",
     targetUrl: "docs/operate-a-stake-pool/",
     description: (
       <>
-        Learn what it takes to become a Cardano stake pool operator from a
-        technical and marketing perspective.
+        기술 및 마케팅 관점에서 스테이크 풀 운영자가 되기 위해 필요한 것들을 알아보세요.
       </>
     ),
   },
@@ -121,11 +120,11 @@ function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
   return (
-    <Layout description="Cardano Developer Portal">
+    <Layout description="Cardano 개발자 포털">
       <PortalHero
         title={siteConfig.title}
         description={siteConfig.tagline}
-        cta={'Get Started'}
+        cta={'시작하기'}
         url={useBaseUrl("docs/get-started/")}
       />
       <main>

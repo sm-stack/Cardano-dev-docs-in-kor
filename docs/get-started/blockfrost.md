@@ -1,28 +1,28 @@
 ---
 id: blockfrost
-title: Get Started with Blockfrost
+title: Blockfrost 시작하기
 sidebar_label: Blockfrost
 description: Get Started with Blockfrost
 image: ../img/og/og-getstarted-blockfrost.png
 ---
 
-Blockfrost provides API to access and process information stored on the Cardano blockchain. The basic tier is free and allows 50,000 requests per day.
+Blockfrost는 Cardano 블록체인에 저장된 정보에 액세스하고 처리하는 API를 제공합니다. 기본 티어는 무료이며, 하루에 50,000건의 요청을 제공합니다.
 
-## Sign in
+## 로그인
 
-[Sign in on Blockfrost](https://blockfrost.io/auth/signin) with your GitHub account. No registration required. Enter a project name and select Cardano mainnet or Cardano testnet, depending on your needs.
+[Blockfrost에 로그인](https://blockfrost.io/auth/signin)은 Github 계정을 통해 가능합니다. 따로 회원가입을 할 필요는 없습니다. 프로젝트 이름을 입력하고, 필요에 따라 Cardano 메인넷 또는 Cardano 테스트넷을 선택합니다. 
 
 ![img](../../static/img/get-started/blockfrost/1-add-project.png)
 
-## Get your API key
+## API 키 얻기
 
-After clicking on `Save Project` you will immediately get your `API KEY`. Save it. You will need this key for every request.
+`Save Project` 버튼을 클릭하면 즉시 `API KEY` 를 얻을 수 있습니다. 이를 저장하고, 요청을 보낼 때마다 사용하십시오.
 
 ![img](../../static/img/get-started/blockfrost/2-get-api-key.png)
 
-## Query the latest epoch
+## 가장 최신 에포크 쿼리하기
 
-Send your first request to get data about the latest epoch. Don't forget to replace `1234567890`with your `API KEY`.
+최신 에포크에 대한 데이터를 얻기 위해 첫 번째 요청을 보냅니다. `1234567890` 을 귀하의 `API KEY` 로 바꾸는 것을 잊지 마십시오.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -64,7 +64,7 @@ $parsedJson = json_decode($json);
   </TabItem>
 </Tabs>
 
-If you have done everything correctly you will get a response in JSON format, similar to this:
+모든 작업을 올바르게 수행한 경우, 다음과 같은 JSON 형식의 응답을 받게 됩니다.
 
 ```json
 {
@@ -81,9 +81,9 @@ If you have done everything correctly you will get a response in JSON format, si
 }
 ```
 
-## Query data of a specific stake pool
+## 특정 스테이크 풀의 데이터 쿼리하기
 
-Let's look into another example and query data of a specific stake pool. You need to provide a Bech32 or hexadecimal `pool_id`.
+다른 예를 살펴보고 특정 스테이크 풀의 데이터를 쿼리해보겠습니다. 이를 위해 Bech32 혹은 16진수의 `pool_id` 가 필요합니다.
 
 <Tabs
 defaultValue="curl"
@@ -124,7 +124,7 @@ $parsedJson = json_decode($json);
   </TabItem>
 </Tabs>
 
-You will get a response in JSON format, similar to this:
+다음과 같은 JSON 형태의 응답을 받게 됩니다.
 
 ```json
 {
@@ -156,9 +156,10 @@ You will get a response in JSON format, similar to this:
 }
 ```
 
-## Query information of a specific asset
+## 특정 자산의 정보 쿼리하기
 
-Let's look at this last example and query information of a specific native token on Cardano. You need to provide the string concatenation of the `policy_id` and hex-encoded `asset_name`.
+이 마지막 예시를 살펴보고, Cardano 내 특정 네이티브 토큰의 정보를 쿼리해보겠습니다. 이를 위해 `policy_id` 와 16진수로 인코딩된 `asset_name` 의 문자열 연결이 필요합니다.
+
 
 <Tabs
 defaultValue="curl"
@@ -213,6 +214,7 @@ You will get this JSON response:
 }
 ```
 
-## Blockfrost documentation
+## Blockfrost 문서
 
-Blockfrost has a powerful API with which you can do a lot of things. Visit [docs.blockfrost.io](https://docs.blockfrost.io) to see the complete API documentation.
+Blockfrost에는 많은 일을 할 수 있는 강력한 API가 있습니다. 전체 API 설명서를 보려면 [docs.blockfrost.io](https://docs.blockfrost.io)를 확인하십시오.
+

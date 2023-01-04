@@ -1,174 +1,174 @@
 ---
 id: introduction-to-cardano
-title: (Re)introduction into Cardano
-sidebar_label: (Re)introduction into Cardano
+title: Cardano (재)소개
+sidebar_label: Cardano (재)소개
 description: "Stake pool course: (Re)introduction into Cardano."
 image: ../img/og/og-developer-portal.png
 ---
 
-Developing Cardano is no small feat. There is no other project that has ever been built to these parameters, combining peer reviewed cryptographic research with an implementation in highly secure Haskell code. 
+Cardano를 개발하는 것은 결코 쉬운 일이 아니었습니다. 동료 검토를 거친 암호화 연구와 매우 안전한 Haskell 코드 구현을 결합한 Cardano 같은 프로젝트는 이 세상에 유일하기 때문입니다.
 
-This is not the copy and paste code seen in so many other blockchains. Instead, Cardano was designed with input from a large global team including leading experts and professors in the fields of computer programming languages, network design and cryptography. 
+이는 다른 많은 블록체인에서 볼 수 있는 복사 -> 붙여넣기 코드와는 다릅니다. Cardano는 컴퓨터 프로그래밍 언어, 네트워크 설계 및 암호화 분야의 주요 전문가 및 교수를 포함하는 대규모 글로벌 팀의 의견을 바탕으로 설계되었습니다.
 
-We are extremely proud of Cardano, which required a months-long meticulous and painstaking development process by our talented engineers.
+우리는 유능한 엔지니어들이 몇 달 동안 세심하고 힘든 개발 프로세스를 통해 개발한 Cardano를 매우 자랑스럽게 생각합니다.
 
-## Why Cardano?
-If you haven't seen it yet, watch the legendary whiteboard video from 2017. Some details are a bit outdated, but it is still worth seeing to understand what Cardano is and where Cardano came from.
+## 왜 Cardano를 써야 하나요?
+아직 보지 않았다면, 2017년의 전설적인 화이트보드 비디오를 시청해보세요. 일부 세부 사항은 약간 구식이긴 해도, Cardano가 무엇이며 Cardano가 어디에서 왔는지를 이해한다는 관점에서 이는 아직도 좋은 영상입니다.
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/Ja9D0kpksxw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Understanding Consensus
+## 합의 알고리즘 이해하기
 
-Consensus is the process by which a majority opinion is reached by everyone who is involved in running the blockchain. Agreement must be made on which blocks to produce, which chain to adopt, and to determine the single state of the network. The consensus protocol determines how individual nodes assess the current state of the ledger system and reach a consensus. It has three main responsibilities; to perform a leader check and decide if a block should be produced, to handle chain selection, and to verify blocks that are produced.
+합의 알고리즘은 블록체인 운영에 있어 모든 사람이 다수결의 의견에 도달하는 과정입니다. 생산할 블록, 채택할 체인 및 네트워크의 단일한 상태를 결정하기 위해 합의가 이루어져야 합니다. 합의 프로토콜은 개별 노드가 렛저 시스템의 현재 상태를 평가하고 합의에 도달하는 방법을 결정합니다. 합의 프로토콜은 세 가지 책임을 가집니다. 리더 확인 및 블록 생성 여부를 결정하고, 포크 상황에서 체인을 선택하며, 생성된 블록을 확인하는 것입니다.
 
-Blockchains create consensus by allowing participants to bundle transactions that others have submitted to the system in _blocks_, and add them to their _chain_ (sequence of blocks). Determining who is allowed to produce a block when, and what to do in case of conflicts, (such as two participants adding different blocks at the same point of the chain), is the purpose of the different consensus protocols. Our ground-breaking proof-of-stake consensus protocol [Ouroboros](https://iohk.io/en/blog/posts/2020/06/23/the-ouroboros-path-to-decentralization/) is proven to have the same security guarantees that proof of work has. Rigorous security guarantees are established by Ouroboros and it was delivered with several peer-reviewed papers that were presented in top-tier conferences and publications in the area of cybersecurity and cryptography. Different [implementations of Ouroboros](https://iohk.io/en/blog/posts/2020/03/23/from-classic-to-hydra-the-implementations-of-ouroboros-explained/) have been developed. For further details on each flavour of Ouroboros, you can read the technical specifications for [Classic](https://iohk.io/en/research/library/papers/ouroborosa-provably-secure-proof-of-stake-blockchain-protocol/), [Byzantine Fault Tolerance (BFT)](https://iohk.io/en/research/library/papers/ouroboros-bfta-simple-byzantine-fault-tolerant-consensus-protocol/), [Genesis](https://iohk.io/en/research/library/papers/ouroboros-genesiscomposable-proof-of-stake-blockchains-with-dynamic-availability/), [Praos](https://iohk.io/en/research/library/papers/ouroboros-praosan-adaptively-securesemi-synchronous-proof-of-stake-protocol/), and more recently the scalability solution [Hydra](https://eprint.iacr.org/2020/299.pdf).
+블록체인은 참여자들로 하여금 다른 사람이 제출한 트랜잭션을 _블록_ 으로 묶고, 각자의 _체인_ (블록의 연속)에 추가하는 작업을 통해 합의를 형성합니다. 누가 언제 블록을 생성할 수 있는지, 충돌이 발생할 경우(예: 체인의 동일한 지점에 서로 다른 블록이 추가될 경우) 무엇을 해야 하는지 결정하는 것은 합의 프로토콜들의 목표입니다. 우리의 획기적인 지분 증명 기반 합의 프로토콜인 [Ouroboros](https://iohk.io/en/blog/posts/2020/06/23/the-ouroboros-path-to-decentralization/)는 작업 증명과 동일한 보안 수준을 가지는 것으로 입증되었습니다. Ouroboros는 엄격한 보안 수준을 달성했으며, 사이버 보안 및 암호화 분야의 최상위 컨퍼런스 및 발행물에서 발표된 여러 동료 평가 논문들을 통해 제공되었습니다. 현재 [Ouroboros의 다양한 구현체](https://iohk.io/en/blog/posts/2020/03/23/from-classic-to-hydra-the-implementations-of-ouroboros-explained/)들이 개발되었습니다. 각각의 특징에 대한 자세한 내용은 [Classic](https://iohk.io/en/research/library/papers/ouroborosa-provably-secure-proof-of-stake-blockchain-protocol/), [Byzantine Fault Tolerance (BFT)](https://iohk.io/en/research/library/papers/ouroboros-bfta-simple-byzantine-fault-tolerant-consensus-protocol/), [Genesis](https://iohk.io/en/research/library/papers/ouroboros-genesiscomposable-proof-of-stake-blockchains-with-dynamic-availability/), [Praos](https://iohk.io/en/research/library/papers/ouroboros-praosan-adaptively-securesemi-synchronous-proof-of-stake-protocol/), 그리고 가장 최근의 확장성 솔루션인 [Hydra](https://eprint.iacr.org/2020/299.pdf)에서 볼 수 있습니다.
 
-## Stake Pools
+## 스테이크 풀
 
-By running a Cardano node, users participate in and contribute to the network.
+사용자들은 Cardano 노드를 실행해서 네트워크에 참여 및 기여합니다.
 
-A stake pool is a reliable server node that focuses on maintenance and holds the combined stake of various stakeholders in a single entity. Stake pools are responsible for processing transactions and producing new blocks and are at the core of Ouroboros, the Cardano proof-of-stake protocol.
+스테이크 풀은 유지관리에 중점을 두고 단일 객체에서 다양한 주주들의 결합된 지분을 보유하는, 신뢰할 수 있는 서버 노드입니다. 스테이크 풀은 트랜잭션 처리 및 새 블록 생성을 담당하며, Cardano 지분 증명 프로토콜인 Ouroboros의 핵심입니다.
 
-To be secure, Ouroboros requires a good number of ada holders to be online and maintaining sufficiently good network connectivity at any given time. This is why Ouroboros relies on stake pools, entities committed to run the protocol 24/7, on behalf of the contributing ada holders.
+보안을 위해, Ouroboros는 충분한 수의 ada 보유자가 온라인 상태이고, 주어진 시간 내에 네트워크 연결을 유지하길 요구합니다. 이것이 Ouroboros가 스테이크 풀에 의존할 수 있는 이유입니다. 
 
-While Ouroboros is cheaper to run than a proof of work protocol, running Ouroboros still incurs some costs. Therefore, stake pool operators are rewarded for running the protocol in the form of incentives that come from the transaction fees and from inflation of the circulating supply of ada.
+Ouroboros는 작업 증명 프로토콜보다 실행 비용이 저렴하지만, Ouroboros 실행에는 여전히 약간의 비용이 발생합니다. 따라서 스테이크 풀 운영자는 거래 수수료와 ada 공급 인플레이션에서 오는 인센티브의 형태로 보상을 받습니다.
 
-## How Are New Blocks Produced?
+## 새 블록은 어떻게 생성되나요?
 
-The goal of blockchain technology is the production of an independently-verifiable and cryptographically-linked chain of records (blocks). A network of block producers works to collectively advance the blockchain. A consensus protocol provides transparency and decides which candidate blocks should be used to extend the chain.
+블록체인 기술의 목표는 독립적으로 검증 가능하고, 암호학으로 연결된 레코드(블록)의 체인을 생성하는 것입니다. 블록 생산자 네트워크는 블록체인을 공동으로 발전시키기 위해 노력합니다. 합의 프로토콜은 투명성을 제공하고, 체인을 확장하는 데 사용할 후보 블록을 결정하는 역할을 합니다.
 
-Submitted valid transactions might be included in any new block. A block is cryptographically signed by its producer (the stake pool) and linked to the previous block in the chain. This makes it impossible to delete transactions from a block, alter the order of the blocks, remove a block from the chain (if it already has a number of other blocks following it), or to insert a new block into the chain without alerting all the network participants. This ensures the integrity and transparency of the blockchain expansion.
+제출된 유효 트랜잭션은 새 블록에 포함될 수 있습니다. 블록은 생산자(스테이크 풀)에 의해 암호화 서명되고, 체인의 이전 블록에 연결됩니다. 이로 인해 블록에서 트랜잭션을 삭제하거나, 블록의 순서를 변경하거나, 체인에서 중간 블록을 제거하거나, 체인에 새 블록을 삽입하는 등의 행동은 불가능합니다. 이는 블록체인 확장의 무결성과 투명성을 보장합니다.
 
-### Slots and Epochs
+### 슬롯과 에포크
 
-The Cardano blockchain uses the Ouroboros Praos protocol to facilitate consensus on the chain.
+Cardano 블록체인은 Ouroboros Praos 프로토콜을 사용하여 체인에서 합의를 달성합니다. 
 
-Ouroboros Praos divides time into epochs. Each Cardano epoch consists of a number of slots, where each slot lasts for one second. A Cardano epoch currently includes 432,000 slots (5 days). In any slot, zero or more block-producing nodes might be nominated to be the slot leader. On average, one node is expected to be nominated every 20 seconds, for a total of 21,600 nominations per epoch. If randomly elected slot leaders produce blocks, one of them will be added to the chain. Other candidate blocks will be discarded.
+Ouroboros Praos는 시간을 에포크로 나눕니다. 각 Cardano 에포크는 여러 개의 슬롯으로 구성되며, 각 슬롯은 1초 동안 지속됩니다. Cardano 에포크에는 현재 432,000개의 슬롯(5일)이 포함됩니다. 모든 슬롯에서 0개 이상의 블록 생성 노드가 슬롯 리더로 지명될 수 있습니다. 평균적으로 20초마다 하나의 노드가 지명되며, 에포크 당 퐁 21,600개의 지명이 이루어집니다. 임의로 선출된 슬롯 리더가 블록을 생성하면 그 중 하나가 체인에 추가됩니다. 다른 후보 블록은 폐기됩니다. 
 
-### Slot Leader Election
+### 슬롯 리더 선출
 
-The Cardano network consists of a number of stake pools that control the aggregated stake of their owners and other delegators, also known as stakeholders. Slot leaders are elected randomly from among the stake pools. The more stake the pool controls, the greater the chance it has of being elected as a slot leader to produce a new block that is accepted into the blockchain. This is the concept of proof-of-stake (PoS).
+Cardano 네트워크는 여러 위임자들(주주라고도 함)의 총 지분을 제어하는 스테이크 풀들로 구성됩니다. 슬롯 리더는 스테이크 풀 중에서 무작위로 선출됩니다. 풀이 제어하는 지분이 많을수록 블록체인에 허용되는 새 블록을 생성하기 위해 슬롯 리더로 선출될 가능성이 커집니다. 이것이 지분 증명(PoS)의 개념입니다. 
 
-### Transaction Validation
+### 트랜잭션 검증
 
-When validating a transaction, a slot leader needs to ensure that the sender has included enough funds to pay for that transaction and must also ensure that the transaction’s parameters are met. Assuming that the transaction meets all these requirements, the slot leader will record it as a part of a new block, which will then be connected to other blocks in the chain.
+트랜잭션을 검증할 때, 슬롯 리더는 보낸 사람이 해당 트랜잭션에 대해 지불에 충분한 자금을 포함했는지 확인하고, 트랜잭션의 매개 변수가 충족되는지 확인해야 합니다. 트랜잭션이 이러한 모든 요구 사항을 충족한다면, 슬롯 리더는 이를 새 블록의 일부로 기록하고 체인의 이전 블록과 연결합니다.
 
-## The Big Picture
+## 큰 그림
 
-Learn fundamental terms like blockchain, consensus, decentralization delegation and incentives. Understand the big picture of Cardano and why stake pools are so important. 
+블록체인, 합의, 탈중앙화 위임 및 인센티브와 같은 기본 용어를 배워보세요. Cardano의 큰 그림과 왜 스테이크 풀이 중요한지 이해하는 것은 매우 귀중한 경험일 것입니다.
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/zJUJG6V0Y1o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
 <br/><br/>  
 
-:::tip questions or suggestions?
-If you have any questions and suggestions while taking the lessons please feel free to [ask in the Cardano forum](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158) and we will respond as soon as possible. 
+:::tip 질문이나 제안 사항
+수업을 듣는 동안 질문이나 제안 사항이 있는 경우, [Cardano forum에 질문](https://forum.cardano.org/c/staking-delegation/setup-a-stake-pool/158)해 주시면 최대한 빨리 답변해 드리겠습니다.
 :::
 
-## Ouroboros Protocol
+## Ouroboros 프로토콜
 
-### Consensus
+### 합의
 
-Blockchains require an agreement mechanism between the participants of the network on how to add new transactions to the ledger and its state at any given moment. This mechanism is known as a consensus protocol.
+블록체인은 렛저에 새로운 트랜잭션을 추가하는 방법과, 주어진 순간에 해당 상태에 대한 네트워크 참여자 간 합의 메커니즘이 필요합니다. 이 메커니즘을 합의 프로토콜이라고 합니다. 
 
-The goal of the consensus protocol is to ensure that only one chain is adopted and followed, otherwise, the system would collapse immediately.
+합의 프로토콜의 목표는 하나의 체인만이 채택/준수되도록 하는 것입니다. 그렇지 않으면 시스템이 즉시 붕괴됩니다.
 
-### The Proof-of-work consensus algorithm
+### 작업 증명 합의 알고리즘
 
-Bitcoin implemented a Proof-of-work consensus algorithm. In this protocol, for a new block to be added to the blockchain, the node that attempts it must provide a proof-of-work, which is expressed by the solution of a mathematical puzzle. This process is known as mining.
+Bitcoin은 작업 증명 합의 알고리즘을 구현했습니다. 이 프로토콜에서 블록체인에 새 블록을 추가하려면, 이를 시도하는 노드는 수학적 퍼즐의 솔루션으로 표현되는 작업에 대한 증명을 제시해야 합니다. 이 프로세스를 채굴이라고 합니다.
 
-The node that solves the puzzle gets the right to create the new block and is rewarded for it.
+퍼즐을 푸는 노드는 새로운 블록을 생성할 권리를 얻고, 이에 대한 보상을 받습니다.
 
-This scheme puts all nodes into a race against each other, and since only one node is rewarded, wastes a lot of computational power and energy.
+이 방식은 모든 노드를 서로 경쟁하게 만들고, 하나의 노드만 보상을 받기 때문에 많은 계산 능력과 에너지를 낭비합니다.
 
-Such waste has raised concerns about the Bitcoin’s environmental impact. Currently, the Bitcoin mining process consumes as much energy as countries like the Netherlands or Iceland.
+이러한 낭비는 Bitcoin의 환경적 영향에 대한 우려를 불러일으켰습니다. 현재 Bitcoin 채굴 프로세스는 네덜란드 또는 아이슬란드와 같은 국가만큼 많은 에너지를 소비합니다.
 
-Apart from the environmental concerns, the rewards scheme of the proof-of-work algorithm has also led to the centralization of the Bitcoin network. Up to 75% of the Bitcoin network computing power is located in China. And a single player, Bitmain, controls over 40% of the network hash rate.
+환경 문제 외에도, 작업 증명 알고리즘의 보상 체계는 비트코인 네트워크의 중앙 집중화로 이어졌습니다. 비트코인 네트워크의 컴퓨팅 파워의 최대 75%가 중국에 있습니다. 단일 플레이어인 Bitmain이 네트워크 해시 비율의 40% 이상을 제어합니다.
 
-The underlying problem is that Bitcoin makes a clear distinction between the actual users of the network and the miners. Owning Bitcoins does not grant you any control over the network, nor any power over the decisions on the evolution of it. The system is controlled by a small pool of developers and miners.
+근본적인 문제는 Bitcoin이 네트워크의 실제 사용자와 채굴자를 명확하게 구분한다는 것입니다. Bitcoin을 소유한다고 해서 네트워크에 대한 통제권이나 업그레이드에 대한 결정권을 부여받는 것은 아닙니다. 이 시스템은 소규모 개발자 및 채굴 풀에 의해 제어됩니다.
 
-### Ouroboros, a Proof-of-stake consensus algorithm
+### Ouroboros, 지분 증명 합의 알고리즘
 
-In Ouroboros, there is no race between stakeholders to produce a block. Instead, a slot leader is randomly selected, proportionally to the amount of tokens he owns (the stake), to get the opportunity to produce a new block.
+Ouroboros에서는 블록을 생성하기 위해 경쟁이 필요없습니다. 대신 슬롯 리더는 그가 소유한 토큰(지분)의 양에 비례하여 무작위로 선택되어 새로운 블록을 생성할 기회를 얻습니다.
 
-So it is not hashing power what gives you the opportunity to produce a new block (and get rewarded for it), it is your stake what increases your chances to be elected.
+따라서 새로운 블록을 생산할 수 있는 (보상을 받을) 기회를 제공하는 것은 해시 파워가 아니라, 지분입니다.
 
-Since there is no race to mine a block, there is no waste of energy or computational resources. In that sense, Ouroboros is a more efficient and cheaper protocol to run than Bitcoin’s proof-of-work, while keeping all the security guarantees.
+블록을 채굴하기 위한 경쟁이 없기 때문에, 에너지나 컴퓨팅 자원의 낭비가 없습니다. 그런 의미에서 Ouroboros는 모든 보안 사항을 준수하며 Bitcoin의 작업 증명보다 실행하기에 더 효율적이고 저렴한 프로토콜입니다.
 
-### What if you are not online? (Stake pools)
+### 온라인 상태가 아니면 어떻게 되나요? (스테이크 풀)
 
-To produce a block you have to be online, but asking everyone to be online at every moment is impractical and unrealistic. This is why Ouroboros introduces the figure of _Stake Delegation_. As stakeholder, you can delegate your stake to a third party to act on your behalf whenever you are elected slot leader. Such delegates are known as _staking pools_. They are members of the community that commit to run the protocol on your behalf and to be online close to 100% of the time.
+블록을 생성하려면 온라인 상태여야 하지만, 모든 사람이 매 순간 온라인 상태가 되도록 요구하는 것은 비현실적입니다. 이것이 Ouroboros의 _지분 위임_ 이 등장한 이유입니다. 주주로서 당신은 슬롯 리더로 선출될 때마다 당신를 대신하여 행동할 제 3자에게 지분을 위임할 수 있습니다. 이러한 대리인을 _스테이킹 풀_ 이라고 합니다. 이들은 당신을 대신하여 프로토콜을 실행하고, 거의 100% 온라인 상태를 유지하기로 약속한 커뮤니티의 구성원입니다.
 
-An important thing to notice is that you only delegate your rights to participate in the protocol, not your actual funds. Your ada are still secure and under your control in your wallet, and funds are not locked, you can still make transactions.
+주의해야 할 중요한 점은 실제 자금이 아닌 프로토콜에 참여할 권리만 위임한다는 것입니다. 당신의 ada는 여전히 안전하고, 지갑에서 당신의 통제하에 있으며, 자금은 잠기지 않았기 때문에 이를 통해 트랜잭션을 생성할 수 있습니다.
 
-### What about the incentives?
+### 인센티브는 무엇인가요?
 
-Stakeholders that issue blocks are incentivized to participate in the protocol by collecting transaction fees. But Ouroboros does not incentivize stakeholders to invest computational resources to issue blocks. Rather, availability and transaction verification are prefered.
+블록을 생성하는 주주들은 거래 수수료를 징수하여 프로토콜에 참여하도록 인센티브를 받습니다. 그러나 Ouroboros는 주주가 블록 생성에 계산 리소스를 투자하도록 장려하지 않습니다. 오히려 가용성 유지 및 트랜잭션 검증을 하도록 합니다.
 
-Rewards come from two sources: transaction fees and funds drawn from the ada Reserve.
+보상은 거래 수수료와 ada 준비금에서 인출된 자금에서 옵니다.
 
-In Ouroboros, incentives are not block-dependant, instead, rewards from an epoch are collected in a pool and distributed among the stakeholders and stake pools that participated during these slots proportional to their stake.
+Ouroboros에서 인센티브는 블록에 따라 달라지지 않습니다. 대신, 한 에포크의 보상을 풀에 모두 모은 다음 해당 슬롯에 주주와 스테이크 풀의 지분에 비례하여 분배합니다.
 
-In the case of stake pools, those get a fraction of the rewards to cover operational costs and a profit margin. The rest is distributed among the pool members, including the pool owners, proportionally to the stake that they contributed to the pool.
+스테이크 풀의 경우, 운용 비용과 이익 마진을 충당하기 위해 보상의 일부를 가져갑니다. 나머지는 풀에 기여한 지분에 비례하여 풀 소유자를 포함한 구성원들에게 분배됩니다.
 
-To participate in the protocol, you can choose a staking pool or choose to act on your own at any moment creating your own stake pool.
+프로토콜에 참여하기 위해 스테이크 풀을 선택할 수도 있고, 언제든지 자신의 풀을 만들 수도 있습니다.
 
-### What if for some reason there is a fork? 
+### 어떤 이유로 포크가 생긴다면 어떻게 되나요?
 
-Given that stakeholders are not always online, they come and go (a.k.a. dynamic availability), and sometimes they are offline for long periods, it is important for them to be able to resynchronize with the correct chain when they come back online.
+주주가 항상 온라인 상태가 아니라는 점(동적 가용성이라고도 함)을 감안할 때, 때로는 오랫동안 오프라인 상태일 수 있습니다. 이 주주가 온라인 상태로 돌아올 때, 올바른 체인과 재동기화할 수 있는 것이 중요합니다.
 
-The key feature of Ouroboros Genesis is that thanks to a unique chain selection rule, it allows new or re-joining parties to synchronize to the “good chain” with only a trusted copy of the genesis block. This makes the protocol secure against the so-called “long-range attack”.
+Ouroboros Genesis의 핵심 기능은 고유한 체인 선택 규칙 덕분에 신규 혹은 재가입자가 제네시스 블록의 신뢰할 수 있는 사본만으로 "올바른 체인"에 동기화할 수 있다는 것입니다. 이를 통해 소위 말하는 "장거리 공격(long-range attack)"에 대해 프로토콜을 보호할 수 있습니다.
 
-### Self-produced randomness 
+### 자체 생산되는 무작위성 
 
-Making the slot leader selection fair and secure **(staking procedure)** requires a good source of randomness.
+슬롯 리더 선출을 공정하고 안전하게 만드려면 **(스테이킹 절차)** 좋은 무작위성 소스가 필요합니다.
 
-Ouroboros protocol (specifically Ouroboros Praos and Ouroboros Genesis) incorporates a Global Random Oracle feature that produces new and fresh randomness at every epoch.
+Ouroboros 프로토콜(특히 Ouroboros Praos와 Ouroboros Genesis)은 모든 에포크에서 새롭고 신선한 무작위성을 생성하는 Global Random Oracle 기능을 가지고 있습니다.
 
-This is achieved by the implementation of a Verifiable Random Function. When evaluated with the key of a stakeholder, It returns a random value which is stored in every new block produced. The hashing of all values from the previous epoch becomes the random seed for the staking procedure. The blockchain itself becomes its source of new randomness.
+이는 검증 가능한 랜덤 함수(VRF)의 구현에 의해 달성됩니다. 주주의 키로 평가될 때, 이는 생성된 모든 새 블록에 저장된 난수를 반환합니다. 이전 에포크에서 모든 값의 해싱은 스테이킹 절차의 난수 시드가 됩니다. 즉, 블록체인 자체가 새로운 무작위성의 소스가 됩니다.
 
-This is why the protocol is named Ouroboros, the snake that eats its own tail.
+이것이 프로토콜이 자신의 꼬리를 먹는 뱀인 Ouroboros로 명명된 이유입니다.
 
-### Promoting decentralization 
+### 탈중앙화 달성
 
-Finally, the Ouroboros incentives mechanism promotes the decentralization of the system in a better way than Proof-of-work does. Because Ouroboros considers two key scenarios:
+마지막으로, Ouroboros 인센티브 메커니즘은 작업 증명보다 더 나은 방식으로 시스템의 탈중앙화를 촉진합니다. Ouroboros는 두 가지 주요 시나리오를 고려하기 때문입니다.
 
-In one hand, a staking pool can only act as a delegate if it represents a certain number of stakeholders whose aggregate stake exceeds a given threshold, for example, 0.1% of all the stake in the blockchain. This prevents a fragmentation attack, where someone tries to affect the performance of the protocol by increasing the delegates population.
+먼저, 스테이크 풀은 총 지분이 주어진 임계값을 초과하는 특정 수의 주주를 대표하는 경우에만 대리인 역할을 할 수 있습니다(예: 블록체인 전체 지분의 0.1%). 이렇게 하면 누군가 대리인 인구를 늘려 프로토콜의 성능에 영향을 미치려고 시도하는 류의 공격을 방지할 수 있습니다.
 
-At the same time, when the aggregate stake of a stake pool grows beyond a certain threshold, rewards become constant. This makes that particular stake pool less attractive since stakeholders would not be maximizing their rewards. For example, if the threshold is set to 1%, a stake pool with a stake of 2% would gain the same rewards as other that has a stake of only 1%.
+동시에, 스테이크 풀의 총 지분이 특정 임계값 이상으로 증가하면 보상이 일정해집니다. 이것은 주주 입장에서 보상이 줄어드는 것과 같기 때문에, 특정 스테이크 풀을 덜 매력적으로 만듭니다. 예를 들어, 임계값을 1%로 설정하면 지분을 2% 가지고 있는 스테이크 풀은 지분이 1%인 다른 풀과 동일한 보상을 받습니다.
 
-All these functionalities make Ouroboros the best proof of stake ledger protocol to date. And its only implementation is currently in the Cardano blockchain.
+이러한 모든 기능 덕분에, Ouroboros는 현재까지 최고의 지분 증명 렛저 프로토콜이 되었습니다. 그리고 이에 대한 구현은 Cardano 블록체인에서만 이루어져 있습니다.
 
-## How it works 
+## 작동 원리
 
-1. **Time** is divided into epochs and slots and begins at Genesis. At most one block is produced in every slot. Only the slot leader can sign a block for a particular slot.
-2. **Register:** The first thing a user needs to do to participate in the protocol is registering to:
-    1. a network to synchronize with the ledger
-    2. a global clock that indicates the current slot
-    3. a global random oracle that produces random values \(v\) and delivers them to the user
-3. **Staking procedure**
-    1. At the beginning of every epoch, the online stakeholders fetch \(from the blockchain\) the **stake distribution** from the last block of 2 epochs ago. For example, if the current epoch is epoch 100, the stake distribution used is the distribution as it was in the last block of epoch 98.
-    2. **Random Oracle**: Is a hashing function that takes the random values “v” \(included in each block by the slot leader for this purpose\) from the first ⅔ slots in previous epoch and hash them together and use it as the random seed to select the slot leaders.
-    3. Stakeholders evaluate with their **secret key** the **Verifiable Random Function \(VRF\)** at every slot. If the output value \(v\) is below a certain threshold, the party becomes slot leader for that block.
-        1. **Certificate:** The **VRF** produces two outputs: **a random value \(v\)** and a **proof \(π\)** that the slot leader will include in the block he produces to certify that he is the legitimate slot leader for that particular slot.
-        2. Slot leader performs the following duties
-        3. Collects the transactions to be included in his block.
-        4. Includes in his block the random value \(v\) and proof \(π\) obtained from the VRF output.
-        5. Before broadcasting the block, the slot leader generates a new secret key **\(Key-evolving signature\)**. The public key remains the same, but the secret key is updated in every step and the old key is erased.
-        6. It is impossible to forge old signatures with new keys. And it is also impossible to derive previous keys from new ones.
-        7. Finally, the slot leader broadcast the new block to the network.
-        8. The **rewards** obtained by the slot leaders are calculated at the end of the epoch. Rewards come from transaction fees and funds from the ada reserve.
+1. **시간**은 에포크와 슬롯으로 구분되며, Genesis에서 시작됩니다. 모든 슬롯에서 최대 하나의 블록이 생성됩니다. 슬롯 리더만이 특정 슬롯에 대한 블록에 서명할 수 있습니다.
+2. **등록** : 사용자가 프로토콜에 참여하기 위해 가장 먼저 해야될 것은, 다음과 같은 것들에 등록하는 것입니다.
+    1. 렛저와 동기화할 네트워크
+    2. 현재 슬롯을 나타내는 글로벌 시계
+    3. 난수 \(v\)를 생성하여 사용자에게 전달하는 전역 난수 오라클
+3. **스테이킹 절차**
+    1. 모든 에포크가 지가될 때, 온라인 주주들은 두 에포크 전 마지막 블록에서 **지분 분배**를 가져 옵니다\(from the blockchain\). 예를 들어,현재 에포크가 에포크 100인 경우 사용된 지분 분배는 에포크 98 내 마지막 블록에 있었던 분배 현황입니다.
+    2. **난수 오라클**: 이는 이전 에포크 내 ⅔ 지점에 있는 슬롯에서 난수 "v" (난수로 쓰이기 위해 슬롯 리더가 각 블록에 기입)를 가져와 함께 해시하고, 이를 임의의 시드로 사용하여 다음과 같은 임계값들을 선택하는 해싱 함수입니다.
+    3. 주주들은 각자의 **비밀 키**로 모든 슬롯에 대해 **VRF(검증 가능한 랜덤 함수, VRF)**를 평가합니다. 출력 값(v)이 특정 임계값 미만이면 당사자는 해당 블록의 슬롯 리더가 됩니다.
+        1. **인증서:** **VRF**는 두 가지 출력을 생성합니다: **난수 v**와 **증명 \(π\)**가 바로 그것입니다. 이는 슬롯 리더가 특정 슬롯에 대해 합법적인 리더임을 인증하기 위해 생성되는 블록에 포함되는 값입니다.
+        2. 슬롯 리더는 다음과 같은 업무를 수행합니다;
+        3. 자신의 블록에 포함될 트랜잭션을 수집합니다.
+        4. VRF 출력에서 얻은 임의 값\(v\)과 증명\(π\)을 해당 블록에 포함합니다.
+        5. 블록을 브로드캐스팅하기 전에, 슬롯 리더는 새로운 비밀 키 **\(Key-evolving signature, KES\)**를 생성합니다. 공개 키는 동일하게 유지되지만, 비밀 키는 모든 단계에서 업데이트되고 이전 키는 지워집니다.
+        6. 새로운 키로 이전 서명을 위조하는 것은 불가능합니다. 또한, 새로운 키에서 이전 키를 도출해내는 것도 불가능합니다.
+        7. 마지막으로 슬롯 리더는 새 블록을 네트워크에 브로드캐스팅합니다.
+        8. 슬롯 리더가 얻을 **보상**은 에포크가 끝날 때 계산됩니다. 보상은 ada 준비금에서의 자금과 트랜잭션 수수료에서 나옵니다.
 
-**What happens in the case of a fork in the chain?**
+**체인에 포크가 발생하면 어떻게 되나요?**
 
-A key aspect of the procedure described above is that from time to time, it will produce slots without a slot leader and slots with multiple slot leaders. Meaning that nodes might receive valid chains from multiple sources. To determine which chain to adopt, each party collects all valid chains and applies the Chain Selection Rule. The same thing is done by users that have been offline for a while and need to synchronize with the blockchain.
+위에서 설명한 절차의 핵심은, 때때로 슬롯 리더가 없는 슬롯과 여러 슬롯 리더가 있는 슬롯을 생성한다는 것입니다. 이는 노드가 여러 소스로부터 유효한 체인을 받을 수 있다는 것을 의미합니다. 채택할 체인을 결정하기 위해, 각 당사자는 모든 유효한 체인을 수신한 다음, 체인 선택 규칙을 적용합니다. 한동안 오프라인이었다가 블록체인과 동기화해야 하는 사용자도 동일한 작업을 수행합니다.
 
-The node filters all valid chains (chains whose signatures are consistent with the genesis block and with the keys recorded in the Key Evolving Signature protocol, the variable random function and the global random oracle.
+노드는 모든 유효한 체인(서명이 제네시스 블록과 일치하고, KES 프로토콜에 기록된 키, VRF 및 전역 랜덤 오라클과 일치하는 체인)을 필터링합니다.
 
-Then applies the Chain Selection Rule: pick the longest chain as long as it grows more quickly (is denser) in the slots following the last common block to both competing chains.
+그런 다음 체인 선택 규칙을 적용합니다. 두 경쟁 체인에 대한 마지막 공통 블록을 따르는 슬롯에서 더 빨리 성장하는(밀도가 더 높은) 가장 긴 체인을 선택합니다.
 
-This chain selection rule allows for a party that joins the network at any time to synchronize with the correct blockchain, based only on a trusted copy of the genesis block and by observing how the chain grows for a sufficient time.
+이 체인 선택 규칙은 제네시스 블록의 신뢰할 수 있는 복사본만을 기반으로 충분한 시간 동안 체인이 어떻게 성장하는지 관찰함으로써 언제든지 네트워크에 참여하는 당사자가 올바른 블록체인과 동기화할 수 있도록 합니다.
 
-## Reference material
+## 참고 문헌
 
 [Ouroboros: A Provably Secure Proof-of-Stake Blockchain Protocol](https://eprint.iacr.org/2016/889.pdf)
 
@@ -176,6 +176,6 @@ This chain selection rule allows for a party that joins the network at any time 
 
 [Ouroboros Genesis: Composable Proof-of-Stake Blockchains with Dynamic Availability](https://eprint.iacr.org/2018/378.pdf)
 
-## Video: What’s an Ouroboros and how you cook it?
+## 비디오: Ouroborus는 무엇인가요?
 
 <iframe width="100%" height="325" src="https://www.youtube.com/embed/U92Ks8rucDQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

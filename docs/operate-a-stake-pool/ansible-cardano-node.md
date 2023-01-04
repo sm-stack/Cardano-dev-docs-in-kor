@@ -1,24 +1,24 @@
 ---
 id: ansible-cardano-node
-title: Get Started with Ansible for Stake Pools
-sidebar_label: Ansible for Stake Pools
+title: 스테이크 풀을 위한 Ansible 시작하기
+sidebar_label: 스테이크 풀을 위한 Ansible
 description: Get Started with Ansible for Stake Pools
 ---
 
 ![ansible-cardano](https://user-images.githubusercontent.com/84546123/137635107-1b183f63-3cac-4ef9-be9e-3f116cb79aef.png)
 
-## Overview
+## 개요
 
-The [Ansible cardano-node](https://github.com/moaipool/ansible-cardano-node) repository contains an [Ansible](https://www.ansible.com/) playbook for provisioning secure, optimized Cardano nodes for Stake Pool Operators (SPOs). It was originally developed by the [MOAI Pool](https://moaipool.com/) (Ticker: **MOAI**) operators but is now being made available to the greater Cardano community.
+[Ansible cardano-node](https://github.com/moaipool/ansible-cardano-node) 레퍼지토리에는 스테이크 풀 운영자(SPO)를 위해 안전하고 최적화된 Cardano 노드를 제공하기 위한 [Ansible](https://www.ansible.com/) 플레이북 이 포함되어 있습니다. 원래 MOAI 풀 (티커: MOAI) 운영자가 개발했지만, 이제 더 큰 Cardano 커뮤니티에서 사용할 수 있게 되었습니다.
 
-The following is handled out of the box:
+다음은 제공되는 기본 기능입니다.
 
-* Basic Linux security (SSH hardening, firewall setup, etc.)
-* Installation of a cardano-node (compiled from IOHK source)
-* Base configuration for block producer and relay nodes
-* Setup of administration & monitoring tools (cncli, gLiveView, etc.)
+* 기본 Linux 보안 설정(SSH 강화, 방화벽 설정 등)
+* 카르다노 노드 설치(IOHK 소스에서 컴파일됨)
+* 블록 생산자 및 릴레이 노드의 기본 구성
+* 관리 및 모니터링 도구 설정(cncli, gLiveView 등)
 
-To facilitate the above the following minimal software packages are installed:
+위의 작업을 용이하게 하기 위해 다음과 같은 최소 소프트웨어 패키지가 설치됩니다.
 
 * git-core
 * ufw
@@ -31,72 +31,71 @@ To facilitate the above the following minimal software packages are installed:
 * htop
 * curl
 
-## Contents
+## 목차
 
- - [Why Ansible?](#why-ansible)
- - [Installation](#installation)
- - [Playbooks](#playbooks)
- - [Organization](#organization)
- - [Inventory setup](#inventory-setup)
- - [User setup](#user-setup)
- - [Using tags](#using-tags)
- - [Running a playbook](#running-a-playbook)
- - [Base configuration](#base-configuration)
- - [Optional components](#optional-components)
- - [Pro tips](#pro-tips)
+ - [왜 Ansible을 써야 하나요?](#왜-Ansible을-써야-하나요)
+ - [설치](#설치)
+ - [플레이북](#플레이북)
+ - [구조](#구조)
+ - [인벤토리 설정](#인벤토리-설정)
+ - [사용자 설정](#사용자-설정)
+ - [태그 사용하기](#태그-사용하기)
+ - [플레이북 실행하기](#플레이북-실행하기)
+ - [기본 구성](#기본-구성)
+ - [추가 요소](#추가-요소)
+ - [전문가 팁](#전문가-팁)
 
-### Why Ansible?
-Ansible is a provisioning, application deployment, and configuration management automation tool. Gone are the days of putting together bash scripts or SSH'ing into our servers to conduct a task.
+### 왜 Ansible을 써야 하나요?
 
-Ansible is agentless, which means it doesn't require any specific software on the remote systems. SSH is used to run all commands through Ansible.
+Ansible은 프로비저닝, 애플리케이션 배포 및 구성 관리 자동화 도구입니다. 작업을 수행하기 위해 서버에 bash 스크립트를 결합하거나 SSH를 사용하는 시대는 지났습니다.
 
-Commands executed via Ansible are [_idempotent_](https://en.wikipedia.org/wiki/Idempotence), meaning they can be safely run multiple times without anything being changed, unless required. Need to ensure a `cardano-node` configuration is up-to-date on all hosts? Simply run the command and Ansible will ensure only those that need the update will receive it. All other hosts will remain untouched.
+Ansible은 에이전트가 없으므로 원격 시스템을 위한 특정 소프트웨어가 필요하지 않습니다. Ansible을 통해 모든 명령을 실행하는 데에 SSH를 사용합니다.
 
-Ansible is an extremely popular [open source project](https://github.com/ansible/ansible) with [hundreds of available modules](https://docs.ansible.com/ansible/2.8/modules/list_of_all_modules.html).
+Ansible을 통해 실행되는 명령은 [_idempotent_ (멱등)](https://en.wikipedia.org/wiki/Idempotence)적입니다. 즉, 필요한 경우가 아니면 아무 것도 변경되지 않은 채로 안전하게 여러 번 실행될 수 있습니다. 모든 호스트에서 `cardano-node` 구성이 최신 상태인지 확인해야 할 때도 유용합니다. 명령을 실행하기만 하면 업데이트가 필요한 사람만 업데이트를 받을 수 있도록 합니다. 다른 모든 호스트는 그대로 유지됩니다.
 
-### Installation
-A single control machine can be setup to execute Ansible commands. The example below uses OS X, but any platform with Python installed will work (including [Windows](https://docs.ansible.com/ansible/latest/intro_windows.html)).
+Ansible은 [수백 개의 사용 가능한 모듈](https://docs.ansible.com/ansible/2.8/modules/list_of_all_modules.html)이 있는 매우 인기 있는 [오픈 소스 프로젝트](https://github.com/ansible/ansible)입니다.
 
->**Note:** Ansible is written in Python, but it isn't necessary to code in Python. You never have to touch Python unless you want to. The Ansible scripts themselves are written in the very simple YAML format. 
+### 설치
+Ansible 명령을 실행하도록 단일 제어 시스템을 설정할 수 있습니다. 아래 예제는 OS X를 사용하지만, Python이 설치된 모든 플랫폼에서도 작동합니다(Windows 포함).
 
-First, verify that `pip` is installed:
+>**참고:** Ansible은 Python으로 작성되었지만, Python으로 코딩할 필요는 없습니다. 원하지 않는 한 Python을 만질 필요가 없습니다. Ansible 스크립트 자체는 매우 간단한 YAML 형식으로 작성됩니다.
+
+먼저 `pip`가 설치되어 있는지 확인합니다.
 
 ```
 sudo apt install python-pip
 ```
-Then install Ansible and the [netaddr](https://pypi.org/project/netaddr/) Python package. The latter is used by the `ipaddr()` filter in our Jinja2 templates:
-
+그런 다음 Ansible 및 [netaddr](https://pypi.org/project/netaddr/) Python 패키지를 설치합니다. 후자는 ipaddr()Jinja2 템플릿의 `ipaddr()` 필터에서 사용됩니다.
 ```
 sudo pip install ansible
 sudo pip install netaddr
 ```
-Alternatively, if you have [Homebrew](https://brew.sh/) installed (surely you must) then you can install Ansible like so:
-
+또는 [Homebrew](https://brew.sh/)가 설치되어 있는 경우(반드시 설치해야 함) 다음과 같이 Ansible을 설치할 수 있습니다.
 ```
 brew install ansible 
 ```
 
-Once the installation has finished you can verify that everything installed correctly by issuing:
+설치가 완료되면 다음을 실행하여 모든 것이 올바르게 설치되었는지 확인할 수 있습니다.
 
 ```
 ansible --version
 ```
 
-### Playbooks
-Playbooks are a method of chaining commands to create a blueprint or collection of procedural instructions. Ansible runs the playbook in order, verifying each command's output before going on to the next. If you stop the playbook execution in the middle and continue it later, only the instructions that haven't finished yet will run; the remainder will be skipped.
+### 플레이북
+플레이북은 청사진이나 절차 지침 모음을 만들기 위해 명령을 연결하는 방법입니다. Ansible은 플레이북을 순서대로 실행하여 다음으로 진행하기 전에 각 명령의 출력을 확인합니다. 중간에 플레이북 실행을 중지하고 나중에 계속하면 아직 완료되지 않은 명령만 실행됩니다. 나머지는 건너뜁니다.
 
-Some basic playbook terminology is given below.
+일부 기본 플레이북 용어는 다음과 같습니다.
 
-**Roles** help playbooks stay organized. They broke down complicated build instructions into manageable parts. This allows roles to be shared between playbooks without having to duplicate code.
+**역할**은 플레이북을 체계적으로 유지하는 데 도움이 됩니다. 그들은 복잡한 빌드 지침들을 관리 가능한 부분으로 분해했습니다. 이를 통해 코드를 복제하지 않고도 플레이북 간에 역할을 공유할 수 있습니다.
 
-**Templates** are files that contain variables and expressions that the Ansible template module can replace with the appropriate values. This makes the file more reusable because it can be used dynamically to configure several servers with the same file.
+**템플릿**은 Ansible 템플릿 모듈이 적절한 값으로 대체할 수 있는 변수 및 표현식을 포함하는 파일입니다. 이렇게 하면 동일한 파일로 여러 서버를 구성하는 데 동적으로 사용할 수 있으므로 파일을 더 재사용할 수 있습니다. 
 
-**Hosts and group variables** are part of Ansible's [inventory setup](https://docs.ansible.com/ansible/latest/intro_inventory.html) to manage individual hosts and logical groups of hosts (detailed below). This negates the need to remember individual IP addresses or domain names. It also provides a simple method of managing host-specific configurations.  
+**호스트 및 그룹 변수**는 개별 호스트 및 호스트의 논리 그룹을 관리하기 위한 Ansible [인벤토리 설정](https://docs.ansible.com/ansible/latest/intro_inventory.html)의 일부입니다(자세한 내용은 아래 참조). 이렇게 하면 개별 IP 주소나 도메인 이름을 기억할 필요가 없습니다. 또한 이는 호스트별 구성을 관리하는 간단한 방법을 제공합니다. 
 
-**Handlers** contain logic that should be performed after a module has finished executing. They work very similar to notifications or events. For example, when the `ufw` configuration has changed the handler restarts the firewall service. It’s important to note that these events are only fired when the module state has changed.
+**핸들러**에는 모듈 실행이 완료된 후 수행되어야 하는 논리가 포함되어 있습니다. 이는 알림이나 이벤트와 매우 유사하게 작동합니다. 예를 들어 `ufw` 구성이 변경되면 핸들러가 방화벽 서비스를 다시 시작합니다. 이러한 이벤트는 모듈 상태가 변경된 경우에만 발생한다는 점에 유의해야 합니다.
 
-### Organization
-The basic directory structure used to organize the playbook is shown below:
+### 구조
+플레이북을 구성하는 데 사용되는 기본 디렉토리 구조는 다음과 같습니다.
 
 ```
 ├── ansible-cardano-node/
@@ -116,25 +115,23 @@ The basic directory structure used to organize the playbook is shown below:
 │   ├── apt_periodic
 │   └── provision.yml
 ```
-All the various Ansible tasks, handlers, configurations and so on are contained above. The specifics are described in the following sections.
+모든 Ansible 작업, 핸들러, 구성 등이 위에 포함되어 있습니다. 구체적인 내용은 다음 섹션에서 설명합니다.
 
-
-### Inventory setup
-We need to tell Ansible what will run where before we do anything else. Ansible uses a list or group of lists called _inventory_ to work against numerous managed nodes or hosts in our infrastructure at the same time. After we've built our inventory, we can utilize patterns to choose the hosts or groups that Ansible should execute against. The most straightforward solution is to create a single 'hosts' file that contains all known hosts. The format of this file can be INI or YAML. The following is an example of a hosts INI file:
+### 인벤토리 설정
+다른 작업을 수행하기 전에 Ansible에 무엇을 실행할지 알려줘야 합니다. Ansible은 인벤토리라고 하는 목록 또는 목록 그룹을 사용하여, 인프라 내 수많은 노드 또는 호스트에 대해 동시에 작업합니다. 따라서 우리는 인벤토리를 구축한 후 패턴을 활용하여 Ansible이 실행해야 하는 호스트 또는 그룹을 선택할 수 있습니다. 가장 간단한 해결책은 알려진 모든 호스트를 포함하는 단일 '호스트' 파일을 만드는 것입니다. 이 파일의 형식은 INI 또는 YAML일 수 있습니다. 다음은 호스트 INI 파일의 예입니다.
 
 ```
 [node]
 foo.mypool.com
 bar.mypool.com
 ```
+이 인벤토리 배열은 간단한 구성에는 적합하지만 구성이 복잡해지면 한계가 드러납니다. 우리가 필요로 하는 바람직한 기술은 단일 `hosts` 선언을 기능별 그룹으로 나누는 것입니다. 이러한 스타일에는 엄격하고 빠른 규칙이 없으며 이는 Ansible의 강력한 장점 중 하나입니다. 그러나 인벤토리를 처음부터 새로 만든다면, 이러한 장점이 오히려 위협적일 수 있습니다. 다음과 같은 것들을 추적하는 그룹을 만들 수 있습니다.
 
-This inventory arrangement works well for simple configurations, but as the complexity of a configuration rises, it reveals its limitations. A preferable technique for our needs is to divide a single `hosts` delcaration into functional groups. This organization style has no hard and fast rules, which is one of Ansible's strong advantages. When creating an inventory from scratch, though, this versatility might be intimidating. We can make groups that keep track of:
+- 대상 - 애플리케이션, 스택 또는 마이크로서비스(예: 데이터베이스 서버, 웹 서버 등)
+- 위치 - 로컬 DNS, 스토리지 등과 통신하기 위한 데이터 센터 또는 지역(예: 동부, 서부, 파리, 케이프타운)
+- 시기 - 프로덕션 리소스(예: 메인넷, 테스트넷)에 대한 테스트를 피하기 위한 개발 단계
 
-- What - An application, stack or microservice (e.g., database servers, web servers, etc.)
-- Where - A datacenter or geographic region, to talk to local DNS, storage, etc. (e.g., east, west, Newark, Paris, Cape Town)
-- When - The development stage, to avoid testing on production resources (e.g., mainnet, testnet)
-
-For our purposes, we have chosen a combination of the "what" and "when" group structures. Let's look at a high-level overview of our inventory group structure:
+우리의 목적을 위해 "대상"과 "시기" 그룹 구조의 조합을 선택했습니다. 인벤토리 그룹 구조에 대한 대략적인 개요를 살펴보겠습니다.
 
 ```
 ├── ansible-cardano-node/
@@ -143,21 +140,21 @@ For our purposes, we have chosen a combination of the "what" and "when" group st
         └── relay-node/
 ```
 
-You can see that each of these groups correspond to a unique node type. Within `block-producer` we find an INI file like so:
+이러한 각 그룹이 고유한 노드 유형에 해당함을 알 수 있습니다. `block-producer` 내에서 다음과 같은 INI 파일을 찾습니다.
 
 ```
 [node]
 blockprod.mypool.com ansible_user=deploy
 ```
+여기서 Ansible 사용자 `deploy`는 전체적으로 사용되지만,  특정 권한/기능을 가진 다른 사용자가 각 호스트마다 정의될 수도 있습니다. 프로덕션 백엔드 호스트에 해당하는 각 FQDN(정규화된 도메인 이름)을 사용하여 여기에서 기능(또는 "대상") 그룹이 정의되어 있는지도 확인할 수 있습니다.
 
-Here the Ansible user `deploy` is used throughout, although a different user with specific rights/capabilities could be defined for each host. You can also see that the functional (or "what") groups are defined here with each of the fully-qualified domain names (FQDN) corresponding to a production backend host.
 
 :::note 
-For security reasons, you may wish to obfuscate, or hide, your block producer(s) public IP addresses. In this case, you may replace the FQDN in the example above with an IP address. The end results are the same.
+보안상의 이유로 블록 프로듀서의 공개 IP 주소를 난독화하거나 숨길 수 있습니다. 이 경우 위의 예에서 FQDN을 IP 주소로 바꿀 수 있습니다. 최종 결과는 동일합니다.
 ::::
 
-### Group variables
-Groups are nice for organization, but they are also used to handle variables. For example, the file `/groups_vars/all` has the following definitons:
+### 그룹 변수
+그룹은 구성에 유용하지만 변수를 처리하는 데에도 사용됩니다. 예를 들어 `/groups_vars/all` 파일의 정의는 다음과 같습니다.
 
 ```
 ---
@@ -169,16 +166,17 @@ cardano_default_port: "6000"
 
 ```
 
+이는 아주 최소한의 예시입니다. 그러나 `group_vars`를 기능 또는 그룹별로 변수 또는 기타 설정을 저장하는 데 어떻게 사용할 수 있는지 생각해 볼 수 있습니다.
 This is a very minimal example. However, you can think about how `group_vars` can be used to store variables or other settings on a [functional or per-group basis](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#defining-variables-in-inventory). 
 
 :::note 
-Ansible provides a [vault](https://www.ansible.com/blog/2014/02/19/ansible-vault) facility to encrypt data such as passwords or keys, rather than as plaintext in playbooks.
+Ansible은 플레이북의 일반 텍스트보다는 암호 또는 키와 같은 데이터를 암호화 하는 [볼트](https://www.ansible.com/blog/2014/02/19/ansible-vault) 기능을 제공합니다.
 ::::
 
-### User setup
-We enhance security and ease of use by requiring public key authentication for our user accounts. Thereafter Ansible only interacts via the **deploy** account.
+### 사용자 설정
+우리는 사용자 계정에 대한 공개 키 인증을 요구하여 보안과 사용 편의성을 강화합니다. 그 후 Ansible은 **배포** 계정 을 통해서만 상호 작용 합니다.
 
-1. Start by creating the **deploy** user:
+1. **배포** 사용자 를 생성하여 시작합니다.
 
 	```
 	useradd deploy
@@ -187,10 +185,10 @@ We enhance security and ease of use by requiring public key authentication for o
 	chmod 700 /home/deploy/.ssh
 	chown -R deploy:deploy /home/deploy
 	```
-    
-Set a strong password for the new user: `passwd deploy`. You'll use this once when adding your public key in the next step. Thereafter passwords won't be needed by Ansible.
 
-2. Securely copy the public key from your workstation to the remote host (relay1.mypool.com, in this example):
+새 사용자에 대한 강력한 암호를 설정합니다: `passwd deploy`. 다음 단계에서 공개 키를 추가할 때 이것을 딱 한 번 사용하고, 그 이후에는 Ansible에서 암호가 필요하지 않습니다.
+
+2. 공개 키를 워크스테이션에서 원격 호스트(이 예에서는 relay1.mypool.com)로 안전하게 복사합니다:
 
 	```
 	ssh-copy-id -i ~/.ssh/id_rsa.pub deploy@relay1.mypool.com
@@ -205,15 +203,14 @@ Set a strong password for the new user: `passwd deploy`. You'll use this once wh
 	Number of key(s) added: 1
 	```
 
-Now try logging into the machine with `ssh deploy@relay1.mypool.com` to verify that the key was added successfully.
+이제 키가 성공적으로 추가되었는지 확인하기 위해 `ssh deploy@relay1.mypool.com`로 컴퓨터에 로그인해 보십시오 .
 	
-3. Use visudo to grant sudo access to the deploy user and don't require a password each time:
+3. visudo를 사용하여 배포 사용자에게 sudo 액세스 권한을 부여해서, 매번 암호를 요구하지 마십시오.
 
 ```
 visudo
 ```
-Comment all existing user/group grant lines and add:
-	
+기존의 모든 사용자/그룹 권한 부여 라인에 주석을 달고 다음을 추가합니다.	
 ```
 # User privilege specification
 root    ALL=(ALL:ALL) ALL
@@ -224,19 +221,21 @@ deploy  ALL=(ALL) NOPASSWD:ALL
 
 ```
 
-Login as the deploy user and verify that you have sudo access with the  -v (validate) option:
+배포 사용자로 로그인하고 -v(검증) 옵션을 사용하여 sudo 액세스 권한이 있는지 확인합니다.
+
 	
 ```
 sudo -v
 ```
 	
-You will probably want to change the default shell to bash:
+기본 쉘을 bash로 변경하고 싶다면, 다음 명령어를 사용합니다.
+
 ```
 sudo chsh -s /bin/bash deploy
 ```
 
-### Using tags
-Tags are attributes defined in an Ansible structure that can be used to perform a subset of tasks selectively. Tags are highly valuable since they allow us to run only a portion of a huge playbook instead of the entire thing. In Ansible, tags can be used to a variety of structures, although their most basic application is with individual tasks. Two tasks inside the 'cardano-node' role that employ distinct tags are shown below:
+### 태그 사용하지
+태그는 작업의 하위 집합을 선택적으로 수행하는 데 사용할 수 있는 Ansible 구조 내 속성입니다. 태그는 전체가 아닌 거대한 플레이북의 일부만 실행할 수 있게 해주기 때문에, 매우 가치가 있습니다. Ansible에서 태그는 다양한 구조에 사용될 수 있지만 가장 기본적인 용도는 개별 작업입니다. 별개의 태그를 사용하는 'cardano-node' 역할 내부의 두 가지 작업은 다음과 같습니다.
 
 ```
 - name: "Node Install | Building Cardano node"
@@ -254,35 +253,32 @@ Tags are attributes defined in an Ansible structure that can be used to perform 
     - install
     - node
 ```
-
-When running a playbook, you can use `–tags` or `–skip-tags` to execute a subset of tasks. You can also see which tasks will be executed with these options by combining it with `--list-tasks`. For example:
+플레이북 을 실행할 때, `–tags` 또는 `–skip-tags`를 사용하여 작업의 하위 집합을 실행할 수 있습니다. 이를 `--list-tasks`와 결합하여 이러한 옵션으로 실행될 작업을 확인할 수도 있습니다. 예를 들자면 다음과 같습니다:
 
 ```
 ansible-playbook provision.yml --tags "install" --list-tasks
 ```
+상속 및 특수 태그를 포함한 고급 태그 사용은 [여기](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tags.html)에서 다룹니다 .
 
-Advanced tag usage including inheritance and special tags are covered [here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tags.html). 
-
-### Running a playbook
-An example playbook execution is shown below. This playbook targets the `relay-node` inventory using vault credentials. The optional `--tags` specify tasks tagged as "configuration" settings. Finally the `--check` mode is a "dry run" option that does not make any changes on remote systems:
+### 플레이북 실행하기
+예제 플레이북 실행이 아래에 나와 있습니다. 이 플레이북은 볼트 자격 증명을 사용하여 `relay-node` 인벤토리를 대상으로 합니다. `--tags`는 "구성" 설정으로 태그된 작업을 의미합니다. 마지막으로 `--check` 모드는 원격 시스템을 변경하지 않는 "시험 실행" 옵션입니다.
 
 ```
 ansible-playbook provision.yml -i inventories/relay-node --vault-password-file ~/.vault_pass.txt --tags "install" --check
 ```
-Assuming the host file is populated and the hosts are accessible, you should see some output like this:
+호스트 파일이 채워지고 호스트에 액세스할 수 있다고 가정하면 다음과 같은 출력이 표시됩니다.
 
 ![playbook](https://user-images.githubusercontent.com/229399/135495282-5aaa1f3d-77d3-472b-826e-079c81b1da82.png)
 
-The process above includes downloading and compiling `cardano-node` from source, along with the latest dependencies, if needed.  
+위의 프로세스에는 필요한 경우 최신 의존성 및 소스에서 `cardano-node`를 다운로드하고 컴파일하는 작업이 포함됩니다.
 
-### Base configuration
-A set of known-good base settings are provided in this playbook. Where applicable, under each role you will find a file called `/defaults/main.yml`. These files contain default values for variables and should be modified prior to provisioning a live host. For example, the `ssh` role applies several Linux security best practices to harden secure shell access to your nodes. The file `ssh/defaults/main.yml` should be modified to match your remote administration IP address (that is, the machine you execute Ansible from):
+### 기본 구성
+이 플레이북에는 정상 작동이 확인된 기본 설정 세트가 제공됩니다. 해당되는 경우, 각 역할 아래에 `/defaults/main.yml`이라는 파일이 존재합니다. 이러한 파일에는 변수에 대한 기본값이 포함되어 있으며, 이는 라이브 호스트를 프로비저닝하기 전에 수정해야 합니다. 예를 들어 `ssh`라는 역할은 여러 Linux 보안 모범 사례를 적용하여 노드에 대한 보안 쉘 액세스를 강화합니다. 원격 관리 IP 주소(즉, Ansible을 실행하는 시스템)와 일치하도록 `ssh/defaults/main.yml` 파일을 수정해야 합니다.
 
 ```
 ssh_allowed_users: "AllowUsers deploy@127.0.0.1/32"
 ```
-
-The `ufw` role configures the Linux firewall service and requires that the following default values be defined:
+이 `ufw` 역할은 Linux 방화벽 서비스를 구성하고 다음과 같이 기본값을 정의해야 합니다.
 
 ```
 # Relay node public IP addresses
@@ -296,9 +292,9 @@ trusted_ips:
   - 127.0.10.2/32
 ```
 
-The placeholder values for the relay nodes above must agree with your real relay host IP addresses, else they will not be able to communicate with the block producer or each other.
+위의 릴레이 노드에 대한 자리 표시자 값은 실제 릴레이 호스트 IP 주소와 일치해야 합니다. 그렇지 않으면 블록 생산자와 서로 통신할 수 없습니다.
 
-Likewise, the file `cardano-node/defaults/main.yml` contains values that will be used to populate your pool's metadata. These placeholder values should be replaced:
+마찬가지로 이 `cardano-node/defaults/main.yml` 파일에는 풀의 메타데이터를 채우는 데 사용할 값이 포함되어 있습니다. 다음과 같이 자리 표시자 값을 바꿔야 합니다.
 
 ```
 # Pool metadata
@@ -308,8 +304,7 @@ cardano_pool_ticker: "My Pool ticker symbol"
 cardano_pool_homepage: "https://mypool.com/"
 cardano_pool_extended: "https://mypool.com/extendedMetaData.json"
 ```
-
-Be sure to define your inventory before executing the playbook. The inventory file for your relay nodes must contain FQDNs for each of your relays. This file exists in `inventories/relay-node/inventory`:
+플레이북을 실행하기 전에 인벤토리를 정의해야 합니다. 릴레이 노드의 인벤토리 파일에는 각 릴레이에 대한 FQDN이 포함되어야 합니다. 이 파일은 `inventories/relay-node/inventory`에 위치합니다.
 
 ```
 [node]
@@ -317,57 +312,56 @@ relay1.mypool.com ansible_user=deploy
 relay2.mypool.com ansible_user=deploy
 ```
 
-Likewise, assign a public IP address for your block producer. This file exists in `inventories/block-producer/inventory`:
+마찬가지로 블록 생산자에 대한 공용 IP 주소를 할당합니다. 이 파일은 `inventories/block-producer/inventory`에 위치합니다.
 
 ```
 [node]
 127.0.0.1 ansible_user=deploy
 ```
 
-### Optional components
+### 추가 요소
 
 #### cardano-submit-api
-The `cardano-submit-api` provides a web API that allows transactions (generated by an external wallet, for example) to be posted to the Cardano blockchain. To submit a transaction to the network (mainnet, staging, or any of the testnets), `cardano-node` must be running and have access to the genesis file and genesis hash value for the network. Given that our playbook installs a full `cardano-node`, this requirement is already fulfilled. 
+`cardano-submit-api`는 트랜잭션(예: 외부 지갑에서 생성)을 Cardano 블록체인에 게시할 수 있는 웹 API를 제공합니다. 네트워크(메인넷, 스테이징 또는 테스트넷)에 트랜잭션을 제출하려면 `cardano-node`가 실행 중이어야 하며 네트워크의 제네시스 파일 및 제네시스 해시 값에 액세스할 수 있어야 합니다. 플레이북이 `cardano-node` 전체를 설치한다는 점을 감안할 때, 이 요구 사항은 이미 충족되었습니다.
 
-Stake pool operators may wish to install and enable the web API on one or more of their relays. This provides another mempool for users to submit their transactions to. This component is disabled by default. To enable it, set the following value in `/roles/cardano-node/defaults/main.yml` to `true`:
+스테이크 풀 운영자는 하나 이상의 릴레이에 웹 API를 설치하고 활성화할 수 있습니다. 이는 사용자가 트랜잭션을 제출할 수 있는 또 다른 mempool을 제공합니다. 이 구성 요소는 기본적으로 비활성화되어 있습니다. 활성화하려면 `roles/cardano-node/defaults/main.yml`에 있는 다음 값을 `true`로 설정합니다.
 
 ```
 # Cardano submit API (optional)
 cardano_submit_api: false
 ```
-
-You may wish to install the `cardano-submit-api` as part of your default relay node setup, or selectively after your relays are up and running. In the latter case, you may install the web API by specifying the associated tag when executing the playbook, like so:
+`cardano-submit-api`를 기본 릴레이 노드 설정의 일부로 설치하거나 릴레이가 실행된 후 선택적으로 설치할 수 있습니다. 후자의 경우 다음과 같이 플레이북을 실행할 때 관련 태그를 지정하여 웹 API를 설치할 수 있습니다.
 
 ```
 ansible-playbook provision.yml -i inventories/relay-node --vault-password-file ~/.vault_pass.txt --tags "api"
 ```
 
->**Note:** To prevent installation of `cardano-submit-api` on the block producer, these tasks will _only_ be executed if the `relay-node` inventory is specified during playbook execution. 
+>**참고:** 블록 생산자에 `cardano-submit-api`가 설치되는 것을 방지하기 위해, 이러한 작업은 플레이북 실행 중에 `relay-node` 인벤토리가 지정된 경우에만 실행됩니다.
 
-The associated tasks will handle the build process and installation of `cardano-submit-api` to `/usr/bin`. It will also check for and, optionally, download IOHK's [mainnet base configuration settings](https://raw.githubusercontent.com/input-output-hk/cardano-node/master/cardano-submit-api/config/tx-submit-mainnet-config.yaml).
+관련 작업은 `/usr/bin`에다가 `cardano-submit-api`의 빌드 프로세스 및 설치를 처리할 것입니다. 또한 이는 IOHK의 [메인넷 기본 구성 설정](https://raw.githubusercontent.com/input-output-hk/cardano-node/master/cardano-submit-api/config/tx-submit-mainnet-config.yaml)을 확인하고 선택적으로 다운로드합니다.
 
-Finally, two scripts are created: 1) `tx-api.sh` is added to `/opt/cardano/cnode/scripts` to handle startup of the API, and 2) `tx-api.service` is installed to `/etc/systemd/system` and enabled. The latter `systemd` service allows the API to started and its running status to be checked, like so:
+마지막으로, 두 개의 스크립트가 생성됩니다. 1) API 시작을 처리하기 위해 `tx-api.sh`가 `/opt/cardano/cnode/scripts`에 추가되고 2) `tx-api.service`가 `/etc/systemd/system`에 설치되어 활성화됩니다. 후자의 `systemd` 서비스를 사용하면 다음과 같이 API를 시작하고 실행 상태를 확인할 수 있습니다.
 
 ```
 sudo systemctl start tx-api.service
 sudo systemctl status tx-api.service
 ```
 
-With the API service active, your relay node(s) will have a tx submit api running on port 8090. To make this available outside of your local network, you will need to open the port. This may be done with `ufw` like so:
+API 서비스가 활성화되면, 릴레이 노드는 포트 8090에서 실행되는 tx 제출 API를 갖게 됩니다. 로컬 네트워크 외부에서 이를 사용하려면 포트를 열어야 합니다. 이것은 다음과 같이 `ufw`로 할 수 있습니다:
 
 ```
 sudo ufw allow 8090/tcp
 ```
 
-An example signed transaction is shown below:
+서명된 트랜잭션의 예는 다음과 같습니다.
 
 ```
 $ curl --header "Content-Type: application/cbor" -X POST http://localhost:8090/api/submit/tx --data-binary @tx.signed.cbor
 "8a3d63d4d95f669ef62570f2936ad50d2cfad399e04808ca21474e70b11987ee"%
 ```
 
-### Pro tips
-Use Ansible's `--check` option when executing a playbook for the first time. This will safely execute the playbook and check for  any errors _without_ modifying your hosts.
+### 전문가 팁
+플레이북을 처음 실행할 때 Ansible의 `--check` 옵션을 사용하세요. 이렇게 하면 호스트를 수정하지 _않고도_ 플레이북을 안전하게 실행하고 오류를 확인할 수 있습니다.
 
-If you have manually configured your Cardano nodes in the past, it is strongly advised that you start with a fresh install of Ubuntu 20.04 LTS and execute your Ansible playbook against this new host.
+이전에 Cardano 노드를 수동으로 구성한 경우, Ubuntu 20.04 LTS를 새로 설치하고 새 호스트에 대해 Ansible 플레이북을 실행하는 것이 좋습니다.
 

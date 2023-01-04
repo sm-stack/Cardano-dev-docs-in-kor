@@ -1,51 +1,50 @@
 ---
 id: cardano-developer-community
-title: Get Started in the Cardano Developer Community
-sidebar_label: Developer Community
+title: Cardano 개발자 커뮤니티 시작하기
+sidebar_label: 개발자 커뮤니티
 description: Get Started in the Cardano Developer Community.
 image: ../img/og/og-getstarted-developer-community.png
 --- 
+[Stack Exchange](https://cardano.stackexchange.com)와 [Cardano Forum](https://forum.cardano.org/c/developers/29)을 제외하고, Cardano 개발자와 스테이크 풀 운영자는 다양한 플랫폼에 분산되어 있습니다. 각각에 대한 틈새시장이 있습니다.
 
-Apart from the two leading platforms [Stack Exchange](https://cardano.stackexchange.com) and [Cardano Forum](https://forum.cardano.org/c/developers/29), Cardano developers and stake pool operators spread across different platforms. Each with its niche.
-
-## Cardano developers channels
+## Cardano 개발자 채널
 
 [**cardano.stackexchange.com**](https://cardano.stackexchange.com)  
-Stack Exchange communities are democratically created and maintained. It is a question-and-answer website, not meant for extensive discussion or opinions.
+Stack Exchange 커뮤니티는 민주적으로 생성되고 유지됩니다. 이는 광범위한 토론이나 의견을 위한 것이 아니라 질의응답을 위한 웹사이트입니다.
 
 [**forum.cardano.org**](https://forum.cardano.org/c/developers/29)  
-The developer categories on the [Cardano Forum](https://forum.cardano.org/c/developers/29) is an excellent place for extensive discussions and opinions, but also to get support. 
+[Cardano Forum](https://forum.cardano.org/c/developers/29) 내 개발자 카테고리에서 폭넓은 토론과 의견을 나눌 수 있을 뿐만 아니라, 지원도 받을 수 있습니다.
 
-[**Cardano Community Discord**](https://discord.gg/kfATXEENPD)  
-Visit the developer categories on the [Cardano Community Discord](https://discord.gg/kfATXEENPD) if you prefer chat-style conversations.
+[**Cardano Community Discord**](https://discord.gg/kfATXEENPD) 
+채팅 스타일의 대화를 선호한다면, [Cardano Community Discord](https://discord.gg/kfATXEENPD) 내 개발자 카테고리를 방문하세요.
 
 [**reddit.com/r/CardanoDevelopers**](https://www.reddit.com/r/CardanoDevelopers/)  
-A subreddit dedicated to everyone building on the Cardano blockchain.        
+Cardano 블록체인에서 빌딩하는 모든 사람들을 위한 서브레딧입니다.
 
-[**t.me/CardanoDevelopersOfficial**](https://t.me/CardanoDevelopersOfficial)    
-Chat style conversations on Telegram in one of the oldest Cardano developer groups.
+[**t.me/CardanoDevelopersOfficial**](https://t.me/CardanoDevelopersOfficial)  
+가장 오래된 Cardano 개발자 그룹 중 Telegram에 있는 채팅 스타일의 대화방입니다.  
 
-[**IOG Technical Discord**](https://discord.com/invite/w6TwW9bGA6)  
-Head to the the [IOG Discord](https://discord.com/invite/w6TwW9bGA6) if you want to join the [Plutus Pioneers](../smart-contracts/plutus#get-started-with-the-plutus-pioneer-program).
+[**IOG Technical Discord**](https://discord.com/invite/w6TwW9bGA6)
+[Plutus Pioneers](../smart-contracts/plutus#get-started-with-the-plutus-pioneer-program)에 가입하려면 [IOG Discord](https://discord.com/invite/w6TwW9bGA6)로 이동하세요.
 
-[**t.me/IOHK_Marlowe**](https://t.me/IOHK_Marlowe)  
-Dedicated channel for Marlowe developers and users. Marlowe is a specialized domain-specific language for financial smart contracts on Cardano. You can ask questions, participate in discussions and meet the team behind Marlowe.
+[**t.me/IOHK_Marlowe**](https://t.me/IOHK_Marlowe) 
+Marlowe 개발자 및 사용자를 위한 전용 채널입니다. Marlowe는 Cardano의 금융 스마트 컨트랙트를 위한 전문화된 도메인 고유 언어입니다. 질문 및 토론에 참여하고, Marlowe 팀을 만날 수 있습니다. 
 
 [**Developer Portal Discord**](https://discord.gg/Exe6XmqKDx)  
-If you would like to help develop the Developer Portal further, please join our [Discord](https://discord.gg/Exe6XmqKDx). 
+개발자 포털 개발에 도움을 주고 싶다면, 우리 [Discord](https://discord.gg/Exe6XmqKDx)로 오십시오.
 
 [**CIPs - biweekly meetings**](https://discord.gg/tDeGHPEWEG)  
-CIP meetings discuss Cardano Improvement Proposals every other week. Join Editors and community members in the dedicated discord server to keep up with the ongoing technical discussions regarding standards, processes and ongoing Cardano conversations.
+CIP 회의에서는 격주로 Cardano 개선 제안을 논의합니다. 전용 Discord 서버에서 편집자 및 커뮤니티 회원과 함께 표준, 프로세스 및 진행 중인 Cardano 대화에 관한 기술 토론에 참여하십시오.
 
-## Stake pool operator channels
+## 스테이크 풀 운영자 채널
 
 [**t.me/CardanoStakePoolWorkgroup**](https://t.me/CardanoStakePoolWorkgroup)  
-Best practice workgroup on Telegram for stake pool operators. This group is hectic. A good resource to search for answers.
+스테이크 풀 운영자를 위한 Telegram 채널입니다. 이 그룹은 사람들이 많고, 질문에 대한 답을 얻기 좋은 장소입니다.
 
-[**forum.cardano.org**](https://forum.cardano.org/c/staking-delegation/156)  
-If you care about well structured, long format discussions, visit the stake pool operator categories on [forum.cardano.org](https://forum.cardano.org/c/staking-delegation/156).
+[**forum.cardano.org**](https://forum.cardano.org/c/staking-delegation/156)
+체계적이고 긴 형식의 토론에 관심이 있다면 [forum.cardano.org](https://forum.cardano.org/c/staking-delegation/156)에서 스테이크 풀 운영자 카테고리를 방문하십시오. 
 
-## Developer Surveys
+## 개발자 설문조사
 
-[**Developer Ecosystem Survey**](https://cardano-foundation.github.io/state-of-the-developer-ecosystem/2022)  
-For the first time ever, an annual survey to assess the state of the Cardano developer ecosystem was conducted. This survey comes as part of our commitment to both empower the Cardano community and foster the open source maturity of the Cardano ecosystem. 
+[**개발 생태계 설문**](https://cardano-foundation.github.io/state-of-the-developer-ecosystem/2022)  
+사상 처음으로 Cardano 개발자 생태계의 상태를 평가하기 위한 연례 설문조사가 실시되었습니다. 이 설문조사는 Cardano 커뮤니티에 권한을 부여하고 Cardano 생태계의 오픈 소스 성숙도를 촉진하기 위한 노력의 일환입니다.

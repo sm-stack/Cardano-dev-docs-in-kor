@@ -1,7 +1,7 @@
 ---
 id: cardano-token-registry
-title: Cardano Token Registry
-sidebar_label: Token Registry
+title: Cardano 토큰 레지스트리
+sidebar_label: 토큰 레지스트리
 description: The Cardano Token Registry provides a means to register off-chain token metadata that can map to on-chain identifiers. 
 image: ../img/og/og-developer-portal.png
 ---

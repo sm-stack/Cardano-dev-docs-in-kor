@@ -1,8 +1,8 @@
 ---
 id: overview
 slug: /native-tokens/
-title: Discover Native Tokens
-sidebar_label: Overview
+title: 네이티브 토큰 알아보기
+sidebar_label: 개요
 description: Discover Cardano's native tokens. 
 image: ../img/og/og-developer-portal.png
 ---
@@ -10,50 +10,50 @@ image: ../img/og/og-developer-portal.png
 ![Cardano Discover Native Tokens](../../static/img/card-native-tokens-title.svg)
 
 :::note
-There are currently two ways to make your NFTs:
+현재 NFT를 만드는 방법에는 두 가지가 있습니다.
 
-- For the not-so-tech-savvy through someone else. The showcase section (under [NFT Support](../../showcase/?tags=nftsupport)) has a few services that offer this.
-- For the more tech-savvy on a Cardano node. If you want to have full control over your tokens, you need to mint them **yourself**. And this is what this section is all about.
+- 기술에 익숙하지 않은 사람들을 위해, 다른 사람을 통해 발급할 수 있습니다. [NFT 지원](../../showcase/?tags=nftsupport) 탭 밑에 쇼케이스 섹션에서 이러한 기능을 지원하는 몇 가지 서비스가 존재합니다.
+- Cardano 노드를 실행할 수 있는, 기술에 익숙한 사람들은 **직접** 발행을 할 수도 있습니다. 토큰을 완전히 제어하려면 직접 발행하는 것이 훨씬 좋습니다. 바로 이 부분에 대해 해당 섹션에서 다룰 예정입니다.
 
-Minting requires a certain amount of skill in navigating and working with Linux through the terminal and a running Cardano node.
+발행에는 터미널과 Cardano 노드를 통해 Linux로 작업할 수 있는 일정 수준 이상의 기술적 능력이 필요합니다.
 
-We will not go into how to spin up a Cardano node, but this is covered in the [integrate Cardano category](../get-started/installing-cardano-node).
+Cardano 노드로 작업하는 방식 자체는 이미 [Cardano 통합하기](../get-started/installing-cardano-node) 섹션에서 다루었으므로, 이 섹션에서는 다루지 않겠습니다.
 :::
 
-## What are native tokens/assets?
+## 네이티브 토큰/자산이란 무엇인가요?
 
-The Cardano Blockchain has the unique ability to create, interact with, and delete bespoke tokens (or 'assets') natively. In this example, native means that, in addition to sending and receiving the official currency ada, you may interact with custom assets right out of the box - without the use of smart contracts.
+Cardano 블록체인은 기본적으로 맞춤형 토큰(또는 '자산')을 생성/삭제하고, 이와 상호작용할 수 있는 고유한 기능을 가지고 있습니다. 이 예시에서 '네이티브'라는 말은 공식 통화 ada를 보내고 받는 것 외에도, 스마트 컨트랙트를 사용하지 않고 즉시 사용자 지정 자산과 상호작용할 수 있음을 의미합니다. 
 
-Native assets can practically be treated as ada in every sense because the capability is already built-in. Of course, there are some limitations (which we'll discuss later), but you can think of native assets as a way to produce your own custom for the time being.
+네이티브 자산은 기능이 이미 내장되어 있기 때문에 실질적으로 ada와 그 본질이 같습니다. 물론 몇 가지 제한 사항이 있지만(나중에 논의) 네이티브 자산은 당분간 자신만의 사용자 정의 토큰을 생성하는 방법이라고 받아들이면 될 것 같습니다.
 
-## What you need to know 
-Before we go any further, here's a quick rundown of what you need to know.
+## 알아야 할 것
+더 진행하기 전에, 알아야 할 사항에 대한 간략한 설명이 있습니다.
 
-### How we interact with the blockchain
-Almost all interactions with the Cardano network/blockchain are transaction-based. We can divide interactions into two tiers with this in mind.
+### 블록체인과 상호작용하는 방법
+Cardano 네트워크/블록체인과의 거의 모든 상호작용은 트랜잭션을 기반으로 하고 있습니다. 이를 염두에 두고 상호작용의 종류를 두 계층으로 나눌 수 있습니다.
 
 ![img](../../static/img/nfts/overview_nfts.svg)
 
-The top layer emphasizes a visual approach and covers standard interaction. Sending and receiving ada or tokens, delegating your stake, and voting are all examples of this. Wallets such as the full node Daedalus wallet or the lighter Yoroi wallet can be used to carry out these interactions.
+윗 계층은 시각적인 접근 방식을 강조하고, 표준 상호작용 방식을 다룹니다. 그 예로 ada 또는 토큰의 송수신, 지분 위임 및 투표 등을 둘 수 있습니다. 풀노드 지갑인 Daedalus 또는 라이트 지갑 Yoroi와 같은 지갑을 사용하여 이러한 상호작용을 수행할 수 있습니다.
 
-However, if we want to drill down and have more options for interacting and creating "custom" interactions, we must go one step deeper. We'll need a whole node in this layer to send transactions with specified parameters. A full node is often a built binary from the official latest cardano-node repository. There are more options, but we'll concentrate on the Linux version.
+그러나 "사용자 지정" 상호작용을 생성하기 위한 더 많은 옵션을 얻고 싶다면, 한 단계 더 깊이 들어가야 합니다. 지정된 매개변수를 사용하여 트랜잭션을 전송하기 위해, 이 계층에서는 풀노드가 필요합니다. 풀노드는 공식 cardano-node 레퍼지토리에서 빌드된 바이너리를 뜻합니다. 여기엔 많은 버전이 있지만, 여기서는 Linux 버전에 집중하겠습니다.
 
-So, what kinds of sophisticated transactions can we create with a full node, and how can we do it? Working on the command line and issuing transactions from there is the current method. Stake pool operators must utilize this method of transaction to register their stake pool or make changes to their commitment, among other things. However, we may utilize this method to produce, send, receive, and burn tokens.
+그렇다면, 풀노드를 통해 어떤 종류의 트랜잭션을 만들 수 있고, 어떻게 만들 수 있을까요? 여기서 설명할 방식은 명령줄에서 작업해서 트랜잭션을 만드는 방식입니다. 스테이크 풀 운영자들은 해당 방식을 사용하여 스테이크 풀을 등록하거나 약정을 변경하기도 합니다. 그러나, 우리는 이 방법을 토큰 생성, 전송, 수신 및 소각에 사용해보도록 하겠습니다.
 
-In the future, this probably will also be the place where smart contracts are written, tested, and maybe executed if there isn't a visual frontend.
+미래에는 스마트 컨트랙트가 작성되고 테스트되며 시각적인 프론트엔드 없이도 이러한 것들이 실행될 수 있을 것입니다.
 
-### Constraints when working with tokens
+### 토큰 작업 시 제약
 
-Since we already learned that interaction with the network is almost always a transaction, we need to be aware of a few things enforced through network parameters.
+우리는 네트워크와의 상호작용 방식이 거의 항상 트랜잭션이라는 것을 이미 배웠기 때문에, 네트워크 매개변수를 통해 시행되는 몇 가지 사항을 알아야 합니다.
 
-1. A fee must always be paid whether issuing a transaction or sending something. Currently, the cost is determined by the size of the transaction (read: how much "information" gets sent). The size of a transaction can range from a simple "A transmits 2 ada to B" to a considerably more sophisticated transaction with additional metadata.
-2. There is a minimum value that must be sent. Currently, the value is set to 1 ada. This means that if we wish to send a token, we must include at least one ada in the transaction. This is to avoid huge amounts of custom tokens from being created and the network being flooded with custom token transactions.
-3. We currently (June 2021) have no standard way to define an NFT. There is an [open pull request](https://github.com/cardano-foundation/CIPs/pull/85), however. Most of the current NFTs on Cardano mostly follow the proposed structure, as we will in this section.
+1. 트랜잭션을 만들든 무언가를 보내든 항상 수수료를 지불해야 합니다. 현재 비용은 트랜잭션 크기에 따라 결정됩니다(얼마나 많은 "정보"가 전송되는지에 따라). 트랜잭션의 크기는 "A가 2개의 ada를 B로 전송"하는 단순한 트랜잭션부터 추가 메타데이터가 있는 훨씬 더 복잡한 트랜잭션까지 다양할 수 있습니다.
+2. 보내야 하는 최소값이 존재합니다. 현재 이 값은 1 ada로 설정되어 있습니다. 즉, 토큰을 보내려면 트랜잭션에 하나 이상의 ada를 포함해야 합니다. 이는 엄청난 양의 사용자 지정 토큰들이 생성되고, 네트워크가 사용자 지정 토큰 트랜잭션으로 넘쳐나는 것을 방지하기 위함입니다.
+3. 현재(2021년 6월)로서는 NFT를 정의하는 표준 방법이 없습니다. 그러나 이에 대한 [open pull request](https://github.com/cardano-foundation/CIPs/pull/85)가 있고, Cardano NFT의 대부분은 이 섹션에서와 같이 해당 링크에서 제안된 구조를 따릅니다.
 
-Please keep those constraints in mind if you want to work with native assets.
+네이티브 자산으로 작업하려는 경우 위와 같은 제약 사항을 염두에 두십시오.
 
-## Difference between "regular" token and NFTs
+## "일반" 토큰과 NFT의 차이점
 
-In terms of technology, there isn't much of a distinction between "regular" tokens/native assets and NFTs. This is due to the fact that both can be produced using the cardano node cli and are native assets.
+기술 측면에서, "일반" 토큰/네이티브 자산과 NFT 사이에는 큰 차이가 없습니다. 이는 둘 다 cardano node cli를 사용하여 생성될 수 있고, 네이티브 자산이라는 사실 때문입니다.
 
-Unlike fungible native assets, which might consist of millions of interchangeable tokens, an NFT is a single native asset that cannot be re-minted or destroyed, and it exists on the blockchain in perpetuity.
+수백만 개의 교환 가능한 토큰으로 구성될 수 있는 대체 가능한 네이티브 자산과 달리, NFT는 다시 발행되거나 파괴될 수 없는 단일한 네이티브 자산이며, 블록체인에 영구적으로 존재합니다.

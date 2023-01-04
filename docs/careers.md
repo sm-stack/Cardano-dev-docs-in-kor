@@ -1,20 +1,20 @@
 ---
 id: careers
-title: Careers on Cardano
-sidebar_label: Careers on Cardano
+title: Cardano에서의 커리어
+sidebar_label: Cardano에서의 커리어
 description: Are you passionate about Cardano and looking for a job working in the Cardano ecosystem?
 image: ../img/og/og-developer-portal.png
 hide_table_of_contents: false
 ---
 
-Are you passionate about Cardano and looking for a job working in the Cardano ecosystem? There are several organizations which practically always have open vacancies and career opportunities.
+Cardano에 대한 열정이 있고, Cardano 생태계에서 일자리를 찾고 있나요? 실질적으로, 항상 기회는 열려있습니다!
 
-Most of these jobs are 100% remote. You can work from anywhere in the world with a flexible schedule.
+이러한 직업들 중 대부분은 100% 비대면으로 이루어집니다. 유연한 일정으로 전 세계 어디에서나 일할 수 있습니다.
 
-## Work on Cardano projects full-time
+## Cardano 프로젝트 내 풀타임 일자리
 
-- [Jobs at Cardano Foundation](https://cardanofoundation.org/careers)
-- [Jobs at dcSpark](https://dcspark.io/#careers)
-- [Jobs at EMURGO](https://emurgo.io/carrer/)
-- [Jobs at IOHK](https://apply.workable.com/io-global/)
-- [Jobs at Loxe Inc.](https://angel.co/company/loxe/jobs)
+- [Cardano Foundation 채용](https://cardanofoundation.org/careers)
+- [dcSpark 채용](https://dcspark.io/#careers)
+- [EMURGO 채용](https://emurgo.io/carrer/)
+- [IOHK 채용](https://apply.workable.com/io-global/)
+- [Loxe Inc. 채용](https://angel.co/company/loxe/jobs)

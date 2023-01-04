@@ -1,308 +1,308 @@
 ---
 id: air-gap
-title: Air Gap Environment
-sidebar_label: Air Gap Environment
+title: 에어 갭 환경
+sidebar_label: 에어 갭 환경
 description: Secure your private keys on a network-free transaction host.
 image: ../img/og/og-security-air-gap-environment.png
 ---
 
-"Air Gap" originally meant a computer or subnetwork was surrounded by "air" and so could have no data cable connections in or out, so it would be isolated from other computers & networks. These days it also means no radio-based network connection either (WiFi, Blueooth, etc.).
+"에어 갭"은 원래 컴퓨터 또는 하위 네트워크가 "공기"로 둘러싸여 있어 데이터 케이블 연결이 안팎으로 되지 않고, 다른 컴퓨터 및 네트워크와 격리되는 것을 의미했습니다. 요즘에는 무선 기반 네트워크 연결(WiFi, Bluetooth 등)도 없는 것을 의미합니다.
 
-Developers & Cardano stake pool operators generally need an air gap environment in which to work with payment keys, stake pool keys and other cryptocurrency resources that offer high-value targets for hackers.
+개발자 및 Cardano 스테이크 풀 운영자는 일반적으로 지불 키, 스테이크 풀 키나 해커에게 공격 대상이 되는 다른 암호화 리소스들을 사용하기 위한 에어 갭 환경이 필요합니다.
 
-Some specialised hardware (e.g. hardware wallets) may also perform this function. If you believe you have such a device, please be certain that it offers isolation features for your stake pool or development *and* that you feel confident using these features.
+일부 특수 하드웨어(예: 하드웨어 지갑)도 이 기능을 수행할 수 있습니다. 이러한 장치가 있다고 생각되면, 스테이크 풀 또는 개발을 위한 격리 기능을 제공하는지, *그리고* 이러한 기능을 사용하는데 자신있는지 확인하십시오.
 
-Otherwise, generally **you need a second computer** to create this air-gapped environment, and the rest of this guide is to help you do that.
+그렇지 않다면, 일반적으로 이런 에어 갭 환경을 만들기 위해 **두 번째 컴퓨터가 필요**하며, 이 가이드의 나머지 부분이 이를 잘 설명할 것입니다.
 
-:::tip Linux veterans only
+:::tip Linux 베테랑 전용
 
-If you don't have an extra computer, or want to try building a standalone Linux environment on a USB drive, [skip to the final section](#option-2-install-your-air-gap-environment-on-a-persistent-usb-drive).
+추가 컴퓨터가 없거나, USB 드라이브에 독립 실행형 Linux 환경을 구축하려는 경우 [마지막 섹션](#옵션-2:-영구-USB-장치에-에어-갭-환경-설치)으로 건너뛰십시오.
 
 :::
 
-## Option 1: Install your Air Gap environment on a standalone computer
+## 옵션 1: 독립형 컴퓨터에 에어 갭 환경 설치
 
-### Choose the right computer
+### 올바른 컴퓨터 고르기
 
-You will get better results from an Intel PC than a Mac:
+Mac보다 Intel PC에서 더 나은 결과를 얻을 수 있습니다.
+  
+  - Mac 부팅에는 여기서 다루기엔 너무 복잡한 특성이 존재합니다. 따라서, 이 문서의 나머지 부분에서는 Mac이 아닌 PC를 사용한다고 가정하겠습니다.
 
-  - Mac booting has booting peculiarities that are too complicated to generally address here. therefore the rest of this document assumes you'll be using a PC and not a Mac.
+이 컴퓨터의 전체 디스크가 필요합니다.
 
-You will need this computer's whole disc.
+  - 두 번째 드라이브는 실수로 악성 소프트웨어를 실행하지 않도록 모두 제거되어야 합니다. 
+  - 80GB 정도면 Linux 설치 및 Cardano 지원 파일을 구축하는데 충분합니다.
 
-  - Any second drive should be removed, and probably should be removed to avoid accidentally running malicious software.
-  - The modern minimum drive size of 80GB will be enough for the Linux installation *and* all your Cardano support files, even if you are building them from scratch.
+오래된 기기를 사용해도 됩니다. 심지어 *아주* 오래된 것도 상관없습니다.
 
-You can use an older machine: even a *very* old one.
+  - Linux는 대부분의 최신 시스템에서 잘 지원되지만, 이전 시스템에서 누락된 장치 드라이버가 있을 가능성이 적습니다. 따라서 최신 시스템보다 이전 시스템에서 더 잘 수행될 수 있습니다.
+  - 이는 많은 개발자 및 SPO에게 적합합니다. 오래된 기기 혹은 손상된 소프트웨어가 있는 기기는 "에어 갭" 환경의 단일 목적에만 전념하기에 매우 적합하기 때문입니다.
 
-  - Linux, although well supported on most new machines, is less likely to have missing device drivers on older machines: so you might do better with an older machine than a newer one.
-  - This suits many developers & SPOs since an old or retired extra machine, or one with damaged software, will be a good candidate to devote to the single purpose of an "air gap" environment.
+### Ubuntu를 설치 OS로 사용
 
-### Confirm Ubuntu as installation OS, or choose differently
+여기서 Ubuntu를 선택한 이유는 다음과 같습니다.
 
-We choose Ubuntu here because:
+  - 이는 서버에서 일반적으로 선택하는 OS이므로, 스테이크 풀을 구축하는 경우 `cardano-cli` 바이너리를 에어 갭 기기에서 컴파일하는 대신 에어 갭 기기에 복사할 수 있는 옵션이 존재합니다.
+  - Ubuntu 데스크톱 환경 및 명령어는 다른 어떤 Linux 버전보다 잘 문서화되어 있습니다. 에어 갭 기기 자체에 대한 도움말을 인터넷에서 검색할 수 없기 때문에, 도움을 받는 것은 가능한 한 쉬워야 한다는 점에서 Ubuntu는 매우 적합한 OS입니다.
 
-  - It's a common choice on servers, so if you're building a stake pool you'll have the option of copying your `cardano-cli` binary to the air gap machine instead of compiling it in that machine.
-  - The Ubuntu desktop environment & commands are arguably better documented on the Internet than any other Linux variety. Getting help needs to be as easy as possible since you won't be able to search the Internet for help on the Air Gap machine itself.
+이 가이드의 나머지 부분에서는 에어 갭 환경 OS에 대해 **Ubuntu**를 사용한다고 가정합니다. 다른 Linux 버전을 설치하는 경우 다음을 기억하십시오.
 
-The rest of these instructions will assume the choice of **Ubuntu** for your Air Gap environment OS. If installing a different variant of Linux, please remember:
+  - Ubuntu라는 용어를 사용하거나, 해당 설치 프로그램의 스크린샷이 표시될 때 선택한 Linux 버전에서 해당 항목을 찾으십시오.
+  - 향후 Ubuntu보다 더 나은 선택지가 생길 수도 있습니다. Cardano 커뮤니티의 다른 사람들과 자유롭게 결과를 공유하고, 여기 개발자 포털 내에도 [contributing](../portal-contribute)을 통해 찾은 것들을 공유할 수 있습니다.
 
-  - When we use the term Ubuntu or show screenshots of its installer, look for equivalents on your own chosen Linux variant.
-  - There may be better choices than Ubuntu now or in the future: please feel free to share your results with others in the Cardano community, perhaps [contributing](../portal-contribute) your findings & procedures here on the Developer Portal.
+### Ubuntu 설치 지침 준비
 
-### Prepare to follow Ubuntu installation instructions
+다음 외부 링크에서 표준 Ubuntu 설치 단계를 확인하십시오: [Ubuntu Tutorials > Install Ubuntu desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop)
 
-Read through the standard Ubuntu installation steps here (external link): [Ubuntu Tutorials > Install Ubuntu desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop)
+#### 에어 갭 기기 내 파일을 암호화할지 여부를 미리 결정하세요.
 
-#### Decide in advance whether to encrypt your air gap machine's files.
-
-When setting up the Ubuntu filesystems, you'll be given the option of creating a Volume Group so it can encrypt your entire partition contents with a variant of the AES algorithm.
+Ubuntu 파일 시스템을 설정할 때, AES 알고리즘의 변형으로 전체 파티션의 내용을 암호화할 수 있도록 Volume Group을 설정하는 옵션이 제공됩니다.
 
 :::caution
 
-Your boot and UEFI partitions might not be encrypted, depending on the type of computer you have & version of the GRUB software with your OS installer.
+가지고 있는 컴퓨터 유형이나 OS 설치 프로그램이 있는 GRUB 소프트웨어 버전에 따라 부팅 및 UEFI 파티션이 암호화되지 않을 수 있습니다.
 
-Therefore, as a precaution, never attach a USB drive to your Air Gap machine unless you've either formatted the drive or built it as installation media.
+따라서 예방책으로 드라이브를 포맷하거나 설치 미디어로 기기를 구축하지 않은 경우 에어 갭 기기에 USB 드라이브를 연결하지 마십시오.
 
 :::
 
-The main advantage to encrypting your Air Gap system:
+에어 갭 시스템 암호화의 주요 이점
 
-  - Someone gaining physical access to your machine, or stealing it, will be prevented from violating your account (e.g. stealing your stake pool pledge\!) or stake pool security. 😎
+  - 누군가가 기기에 물리적으로 접근하거나 훔쳐도, 계정에 반하는(스테이크 풀 서약 훔치기 등) 행동을 방지하고 스테이크 풀 보안을 지킬 수 있습니다. 😎 
 
-The main disadvantage to encrypting it:
+암호화의 주요 단점
 
-  - If you lose your disk encryption password, or set it incorrectly to something you can't reproduce, you will effectively lose all the data on the air gap machine's disk... including any account information or keys stored there. 😖
+  - 디스크 암호화 비밀번호를 분실하거나, 복제할 수 없는 것으로 잘못 설정하면 에어 갭 기기에 저장된 모든 계정 정보와 키를 포함하여 사실상 모든 데이터를 잃게 됩니다. 😖
 
-#### (optional, if encrypting your partition) Choose encryption password
+#### (파티션을 암호화하는 경우의 옵션) 암호화 비밀번호 선택
 
-Suggested password requirements:
+권장 비밀번호 요구 사항
 
-  - has never been transmitted over, or stored in, cleartext on the Internet, or stored in cleartext on your computer itself (just in case your Air Gap is accidentally broken)
-  - has length & complexity enough to hash to about 2^128 possible values: this means at least 20 apparently random characters.
+  - 인터넷으로 평문을 통해 전송되거나 저장되지 않았고, 컴퓨터 자체에 일반 텍스트로 저장된 적이 없는 것(에어 갭이 실수로 파손될 경우를 대비해)
+  - 약 2^128 가지로 해시할 수 있을 만큼의 길이와 복잡성을 가진 것(적어도 20개가 넘는 길이어야 함)
 
-### Begin standard Ubuntu installation (with some modifications)
+### 표준 Ubuntu 설치 시작 (수정사항 포함)
 
-As you follow the standard procedure (also linked above), stop at the points in the headings below to ensure you're installing your Air Gap environment correctly.
+표준 절차(위의 링크)를 따를 때, 아래 제목의 지점에서 잠깐 멈추고 에어 갭 환경을 올바르게 설치하고 있는지 확인하십시오.
 
-Before starting, there is no need to physically disconnect your chosen Air Gap machine from the Internet, or do anything to your home router to disable WiFi.
+시작하기 전에, 선택한 에어 갭 시스템을 인터넷에서 물리적으로 분리하거나 WiFi를 비활성화하기 위해 홈 라우터에 어떤 조치도 할 필요는 없습니다.
 
 :::note
 
-The Internet will be unconfigured and disconnected after the OS is installed & patched and a small number of initial packages are installed (including the Cardano CLI).
+OS가 설치 및 패치되고 몇 개의 초기 패키지(Cardano CLI 포함)가 설치된 후에는 인터넷이 구성 해제되고 연결이 끊어집니다.
 
 :::
 
-### Follow instructions: [Ubuntu Tutorials > Install Ubuntu desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop)
+### 다음을 따라하십시오: [Ubuntu Tutorials > Install Ubuntu desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop)
 
-... paying partcular attention to these steps:
+... 특히 다음 단계에 주의를 기울이십시오.
 
-#### Wireless (if asked)
+#### 무선 (요청된 경우)
 
-If your computer doesn't have a cabled connection, it is acceptable under our security model to add it to the WiFi network during OS installation.
+컴퓨터에 케이블 연결이 없는 경우, 당사의 보안 모델에 따라 OS 설치 중 WiFi 네트워크에 연결하는 것이 허용됩니다.
 
-  - Whatever wireless key you enter *will* be retained on the installed system, *but* you will be reminded to disconnect the Internet before the end of our own procedure.
+  - 입력한 무선 키는 설치된 시스템에 유지될 것이지만, 절차가 끝나기 전에 인터넷 연결을 끊으라는 알림이 표시됩니다.
 
-#### Updates and other software
+#### 업데이트 및 기타
 
 ![img](../../static/img/get-started/air-gap/10-software-choices.png)
 
-Select **Minimal installation**, since this is the least likely to leave you with security intrusive applications and services.
+**Minimal installation**을 선택하십시오. 보안에 방해가 되는 어플리케이션이나 서비스를 남길 가능성이 가장 적기 때문입니다.
 
-  - the more general installation has cloud based services and games which tend to initiate Internet connections.
-  - LibreOffice software is not included in the "minimal" packages but is recommended to add later (since it helps encrypt password & mnemonic backups).
+  - 보다 일반적인 설치 방법으로는, 인터넷 연결을 필요로 하는 클라우드 기반 서비스 및 게임이 있습니다.
+  - LibreOffice 소프트웨어는 "Minimal" 패키지에 포함되어있진 않지만 나중에 추가해주는 것이 좋습니다(암호 및 니모닉 백업을 암호화하는 데 도움이 되므로).
 
-**Do not select** (as you normally would) the option for **third-party software for graphics and WiFi** because of the potential for institutional spyware.
+스파이웨어의 위험이 있으므로, **third-party software for graphics and WiFi** 옵션은 **선택하지 마십시오**. 
 
-  - Your graphics will be stable & high enough resolution without the performance enhancements of proprietary graphics drivers (otherwise you wouldn't see this installation screen).
-  - WiFi performance enhancements are likewise unnecessary because you generally won't be using WiFi, and if you need a network cable you'll be disconnecting it soon & won't be using it again.
+  - 독점 그래픽 드라이버의 성능 향상 없이도 충분히 높은 해상도를 유지할 수 있습니다(그렇지 않다면 이 설치 화면이 표시되지 않았을 것입니다).
+  - 일반적으로 WiFi는 사용되지 않고, 네트워크 케이블이 필요한 경우에도 금방 연결을 끊을 것이기 때문에 WiFi 성능 향상도 마찬가지로 필요하지 않습니다.
 
-#### Installation type
+#### 설치 타입
 
 ![img](../../static/img/get-started/air-gap/20-installation-type.png)
 
-Tick **Erase disk and install Ubuntu**.... you've already confirmed there's nothing else that needs to be kept on this computer, and that it won't have any other operating systems or working disks.
+**Erase disk and install Ubuntu**를 선택합니다. 이 컴퓨터에 보관해야 할 다른 항목이 없으며, 다른 운영 체제나 작동하는 디스크가 없다는 것은 이미 확인했기 때문입니다.
 
 :::caution
 
-The Air Gap installation should not be a part of any dual-booting environment because of the inevitable security risks that would create.
+에어 갭 설치는 이중 부팅 환경의 일부가 되어서는 안 됩니다. 이중 부팅 환경에는 피할 수 없는 보안 위험이 존재하기 때문입니다.
 
 :::
 
-Before you hit **Continue**, if you've chosen to encrypt your files:
+**Continue**를 누르기 전에 파일을 암호화하도록 선택한 경우:
 
-##### (optional) Set up the hard drive for encryption
+##### (선택 사항) 암호화를 위한 하드 드라이브 설정
 
 ![img](../../static/img/get-started/air-gap/30-encrypt-disk.png)
 
-Hit the button below the *Erase disk* option: **Advanced Features** which will at first say *None selected*.
+*Erase disk* 옵션 아래에 있는 **Advanced Features** 버튼을 누릅니다. 처음에는 *None selected* 라고 표시될 것입니다.
 
-  - Tick the feature **Use LVM with the new Ubuntu installation**.
-  - Tick the option below it: **Encrypt the new Ubuntu installation for security**.
+  - **Use LVM with the new Ubuntu installation** 을 선택합니다.
+  - 그 아래에 있는 **Encrypt the new Ubuntu installation for security** 옵션을 선택하십시오.
 
-Don’t hit the **Continue** button unless you can verify it now says ***LVM and encryption selected*** under Advanced options:
+이제 Advanced option에서 ***LVM and encryption selected***라고 표시되지 않는 한 **Continue** 버튼을 누르지 마십시오.
 
 ![img](../../static/img/get-started/air-gap/35-disk-encrypted.png)
 
-Enter the password you have prepared earlier as a **volume decryption key.**
+이전에 준비한 비밀번호를 **volume decryption key**로 입력하십시오.
 
-  - At this point you might want to check the password a few times that you can type it properly: either with consistency from written notes, or from memory.
-  - To double check in this installation environment: move over to the left (the "dock") where you'll see a text editor icon, in which you can practice typing the password a few times.
+  - 이 시점에서 비밀번호를 올바르게 입력할 수 있는지 확인해야 합니다: 메모로 적어놓거나, 기억할 수 있는 비밀번호를 사용하는 방식으로 일관성을 유지해야 합니다.
+  - 해당 설치 환경에서 다시 확인하고 싶다면, 텍스트 편집기 아이콘이 있는 왼쪽("dock")로 이동해서 비밀번호를 몇 번 입력하는 연습을 해도 좋습니다.
 
-#### Finish & reboot
+#### 완료 & 재부팅
 
-Confirm the installation drive, click **Install now** and **Continue**.
+설치 드라이브를 확인하고, **Install now** 와 **Continue** 버튼을 클릭합니다.
 
-  - The rest of the options (user name & information, login method, etc.) can be set according to your inclination.
+  - 나머지 옵션(사용자 이름 및 정보, 로그인 방법 등)은 사용자의 성향에 따라 설정할 수 있습니다.
 
-Ubuntu will finish installing and then you'll be prompted to remove the installation media & reboot. When rebooting, you will see two things you may never have seen before:
+Ubuntu 설치가 완료되면 설치 미디어를 제거하고 재부팅하라는 메세지가 표시됩니다. 재부팅할 때 이전에 본 적 없는 두 가지를 볼 수 있습니다.
 
-  - If you followed these recommendations to only install one single OS on one single disk, the boot menu you see (from [GRUB](https://help.ubuntu.com/community/Grub2)) will have only one choice: **Ubuntu**, with the software you just installed, which will be selected by default after a few seconds whenever the system starts.
+  - 위와 같은 권장 사항을 따라 하나의 디스크에 하나의 단일 OS만 설치한 경우 표시되는 메뉴([GRUB](https://help.ubuntu.com/community/Grub2))에는 단 한 가지 선택 사항인 **Ubuntu**만이 남아 있을 것입니다. 
+  - Ubuntu 시스템에 대한 암호화 옵션을 선택한 경우 해당 시스템을 시작할 때마다 암호화 비밀번호를 입력해야 합니다.
 
-  - If you selected the encryption option for your Ubuntu system, you will need to enter the encryption password every time you start that system.
+### 보안 권장 사항에 따른 Ubuntu 설정
 
-### Configure Ubuntu according to security recommendations
+"Welcome to Ubuntu" 화면(신규 사용자는 *강제로* 상호작용해야 함)에서, 제공하는 **모든 것**을 거절하십시오.
 
-At the screen "Welcome to Ubuntu" (which new users are currently *forced* to interact with), *refuse **everything*** it offers you:
+  - 온라인 계정 없음
+  - 정식 Livepatch 없음
+  - 어떤 시스템 정보도 내보내지 않음
+  - 위치 서비스 없음
 
-  - no online accounts
-  - no Canonical Livepatch
-  - no sending any system information, ever
-  - no Location Services
+#### 명령줄의 기본 보안 강화
 
-#### Basic security tightening at command line
-
-##### Remove packages requiring routine network access:
+##### 일상적인 네트워크 액세스가 필요한 패키지 제거:
 
 ``` bash
 sudo apt remove cups
 sudo apt remove unattended-upgrades
 ```
 
-##### (optional) Remove Snap software subsystem.
+##### (선택 사항) Snap 소프트웨어 하위 시스템 제거
 
-[Snap](https://snapcraft.io) is questionable for security reasons because (like [AppImage](https://appimage.org) and [Flatpak](https://flatpak.org)) it links application components with libraries that don't have to be compiled from source or security-vetted like the libraries that come with your OS itself.
+[Snap](https://snapcraft.io)은 ([AppImage](https://appimage.org)와 [Flatpak](https://flatpak.org) 같이) 소스에서 컴파일 할 필요가 없거나 OS 자체화 함께 제공되는 라이브러리 같이 보안 검사를 받을 필요 없는 라이브러리와 어플리케이션 구성 요소를 연결하기 때문에, 보안 상의 이유에서 의문점이 생기는 요소입니다.
 
-Removing Snap is optional because default snaps on the Ubuntu installation media have the same security provenance as the default packages on that same release... yet snaps will also be upgraded in the next part of this procedure, and these upgraded snaps may not be subjected to the same security vetting.
+Ubuntu 설치 미디어의 기본 snap은 동일한 릴리스의 기본 패키지와 동일한 보안 출처를 가지고 있기 때문에, Snap 제거는 선택 사항입니다. 그러나 Snap은 이 절차의 다음 단계에서도 업그레이드되고, 이렇게 업그레이드된 Snap은 동일한 보안 심사에 영향을 받지 않을 수 있습니다.
 
-To proceed with removing Snap, follow these instructions (the proceduce exact procedure changes often & these instructions may be the best maintained to date):
+Snap 제거를 진행하려면 다음 지침을 따르십시오(정확한 절차는 자주 변경되며, 이러한 지침은 최신으로 아주 잘 관리되고 있음).
 
   - **[How do I turn off snap in Ubuntu?](https://linuxhint.com/turn-off-snap-ubuntu/)**
 
-#### Update system software & all packages to current time
+#### 시스템 소프트웨어와 모든 패키지를 현재 시간으로 업데이트
 
-This will upgrade everything on your system from what you received on installation media:
+이렇게 하면 설치 미디어에서 받은 것으로부터 시스템의 모든 것이 업그레이드됩니다.
 
 ``` bash
 sudo apt update
 sudo apt upgrade
 ```
 
-#### Install minimal set of packages for encrypting files/folders & text documents
+#### 파일/폴더/텍스트 문서 암호화를 위한 최소한의 패키지 설치 
 
-##### (optional) Install LibreOffice
+##### (선택 사항) LibreOffice 설치
 
-This is recommended because it will give you a means of taking password-encrypted notes that can move between your Air Gap and computer host environments *in both directions*, so you can:
+이는 에어 갭과 컴퓨터 호스트 환경 사이를 *양방향으로* 이동할 수 있는 비밀번호로 암호화된 노트를 작성할 수 있는 수단을 제공하므로, 설치가 권장되는 패키지입니다. 이를 통해 다음과 같은 것들을 할 수 있습니다.
 
-  - record transaction details from your home computer environment & Internet connected machines, for use in the air gap (as per [Secure Workflow](./secure-workflow)):
-      - your Cardano account balances, UTxO addresses & payment addresses
-      - notes from personal files & web sites about the work you will be doing in within the air gap (since you won't have Internet access there);
-  - take notes in the Air Gap environment (problems, error messages) to copy back to your computer, since you can't upload them through the air gap.
+  - ([안전한 작업 흐름](./secure-workflow)에 따라)에어 갭에서 사용하기 위해 가정용 컴퓨터 환경 및 인터넷에 연결된 시스템으로부터 트랜잭션의 세부 정보를 기록하는 것.
+      - Cardano 계정 잔액, UTxO 주소 및 지불 주소
+      - 에어 갭 내에서 수행할 작업에 대한 개인 파일 및 웹사이트의 메모(인터넷에 액세스할 수 없기 때문에)
+  - 에어 갭을 통해 따로 업로드할 수 없으므로, 에어 갭 환경에서의 메모(문제, 오류 메세지)를 작성하여 컴퓨터에 복사하는 것.
 
-LibreOffice documents saved with a password are entirely AES-encrypted with a key deriving from that password, which produces arguably the best commercially available security for files & data.
+비밀번호와 함께 저장된 LibreOffice 문서는 해당 비밀번호에서 파생된 키로 완전히 AES 암호화되어, 파일 및 데이터에 대해 가장 상업적으로 사용 가능한 보안을 구성합니다.
 
-To install:
+설치하려면 다음 명령어를 입력하십시오.
 
 ``` bash
 sudo apt install libreoffice
 ```
 
-#### Install encrypting archiver
+#### 암호화 아카이버 설치
 
-Whether a developer or a stake pool operator, at some point you will also need to encrypt files & folders so they can be extracted on your stake pool or application server, where LibreOffice will generally not run but you can use the installable command `p7zip` instead:
+개발자든 스테이크 풀 운영자든 어느 시점에서 파일 및 폴더를 암호화하여 스테이크 풀 또는 응용 프로그램 서버에서 내보낼 수 있도록 해야 합니다. 여기서 LibreOffice는 일반적으로 실행되지 않지만, 설치 명령어 `p7zip` 를 대신 사용할 수 있습니다.
 
 ``` bash
 apt install p7zip-full p7zip-rar
 ```
 
-Adding the extra package `p7zip-rar` should make saving files with encryption & compression an option in your file manager (`nautilus`).
+추가 패키지인 `p7zip-rar` 를 추가하면 파일 관리자(`nautilus`)에서 암호화 및 압축 옵션으로 파일을 저장할 수 있습니다.
 
-#### Install secure deletion tools
+#### 보안 삭제 도구 설치
 
-You might need to erase any trace of an unencrypted file that could lead to loss of your funds or Cardano enterprises if it were reconstructed. Therefore you should [install the `secure-delete` tools](https://www.unixmen.com/securely-delete-hard-drive-data-with-secure-delete/) to allow you to zero-write files & their metadata or drive contents & empty disk space:
+암호화되지 않은 파일이 재구성되면 자금 또는 Cardano 기업의 손실로 이어질 수 있는 모든 흔적을 지워야 할 수도 있습니다. 따라서 파일 및 해당 메타데이터 또는 드라이브 컨텐츠 및 빈 디스크 공간을 영구삭제(zero-write)할 수 있는 도구를 설치해야 합니다.
 
 ``` bash
 apt install secure-delete
 ```
 
-### Reboot again
+### 다시 재부팅
 
-This confirms that your system will start properly after having updated your system software.
+이렇게 하면 시스템 소프트웨어 업데이트 후 시스템이 제대로 시작되는지 확인할 수 있습니다.
 
-### Install `cardano-cli`
+### `cardano-cli` 설치
 
+아래 개발자 포털에서 표준 지침을 따르십시오.
 Use the standard instructions here at the Developer Portal:
 
-  - **[Installing cardano-node and cardano-cli from source](../get-started/installing-cardano-node)**
+  - **[소스로부터 cardano-node 및 cardano-cli 설치](../get-started/installing-cardano-node)**
 
-Note this will build `cardano-node` as well as `cardano-cli`, but don't worry: you won't be running a node inside the Air Gap. 😜
+이는 `cardano-cli` 뿐만 아니라 `cardano-node` 도 빌드할 것이지만, 걱정은 마십시오: 에어 갭에서 노드를 실행할 일은 없을 것입니다. 😜 
 
-### Unplug from Internet FOREVER
+### 인터넷에서 영원히 연결 해제
 
-We will leave the definition of "forever" up to your understanding of Internet threats and whether these can come from OS package repositories, etc., with this in mind:
+"영원히"의 정의는 인터넷 위협과 이러한 위혀비 OS 패키지 레퍼지토리 등에서 올 수 있다는 것에 대한 각자의 이해에 맡기도록 하겠습니다. 
 
-  - Software updates at 6-month intervals (e.g. after the Ubuntu "point releases") will patch security problems idendified during that period: as well as install new software which may introduce *new* security problems.
-  - Any spyware or back-door deliberately placed in the package upgrades on Ubuntu or any other version of Linux could generally just as easily have been placed on the packages used to build your installation media.
+  - 6개월 간격으로 소프트웨어 업데이트(예: Ubuntu "포인트 릴리스")는 해당 기간 동안 식별된 보안 문제를 패치하고 *새로운* 보안 문제를 일으킬 수 있는 새 소프트웨어를 설치합니다.
+  - Ubuntu 또는 다른 버전의 Linux에서 패키ㅣ 업그레이드에 의도적으로 배치된 스파이웨어 또는 백도어는 일반적으로 설치 미디어를 빌드하는 데 사용되는 패키지에 쉽게 배치될 수 있습니다.
 
-### Precautions to avoid accidental connection to the Internet
+### 실수로 인터넷에 연결되지 않도록 하기 위한 주의사항
 
-#### BIOS settings: disable WiFi and Ethernet connection
+#### BIOS 설정: WiFi 및 이더넷 연결 사용 안함
 
-See your computer instructions to review how to get into the BIOS, if you're interested in disabling the network adapters at a very low level so they can't accidentally (or due to a hack) be turned on in software.
+실수로(또는 해킹으로 인해) 켜지지 않도록 매우 낮은 수준에서 네트워크 어댑터를 비활성화하기 위해 BIOS에 들어가는 방법을 알려면, 각자의 컴퓨터 지침을 확인하십시오.
 
-  - If there's no BIOS setting, WiFi can usually be disabled almost as easily on laptops by opening them up to remove, or disconnect the leads to, the WiFi card.
+  - BIOS 설정이 없는 경우 일반적으로 노트북을 열어 WiFi 카드에 대한 리드를 제거하거나 연결을 끊는 방식으로 노트북에서 WiFi를 쉽게 비활성화할 수 있습니다.
 
-#### Put Ubuntu in [Airplane mode](https://help.ubuntu.com/stable/ubuntu-help/net-wireless-airplane.html)
+#### Ubuntu를 [비행기 모드](https://help.ubuntu.com/stable/ubuntu-help/net-wireless-airplane.html)로 설정
 
-This will disable any Bluetooth services as well as WiFi, and shows as an Airplane on Ubuntu & other GNOME desktops as an airplane icon in the upper right corner of the screen.
+이렇게 하면 모든 블루투스 서비스와 WiFi가 비활성화되고, 화면 오른쪽 상단 모서리에 비행기 아이콘이 표시됩니다.
 
-With Airplane Mode always engaged, you would need the obvious Internet cable plugged in to have any network access (unlike WiFi which can often be connected by accident).
+비행기 모드가 항상 켜져 있으면, (우연히 연결될 수 있는 WiFi와 달리)네트워크 액세스를 위해 인터넷 케이블이 연결되어 있어야 합니다.
 
-#### Add your computer's WiFi MAC address to the blacklist on your Internet router
+#### 컴퓨터의 WiFi MAC 주소를 인터넷 라우터의 블랙리스트로 추가
 
-Some routers maintain a list of MAC addresses which will not be given an IP address by DHCP, which isolates them from the Internet unless that network interface is configured manually.
+일부 라우터는 DHCP에 의한 IP 주소가 제공되지 않는 MAC 주소 목록을 유지합니다. 이는 네트워크 인터페이스가 수동으로 구성되지 않는 한, 목록 내 주소들을 인터넷에서 격리시킵니다.
 
-Therefore, you can [find your WiFi MAC address](https://help.ubuntu.com/stable/ubuntu-help/net-macaddress.html.en) and add it to your router's blacklist: usually in its DNS, DHCP, or LAN settings.
+따라서 [WiFi MAC 주소를 찾아](https://help.ubuntu.com/stable/ubuntu-help/net-macaddress.html.en) 라우터의 블랙리스트(일반적으로 DNS, DHCP 또는 LAN 설정)에 추가할 수 있습니다.
 
-### Congratulations, your Air Gap Environment is complete!
+### 축하합니다! 에어 갭 환경이 완성되었습니다!
 
-You now have a safe place you can use for your [Secure Transaction Workflow](./secure-workflow).
+이제 [안전한 트랜잭션 작업 흐름](./secure-workflow)에 사용할 수 있는 안전한 장소가 생겼습니다.
 
-## Option 2: Install your Air Gap environment on a persistent USB drive
+## 옵션 2: 영구 USB 장치에 에어 갭 환경 설치
 
 :::caution
 
-Linux veterans only\! (otherwise please [follow option 1](#option-1-install-your-air-gap-environment-on-a-standalone-computer))
+Linux 베테랑 전용입니다\! (그렇지 않다면, [옵션 1을 따르십시오](#옵션-1:-독립형-컴퓨터에-에어-갭-환경-설치).)
 
 :::
 
-This option may suit more demanding users, especially those:
+이 옵션은 보다 까다로운 사용자, 특히 다음과 같은 사용자에게 적합할 수 있습니다.
+  
+  - 여행을 많이 하고 "이동 중" Cardano 운영을 유지해야 하는 사람
+  - 호스트 컴퓨터의 모든 파일에 직접 액세스할 수 있는 에어 갭 환경에서 편리하게 부팅하고 싶은 사용자(설치 프로그램에 쓰는 USB 드라이브에서 부팅할 때처럼)
+  - 암호화되지 않은 파일을 에어 갭 안팎으로 전송하기 위해 USB 드라이브를 사용하는 대신, 동일한 USB 드라이브를 사용하여 암호화된 파일을 저장하는 동시에, 동일한 부팅 방법을 지원하는 모든 시스템에서 사용할 수 있는 Cardano CLI를 제공하는 것을 원하는 사용자
+  - 에어 갭 환경에서 호스트 컴퓨터로 직접 백업 혹은 키, 비밀번호, 또는 다른 기록들을 만들고자 하는 사용자
 
-  - who travel a lot and need to maintain their Cardano operations "on the road";
-  - who need the convenience of booting in a Air Gap environment which has direct access to all their files on the host computer (as you would when booting off from an installer USB drive);
-  - who, instead of using a USB drive to transfer unencrypted files in & out of the Air Gap, would rather use that same USB drive to store them with encryption while providing the Cardano CLI for use on any machine supporting the same boot method;
-  - who want to make backups or their keys, passwords and other records from their Air Gap environment directly to the host computer.
+만약 이런 것들이 더 마음에 들고, 복잡하고 오류가 발생하기 쉬운 설치 절차를 꺼려하지 않는다면 부팅 가능한 USB 드라이브에 에어 갭 환경을 대신 설치할 수 있습니다. 그런 다음 이 드라이브에서 컴퓨터를 부팅하여 보안 리소스와 `cardano-cli` 에 액세스하고, 컴퓨터에 설치되어 있을 수 있는 모든 악성 소프트웨어는 물론 인터넷으로부터도 해당 컴퓨터를 격리할 수 있습니다.
 
-If this appeals to you, and you don't mind following a more complilcated and error-prone installation procedure, you might want to install the Air Gap environment on a bootable USB drive instead. You can then boot a computer from this drive to have access to your secure resources and `cardano-cli` while isolating that computer from the Internet as well as any malicious software that might be installed on that computer.
-
-This loosely documented configuration has been called the **Frankenwallet**, with separate instructions at this link which mostly follow the procedure above and include semantics for using your bootable USB environment in secure & blockchain workflow:
+이 문서화된 구성을 **Frankenwallet**이라고 합니다. 아래 링크에는 대부분 위에서 설명된 절차를 따르면서, 보안 및 블록체인 작업 흐름에서 부팅 가능한 USB 환경을 사용하기 위한 의미 체계를 포함하는 별도의 지침이 존재합니다.
 
   - **[The Frankenwallet](https://cosd.com/frankenwallet)**
 
 :::warning
 
-The *Frankenwallet* procedure is external to (and not maintained or endorsed by the owners of) the Developer Portal.
+*Frankenwallet*의 절차는 개발자 포털 외부에 있습니다(해당 포털의 소유자에 의해 유지관리되거나, 승인되지 않은 문서입니다).
 
-Also: these instructions may be difficult or unsafe to follow unless you have experience with "dual boot" Linux installations and other custom OS & booting configurations.
+또한 "이중 부팅" Linux 설치 및 사용자 지정 OS 및 부팅 구성에 대한 경험이 없다면 위 지침을 따르기가 어렵거나 안전하지 않을 수 있습니다.
 
 :::

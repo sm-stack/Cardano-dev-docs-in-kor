@@ -1,28 +1,28 @@
 ---
 id: multi-witness-transactions-cli
-title: Multi-witness transactions
-sidebar_label: Multi-witness transactions
+title: 다중 증인 트랜잭션
+sidebar_label: 다중 증인 트랜잭션
 description: This article explains how you can create multi witness transactions using the cardano-cli.
 image: ../img/og/og-developer-portal.png
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Overview
+## 개요
 
 :::note
 
-This guide assumes that you have completed the [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guide. You will need one UTxO sitting at each of the wallets (`payment1.addr` and `payment2.addr`) to complete this guide.
+이 가이드는 당신이 [Cardano 지갑 알아보기](/docs/integrate-cardano/creating-wallet-faucet) 가이드를 완료했다고 가정하고 진행합니다. 이 가이드를 완료하려면, 각 지갑(`payment1.addr`과 `payment2.addr`)에 하나의 UTxO가 있어야 합니다.
 
-This guide also assumes that you have `cardano-node` running in the background and connected to the `testnet` network.
+또한 이 가이드는 `cardano-node`가 백그라운드에서 돌아가면서, `testnet` 네트워크에 연결되어 있는 상황을 가정합니다.
 
 :::
 
-### Recap
+### 요약
 
-Let's recap what we did so far. Our goal in the [previous guide](/docs/integrate-cardano/creating-wallet-faucet) was to draw `1000 tADA` from the testnet faucet and send `250 tAda` from **payment1** to **payment2**.
+지금까지 수행한 작업을 요약해 보겠습니다. [이전 가이드](/docs/integrate-cardano/creating-wallet-faucet)에서 우리의 목표는 테스트넷 faucet에서 `1000 tAda`를 받은 다음 **payment1**에서 **payment2**로 `250 tAda`를 보내는 것이었습니다.
 
-Make sure we are in the correct folder.
+올바른 폴더에 위치해 있는지 확인하세요.
 
 ```bash
 $ pwd
@@ -33,16 +33,16 @@ $HOME/cardano
   defaultValue="query"
   groupId="step"
   values={[
-    {label: 'Query UTxO', value: 'query'},
-    {label: 'Calculate fees', value: 'calc'},
-    {label: 'Build Tx', value: 'build'},
-    {label: 'Sign & Submit Tx', value: 'sign'},
-    {label: 'Verify Tx', value: 'verify'}
+    {label: 'UTxO 쿼리', value: 'query'},
+    {label: '수수료 계산', value: 'calc'},
+    {label: 'Tx 빌드', value: 'build'},
+    {label: 'Tx 서명 & 제출', value: 'sign'},
+    {label: 'Tx 검증', value: 'verify'}
   ]}>
 
   <TabItem value="query">
 
-We drew `1000 tAda` from the Testnet Faucet into our **payment1** wallet.
+Testnet Faucet에서 우리의 **payment1** 지갑으로 `1000 tAda`를 인출하였습니다.
 
 ```bash
 $ cardano-cli query utxo \
@@ -56,7 +56,7 @@ $ cardano-cli query utxo \
   </TabItem>
   <TabItem value="calc">
 
-We used `protocol-parameters` to draft our transaction and calculated the expected fee.
+`protocol-parameters`를 사용하여 트랜잭션 초안을 작성하고 예상 수수료를 계산하였습니다.
 
 ```bash
 $ cardano-cli query protocol-parameters \
@@ -87,7 +87,7 @@ $ cardano-cli transaction calculate-min-fee \
   </TabItem>
   <TabItem value="build">
 
-From the expected fee of `174169 Lovelace`, we were able to calculate the outputs and build our transaction.
+`174169 Lovelace`의 예상 수수료부터, 출력을 계산하고 트랜잭션을 빌드할 수 있었습니다.
 
 ```bash {3,4,5}
 cardano-cli transaction build-raw \
@@ -100,14 +100,14 @@ cardano-cli transaction build-raw \
 
 :::note
 
-Your fees might have been different hence you would have different amounts.
+수수료는 각각 다를 수 있으므로, 금액에도 차이가 있을 수 있습니다.
 
 :::
 
   </TabItem>
   <TabItem value="sign">
 
-We used `payment1.skey` to sign our transaction and submitted it to the blockchain.
+`payment1.skey`를 사용하여 트랜잭션에 서명하고, 블록체인에 제출하였습니다.
 
 ```bash {3,10}
 cardano-cli transaction sign \
@@ -125,7 +125,7 @@ Transaction successfully submitted.
   </TabItem>
   <TabItem value="verify">
 
-Finally we verified the transaction by querying the **payment1** and **payment2** wallets.
+마지막으로 **payment1** 및 **payment2** 지갑을 쿼리하여 트랜잭션을 확인하였습니다.
 
 ```bash
 $ cardano-cli query utxo \
@@ -148,66 +148,66 @@ b73b7503576412219241731230b5b7dd3b64eed62ccfc3ce69eb86822f1db251     0        25
   </TabItem>
 </Tabs>
 
-We currently have `749.825831 tAda` in our **payment1** wallet and `250 tAda` in our **payment2** wallet.
+현재 **payment1** 지갑에는 `749.825831 tAda`가 있고, **payment2** 지갑에는 `250 tAda`가 있습니다.
 
-Let's see how we can spend it all at once!
+이를 한 번에 어떻게 쓸 수 있는지 봅시다!
 
-## Use case
+## 사용 사례
 
-There are many possible reasons why you would want to have multiple wallets sending their ada in a single transaction. One is, you own two wallets (**payment1** and **payment2**) and you want to spend it on something that...
+단일 트랜잭션에서 여러 지갑이 ADA를 전송하도록 하려는 데에는 여러 가지 이유가 있습니다. 그 중 하나는 두 개의 지갑(**payment1**과 **payment2**)을 소유하고 있는 상태에서, 이를 다음과 같은 경우 사용할 때입니다.
 
-* costs more than you have in any of your two wallets,
-* but **both amounts combined** would cover the costs.
+* 두 개의 지갑 각각의 잔고보다는 비용이 많이 들지만,
+* **두 금액을 합하면** 비용이 충당되는 경우입니다.
 
-Let's say you are at the **bike store** and you see a nice bike with a price tag of `1100 tAda` on it. You only have `999 tAda` (plus change) left.
+당신이 **자전거 매장**에 있는데, `1100 tAda`라는 가격표가 붙은 멋진 자전거를 보았다고 가정해 봅시다. 그런데 당신은 `999 tAda` (거스름돈 포함)만 남은 상태입니다.
 
-The bike store owner - *a devious blockchain enthusiast* - is willing to give you a 10% discount, if you manage to **pay him in a single transaction**
+*사악한 블록체인 애호가*인 자전거 가게 주인은 당신이 **단 한번에 거래로 결제를 할 수 있다면** 기꺼이 10% 할인을 제공할 것입니다.
 
-> *There has to be no change, buddy!*  --Bike Store Owner
+> *거스름돈이 없어야 하네!*  --자전거 가게 주인
 
-So we need to make sure to spend all our `tAda` from our two wallets in a single transaction.
+따라서 우리는 단일 트랜잭션 내에 두 지갑에 있는 모든 `tAda`를 사용해야 합니다.
 
 :::note
 
-He can easily verify if we spent all our money by checking if the transaction has more than one output.
+그는 트랜잭션에 하나 이상의 출력이 있는지 확인한 다음, 모든 돈을 썼는지 여부를 쉽게 확인할 수 있습니다.
 
-There are ways to optimize the amount you spend. We will leave this for you to figure out yourself.
+지출 금액을 최적화하는 방법도 있습니다. 우리는 이를 당신이 스스로 알아낼 수 있도록 남겨둘 것입니다.
 
 :::
 
-## Technical Flow
+## 기술 흐름
 
-This scenario is pretty straight forward and looks like this.
+이 시나리오는 매우 간단하며, 다음과 같습니다.
 
 ![img](../../static/img/integrate-cardano/multi-witness-transaction.png "Multi witness flow")
 
-As you can see in the diagram above, we will build and submit a **multi-witness transaction**, having *two inputs* and *one output*.
+위 다이어그램에서 볼 수 있듯이, *두 개의 입력* 과 *하나의 출력* 이 있는 **다중 증인 트랜잭션**을 빌드하고 제출합니다. 
 
 :::note
 
-We can't do this with `cardano-wallet`, or any other wallet like Daedalus or Yoroi because we will need both `signing-keys` from **payment1** and **payment2** to sign the transaction.
+`cardano-wallet`이나 Daedalus 또는 Yoroi 같은 다른 지갑으로는 이를 할 수 없습니다. 트랜잭션 서명을 위해 **payment1**와 **payment2**로부터의 `signing-keys`가 둘 다 필요하기 때문입니다.
 
 :::
 
-## Time to code
+## 코딩 시간
 
 :::note
 
-As mentioned above, this guide assumes you completed the [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guide.<br />
-We also assume you paid `174169 Lovelace` in transaction fees and that your current balances are:
+위에서 언급한 바와 같이, 위 가이드는 귀하가 [Cardano 지갑 알아보기](/docs/integrate-cardano/creating-wallet-faucet) 가이드를 완료했다고 가정합니다.<br />
+또한 귀하가 트랜잭션 수수료를 `174169 Lovelace` 만큼 지불한 상태이며, 현재 잔액이 다음과 같다고 가정합니다.
 
 * **payment1**: `749825831 Lovelace`
 * **payment2**: `250000000 Lovelace`
 
 :::
 
-### Create a store-owner wallet
+### 가게 주인 지갑 생성하기
 
-If you don't already have a third wallet to use for this guide, let's create one where we can transfer all our funds to.
+이 가이드에 사용할 세 번째 지갑이 아직 없다면, 모든 자금을 이체할 수 있는 지갑을 만들어 봅시다.
 
-Make sure you are inside the `keys` directory like so: `cd $HOME/cardano/keys`
+현재 `keys` 디렉토리 내에 위치해 있는지 확인해 보십시오: `cd $HOME/cardano/keys`
 
-Generate a **payment key-pair** using `cardano-cli`:
+`cardano-cli`를 통해 **지불 키 쌍**을 생성합니다.
 
 ```bash
 cardano-cli address key-gen \
@@ -215,7 +215,7 @@ cardano-cli address key-gen \
 --signing-key-file $HOME/cardano/keys/store-owner.skey
 ```
 
-Then generate a **wallet address** for the `testnet` network:
+그런 다음 `testnet` 네트워크에서 **지갑 주소**를 생성합니다.
 
 ```bash
 cardano-cli address build \
@@ -224,7 +224,7 @@ cardano-cli address build \
 --testnet-magic 1097911063
 ```
 
-Check your `keys` directory. It should look something like this:
+`keys` 디렉토리를 확인했을 때, 다음과 같아야 합니다.
 
 ```bash
 $HOME/cardano/keys/
@@ -241,19 +241,18 @@ $HOME/cardano/keys/
 0 directories, 9 files
 ```
 
-### Calculate the transaction fee
+### 트랜잭션 수수료 계산
 
-Lets create a directory to store our transactions for this guide and enter it:
+이 가이드에 대한 트랜잭션을 저장할 디렉토리를 생성하고 다음과 같이 입력해보겠습니다.
 
 ```bash
 mkdir -p $HOME/cardano/multi-witness-sample && cd $_;
 ```
+[이전](#요약)에서 검증한 두 개의 UTxO에 있는 **모든 tAda**를 `store-owner.addr`로 보내고 싶은 상태입니다. 이는, **두 개의 입력**이 필요하다는 것을 의미합니다.
 
-We want to send **all our tAda** sitting at the two UTxO we verified [before](#recap) and send it to the `store-owner.addr`. That means we will have **two inputs**.
+출력은 어떨까요? *사악한 가게 주인* 은 우리가 모든 것을 소비하길 원하므로, **가게 주인에게는 하나의 출력**이 있고, **우리에게는 출력이 없을** 것입니다. *"...거스름돈은 없다!"* 를 기억하시나요?
 
-What about the outputs? Well, the *devious store-owner* wants us to spend it all, so there will be **one output to the store-owner** and **zero outputs to us**. Remember? *"...no change, buddy!"*
-
-Lets build that transaction.
+트랜잭션을 빌드해봅시다.
 
 ```bash
 cardano-cli transaction build-raw \
@@ -264,7 +263,7 @@ cardano-cli transaction build-raw \
 --out-file tx2.draft
 ```
 
-The last thing we need to do is to calculate the fees for `tx2.draft`. Notice the `--tx-in-count` and `--witness-count`.
+마지막으로 해야 할 일은 `tx2.draft`에 대한 수수료를 계산하는 것입니다. `--tx-in-count` 와 `--witness-count`에 주목하세요.
 
 ```bash {3,4,5,8}
 cardano-cli transaction calculate-min-fee \
@@ -277,7 +276,7 @@ cardano-cli transaction calculate-min-fee \
 179581 Lovelace
 ```
 
-We can calculate the amount the **store-owner** will receive, if both UTxO are spent during the transaction:
+트랜잭션 중 두 UTxO가 모두 사용된 경우 **가게 주인**이 받을 금액을 계산할 수 있습니다.
 
 ```text
   749825831 (payment1)
@@ -290,11 +289,11 @@ We can calculate the amount the **store-owner** will receive, if both UTxO are s
   =========
 ```
 
-### Build, sign and submit transaction
+### 트랜잭션 빌드, 서명 및 제출
 
-We know the *output amount* as well as the *fee*. We can finally build, sign and submit our `tx2.draft` transaction.
+우리는 *출력 금액* 과 *수수료* 를 알고 있습니다. 이를 통해 우리는 `tx2.draft` 트랜잭션을 작성, 서명 및 제출할 수 있습니다.
 
-We have to use `payment1.skey` and `payment2.skey` to sign our transaction.
+트랜잭션 서명을 위해 `payment1.skey`와 `payment2.skey`를 사용하겠습니다.
 
 ```bash {10,11,18}
 cardano-cli transaction build-raw \
@@ -317,9 +316,9 @@ cardano-cli transaction submit \
 Transaction successfully submitted
 ```
 
-### Verify multi-witness transactions
+### 다중 증인 트랜잭션 검증
 
-The devious store-owner will now verify that everything went according to his plan.
+사악한 가게 주인은 이제 모든 것이 자신의 계획대로 진행되었는지 확인할 것입니다.
 
 ```bash
 cardano-cli query utxo \
@@ -330,15 +329,15 @@ cardano-cli query utxo \
 258abd628eef7d6ff0f7b4e6866b4f7c21065f4d6b5e49b51e2ac4ff035ad06f     0        999646250 lovelace
 ```
 
-Verify [258abd628eef7d6ff0f7b4e6866b4f7c21065f4d6b5e49b51e2ac4ff035ad06f](https://explorer.cardano-testnet.iohkdev.io/en/transaction?id=258abd628eef7d6ff0f7b4e6866b4f7c21065f4d6b5e49b51e2ac4ff035ad06f) on the cardano testnet explorer
+Cardano 테스트넷 익스플로러에서 [258abd628eef7d6ff0f7b4e6866b4f7c21065f4d6b5e49b51e2ac4ff035ad06f](https://explorer.cardano-testnet.iohkdev.io/en/transaction?id=258abd628eef7d6ff0f7b4e6866b4f7c21065f4d6b5e49b51e2ac4ff035ad06f)를 확인하세요.
 
 :::tip Success!
 
-He can see that the transaction has one output to his wallet. No other outputs, hence you must have spent all of your `tAda`.
+그는 트랜잭션이 그의 지갑에 대해 하나의 출력을 가지고 있음을 볼 수 있습니다. 다른 출력이 없으므로, 모든 `tAda`를 소모했다는 것을 의미합니다.
 
 :::
 
-Congratulations, you are now able to submit **multi-witness transactions on Cardano**. This should help you bring integrations to your existing or new upcoming applications. 🎉🎉🎉
+축하합니다! 이제 **Cardano에서 다중 증인 트랜잭션을 제출**할 수 있습니다. 이는 기존 혹은 새로운 어플리케이션에 통합하는 작업에 큰 도움이 될 것입니다. 🎉🎉🎉
 
 <!-- ## Compare fees
 
